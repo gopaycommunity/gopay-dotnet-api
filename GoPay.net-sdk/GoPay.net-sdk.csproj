@@ -53,31 +53,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GPAuthenticator.cs" />
-    <Compile Include="IGPConnector.cs" />
-    <Compile Include="Model\APIError.cs" />
-    <Compile Include="Model\Common\Currency.cs" />
-    <Compile Include="Model\AccessToken.cs" />
-    <Compile Include="Model\AuthHeader.cs" />
-    <Compile Include="Model\ErrorElement.cs" />
-    <Compile Include="GPClientException.cs" />
-    <Compile Include="Model\OAuth.cs" />
-    <Compile Include="Model\Common\GPDateAdapter.cs" />
-    <Compile Include="Model\Payment\AdditionalParam.cs" />
-    <Compile Include="Model\Payment\BasePayment.cs" />
-    <Compile Include="Model\Payment\Callback.cs" />
-    <Compile Include="Model\Payment\Lang.cs" />
-    <Compile Include="Model\Payment\NextPayment.cs" />
-    <Compile Include="Model\Payment\OrderItem.cs" />
-    <Compile Include="Model\Payment\Payer.cs" />
-    <Compile Include="Model\Payment\PayerContact.cs" />
-    <Compile Include="Model\Payment\Payment.cs" />
-    <Compile Include="Model\Payment\PaymentInstrument.cs" />
-    <Compile Include="Model\Payment\PaymentResult.cs" />
-    <Compile Include="Model\Payment\PreAuthorization.cs" />
-    <Compile Include="Model\Payment\Recurrence.cs" />
-    <Compile Include="Model\Payment\RecurrenceCycle.cs" />
-    <Compile Include="Model\Payment\Target.cs" />
+    <Compile Include="src\GPAuthenticator.cs" />
+    <Compile Include="src\IGPConnector.cs" />
+    <Compile Include="src\Model\APIError.cs" />
+    <Compile Include="src\Model\Common\Currency.cs" />
+    <Compile Include="src\Model\AccessToken.cs" />
+    <Compile Include="src\Model\AuthHeader.cs" />
+    <Compile Include="src\Model\ErrorElement.cs" />
+    <Compile Include="src\GPClientException.cs" />
+    <Compile Include="src\Model\OAuth.cs" />
+    <Compile Include="src\Model\Common\GPDateAdapter.cs" />
+    <Compile Include="src\Model\Payment\AdditionalParam.cs" />
+    <Compile Include="src\Model\Payment\BasePayment.cs" />
+    <Compile Include="src\Model\Payment\Callback.cs" />
+    <Compile Include="src\Model\Payment\Lang.cs" />
+    <Compile Include="src\Model\Payment\NextPayment.cs" />
+    <Compile Include="src\Model\Payment\OrderItem.cs" />
+    <Compile Include="src\Model\Payment\Payer.cs" />
+    <Compile Include="src\Model\Payment\PayerContact.cs" />
+    <Compile Include="src\Model\Payment\Payment.cs" />
+    <Compile Include="src\Model\Payment\PaymentInstrument.cs" />
+    <Compile Include="src\Model\Payment\PaymentResult.cs" />
+    <Compile Include="src\Model\Payment\PreAuthorization.cs" />
+    <Compile Include="src\Model\Payment\Recurrence.cs" />
+    <Compile Include="src\Model\Payment\RecurrenceCycle.cs" />
+    <Compile Include="src\Model\Payment\Target.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
