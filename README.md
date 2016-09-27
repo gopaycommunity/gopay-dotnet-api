@@ -66,7 +66,7 @@ To be able to communicate with our gateway it's required to create an auth token
 | [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment-on-demand |
 | [VoidRecurrency](#voidrec) | https://doc.gopay.com/en/#cancellation-of-the-recurring-payment |
 | [VoidAuthorization](#voidauth) | https://doc.gopay.com/en/#cancellation-of-the-pre-authorized-payment |
-| [capturePayment](#capt) | https://doc.gopay.com/en/#charge-of-pre-authorized-payment |
+| [CapturePayment](#capt) | https://doc.gopay.com/en/#charge-of-pre-authorized-payment |
  
  
 ###### Create a payment <a id="create">
