@@ -155,16 +155,15 @@ try {
 ###### Recurrent payment on demand <a id="createrecdem">
 
 ```cs
-var recurrence = new Recurrence() 
+var recurrence = new NextPayment() 
 {
- Cycle = RecurrenceCycle.ON_DEMAND,
- DateTo = new DateTime(2020, 12, 12)
+ Amount = <Amount>,
+ Currency = <Currency>,
+ OrderNumber = <OrderNumber>
 };
-var payment = new BasePayment();
-payment.Recurrence = recurrence;
 
 try {
-    connector.CreatePayment(payment);
+    connector.CreateRecurrentPayment(payment);
 } catch {GPClientException e) {
     //
 }
