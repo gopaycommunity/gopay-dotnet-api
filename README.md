@@ -63,7 +63,7 @@ To be able to communicate with our gateway it's required to create an auth token
 | [PaymentStatus](#status) | https://doc.gopay.com/en/#status-of-the-payment |
 | [RefundPayment](#refund) | https://doc.gopay.com/en/#refund-of-the-payment-(cancelation) |
 | [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment |
-| [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment-on-demand |
+| [CreateRecurrentPayment](#createrecdem) | https://doc.gopay.com/en/#recurring-payment-on-demand |
 | [VoidRecurrency](#voidrec) | https://doc.gopay.com/en/#cancellation-of-the-recurring-payment |
 | [VoidAuthorization](#voidauth) | https://doc.gopay.com/en/#cancellation-of-the-pre-authorized-payment |
 | [CapturePayment](#capt) | https://doc.gopay.com/en/#charge-of-pre-authorized-payment |
@@ -152,13 +152,32 @@ try {
 }
 ```
 
-###### Recurrent payment <a id="createrec">
+###### Recurrent payment on demand <a id="createrecdem">
 
 ```cs
 var recurrence = new Recurrence() 
 {
  Cycle = RecurrenceCycle.ON_DEMAND,
  DateTo = new DateTime(2020, 12, 12)
+};
+var payment = new BasePayment();
+payment.Recurrence = recurrence;
+
+try {
+    connector.CreatePayment(payment);
+} catch {GPClientException e) {
+    //
+}
+```
+
+###### Recurrent payment <a id="createrec">
+
+```cs
+var recurrence = new Recurrence() 
+{
+ Cycle = RecurrenceCycle.DAY,
+ DateTo = new DateTime(2020, 12, 12),
+ Period = 5
 };
 var payment = new BasePayment();
 payment.Recurrence = recurrence;
