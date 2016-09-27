@@ -59,12 +59,13 @@ To be able to communicate with our gateway it's required to create an auth token
   
 | Method        | API Action    |
 | :------------ |:--------------|
-| [createPayment](#create) | https://doc.gopay.com/en/#standard-payment |
-| [paymentStatus](#status) | https://doc.gopay.com/en/#status-of-the-payment |
-| [refundPayment](#refund) | https://doc.gopay.com/en/#refund-of-the-payment-(cancelation) |
-| [createRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment |
-| [voidRecurrency](#voidrec) | https://doc.gopay.com/en/#cancellation-of-the-recurring-payment |
-| [voidAuthorization](#voidauth) | https://doc.gopay.com/en/#cancellation-of-the-pre-authorized-payment |
+| [CreatePayment](#create) | https://doc.gopay.com/en/#standard-payment |
+| [PaymentStatus](#status) | https://doc.gopay.com/en/#status-of-the-payment |
+| [RefundPayment](#refund) | https://doc.gopay.com/en/#refund-of-the-payment-(cancelation) |
+| [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment |
+| [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment-on-demand |
+| [VoidRecurrency](#voidrec) | https://doc.gopay.com/en/#cancellation-of-the-recurring-payment |
+| [VoidAuthorization](#voidauth) | https://doc.gopay.com/en/#cancellation-of-the-pre-authorized-payment |
 | [capturePayment](#capt) | https://doc.gopay.com/en/#charge-of-pre-authorized-payment |
  
  
