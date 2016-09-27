@@ -52,7 +52,7 @@ To be able to communicate with our gateway it's required to create an auth token
  connector.GetAppToken(); 
  ```
  
- The token gets cached in an instance of GPConnector and its lifetime is 30 minutes. The method ` getAppToken()` creates token in a scope `"payment-create"`. If you would like to create a token in a different scope call method `getAppToken(<SCOPE>)` Once the token expires its required to obtain a new one by calling the method getAppToken again.
+ The token gets cached in an instance of GPConnector and its lifetime is 30 minutes. The method ` GetAppToken()` creates token in a scope `"payment-create"`. If you would like to create a token in a different scope call method `GetAppToken(<SCOPE>)` Once the token expires its required to obtain a new one by calling the method getAppToken again.
      
  
 ## Avalaible methods 
