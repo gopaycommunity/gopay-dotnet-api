@@ -1,14 +1,12 @@
-﻿using System;
-
-using GoPay.Model;
+﻿using GoPay.Model;
+using GoPay.Model.Payment;
 using GoPay.Model.Payments;
-
+using GoPay.Payments;
+using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
+using System;
 using System.Net;
-using GoPay.Model.Payment;
-using Newtonsoft.Json;
-using GoPay.Payments;
 using System.Threading.Tasks;
 
 namespace GoPay
@@ -59,7 +57,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public Payment CreatePayment(BasePayment payment)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment");
+            var restRequest = CreateRestRequest(@"/payments/payment", Method.POST);
             restRequest.AddJsonBody(payment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
@@ -67,7 +65,7 @@ namespace GoPay
 
         public async Task<Payment> CreatePaymentAsync(BasePayment payment)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment");
+            var restRequest = CreateRestRequest(@"/payments/payment", Method.POST);
             restRequest.AddJsonBody(payment);
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => ProcessResponse<Payment>(response));
@@ -76,7 +74,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public PaymentResult RefundPayment(long id, long amount)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", Method.POST);
             restRequest.AddParameter("id",id,ParameterType.UrlSegment);
             restRequest.AddParameter("amount=" + amount, ParameterType.RequestBody);
             var response = Client.Execute<PaymentResult>(restRequest);
@@ -86,7 +84,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public async Task<PaymentResult> RefundPaymentAsync(long id, long amount)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             restRequest.AddParameter("amount=" + amount, ParameterType.RequestBody);
             var response = await Client.ExecuteTaskAsync(restRequest);
@@ -98,7 +96,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public Payment CreateRecurrentPayment(long id, NextPayment nextPayment)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/create-recurrence");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/create-recurrence", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             restRequest.AddJsonBody(nextPayment);
             var response = Client.Execute(restRequest);
@@ -107,7 +105,7 @@ namespace GoPay
 
         public async Task<Payment> CreateRecurrentPaymentAsync(long id, NextPayment nextPayment)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/create-recurrence");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/create-recurrence", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var content = await Client.ExecuteTaskAsync(restRequest);
             var result = await Task.Factory.StartNew(() => Deserialize<Payment>(content.Content));
@@ -117,7 +115,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public PaymentResult VoidRecurrency(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-recurrence");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-recurrence", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<PaymentResult>(response);
@@ -126,7 +124,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public async Task<PaymentResult> VoidRecurrencyAsync(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-recurrence");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-recurrence", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
             var result = await Task.Factory.StartNew(() => Deserialize<PaymentResult>(response.Content));
@@ -136,7 +134,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public PaymentResult CapturePayment(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<PaymentResult>(response);
@@ -145,7 +143,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public async Task<PaymentResult> CapturePaymentAsync(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => Deserialize<PaymentResult>(response.Content));
@@ -154,7 +152,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public PaymentResult VoidAuthorization(long id)
         {
-            var restRequest = CreateRestRequest("@/payments/payment/{id}/void-authorization");
+            var restRequest = CreateRestRequest("@/payments/payment/{id}/void-authorization", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<PaymentResult>(response);
@@ -163,7 +161,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public async Task<PaymentResult> VoidAuthorizationAsync(long id)
         {
-            var restRequest = CreateRestRequest("@/payments/payment/{id}/void-authorization");
+            var restRequest = CreateRestRequest("@/payments/payment/{id}/void-authorization", Method.POST);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => Deserialize<PaymentResult>(response.Content));
@@ -171,7 +169,10 @@ namespace GoPay
 
         /// <exception cref="ApplicationException"></exception>
         public Payment PaymentStatus(long id) {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}");
+            var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(@"/payments/payment/{id}", Method.GET);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            restRequest.AddHeader("Authorization", "Bearer " + AccessToken.Token);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
@@ -180,7 +181,7 @@ namespace GoPay
         /// <exception cref="ApplicationException"></exception>
         public async Task<Payment> PaymentStatusAsync(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}", Method.GET);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => Deserialize<Payment>(response.Content));
@@ -201,14 +202,14 @@ namespace GoPay
             return JsonConvert.DeserializeObject<T>(Content);
         }
 
-        private IRestRequest CreateRestRequest(string url)
+        private IRestRequest CreateRestRequest(string url, Method method)
         {
-            return CreateRestRequest(url, null);
+            return CreateRestRequest(url, null, method);
         }
 
-        private IRestRequest CreateRestRequest(string url, Parameter parameter)
+        private IRestRequest CreateRestRequest(string url, Parameter parameter, Method method)
         {
-            var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(url, Method.POST);
+            var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(url, method);
             if (parameter != null) { 
                 restRequest.AddParameter(parameter);
             }
