@@ -8,16 +8,15 @@ namespace GoPay.Model.Payments
 {
     public class Payer
     {
-
         [JsonProperty("payment_instrument")]
         [JsonConverter(typeof(StringEnumConverter))]
         public PaymentInstrument PaymentInstrument { get; set; }
-        
-        [JsonProperty (PropertyName = "allowed_payment_instruments", ItemConverterType = typeof(StringEnumConverter))]
-        public IList<PaymentInstrument> AllowedPaymentInstruments { get; }
-        
+
+        [JsonProperty(PropertyName = "allowed_payment_instruments", ItemConverterType = typeof(StringEnumConverter))]
+        public List<PaymentInstrument> AllowedPaymentInstruments { get; set; }
+
         [JsonProperty("allowed_swifts")]
-        public IList<string> AllowedSwifts { get; }
+        public List<string> AllowedSwifts { get; set; }
 
         [JsonProperty("default_payment_instrument")]
         [JsonConverter(typeof(StringEnumConverter))]

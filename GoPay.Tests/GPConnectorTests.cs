@@ -9,26 +9,22 @@ namespace GoPay.Tests
     [TestClass()]
     public class GPConnectorTests
     {
-              
-
         public const string CLIENT_ID = "1744960415";
         public const string CLIENT_SECRET = "h9wyRz2s";
         public const long GOID = 8339303643;
         public const string API_URL = @"https://gw.sandbox.gopay.com/api";
 
-       
-
-       // [TestMethod()]
+        [TestMethod()]
         public void GPConnectorTest()
         {
-            var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET); 
+            var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET);
             connector.GetAppToken();
 
             Assert.IsNotNull(connector.AccessToken);
             Assert.IsNotNull(connector.AccessToken.Token);
         }
 
-   //     [TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestCreatePayment()
         {
             var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET);
@@ -62,21 +58,13 @@ namespace GoPay.Tests
                     },
                     DefaultPaymentInstrument = PaymentInstrument.PAYMENT_CARD
                 }
-                
+
             };
-            try { 
-                Payment result = connector.GetAppToken().CreatePayment(payment);
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.Id);
-            } catch (GPClientException exception)
-            {
-                var err = exception.Error;
-                DateTime date = err.DateIssued;
-                foreach (var element in err.ErrorMessages)
-                {
-                    //
-                }
-            } 
+
+            Payment result = connector.GetAppToken().CreatePayment(payment);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Id);
+            Assert.IsNotNull(result.GwUrl);
         }
 
         [TestMethod()]
@@ -84,34 +72,20 @@ namespace GoPay.Tests
         {
             long id = 3044158975;
             var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET);
-            try { 
-                var payment = connector.GetAppToken().PaymentStatus(id);
-                Assert.IsNotNull(payment.Id);
-            } catch (GPClientException ex)
-            {
-                //
-            }
+
+            var payment = connector.GetAppToken().PaymentStatus(id);
+            Assert.IsNotNull(payment.Id);
         }
 
-      //  [TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestRefund()
         {
             var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET);
             long id = 3044158975;
-            try { 
-                var result = connector.GetAppToken().RefundPayment(id, 7500);
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.Id);
-            }
-            catch (GPClientException exception)
-            {
-                var err = exception.Error;
-                DateTime date = err.DateIssued;
-                foreach (var element in err.ErrorMessages)
-                {
-                    //Handle
-                }
-            }
+
+            var result = connector.GetAppToken().RefundPayment(id, 7500);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Id);
         }
     }
 }

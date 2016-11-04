@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoPay.net-sdk", "GoPay.net-sdk\GoPay.net-sdk.csproj", "{DB110883-0FA4-4ED4-AC2E-CD2106C755FF}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoPay", "GoPay.net-sdk\GoPay.csproj", "{DB110883-0FA4-4ED4-AC2E-CD2106C755FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoPay.net-sdkTests", "GoPay.net-sdkTests\GoPay.net-sdkTests.csproj", "{E615049D-C404-4013-B5FE-F83098DC4170}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoPay.Tests", "GoPay.net-sdkTests\GoPay.Tests.csproj", "{E615049D-C404-4013-B5FE-F83098DC4170}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3D6A061B-A210-4999-BC6E-682BE6344494}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
