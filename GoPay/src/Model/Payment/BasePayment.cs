@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using GoPay.Model.Payments;
 using GoPay.Common;
 using Newtonsoft.Json.Converters;
 
-namespace GoPay.Model.Payment
+namespace GoPay.Model.Payments
 {
 
     public class BasePayment

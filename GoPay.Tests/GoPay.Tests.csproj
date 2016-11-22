@@ -6,8 +6,8 @@
     <ProjectGuid>{E615049D-C404-4013-B5FE-F83098DC4170}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoPay.net_sdkTests</RootNamespace>
-    <AssemblyName>GoPay.net-sdkTests</AssemblyName>
+    <RootNamespace>GoPay.Tests</RootNamespace>
+    <AssemblyName>GoPay.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,7 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoPay.net-sdk\GoPay.csproj">
+    <ProjectReference Include="..\GoPay\GoPay.csproj">
       <Project>{DB110883-0FA4-4ED4-AC2E-CD2106C755FF}</Project>
       <Name>GoPay</Name>
     </ProjectReference>

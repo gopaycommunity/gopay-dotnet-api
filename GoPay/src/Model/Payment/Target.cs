@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+
 namespace GoPay.Model.Payments
 {
     public class Target
@@ -21,7 +22,7 @@ namespace GoPay.Model.Payments
 
         public override string ToString()
         {
-            return string.Format("TargetParty [type={}, goId={}]", Enum.GetName(typeof(TargetType),Type), GoId);
+            return string.Format("TargetParty [type={}, goId={}]", Enum.GetName(typeof(TargetType), Type), GoId);
         }
 
         public static Target CreateEshop(long goID)

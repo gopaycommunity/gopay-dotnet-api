@@ -1,5 +1,4 @@
 ﻿using GoPay.Model;
-using GoPay.Model.Payment;
 using GoPay.Model.Payments;
 using GoPay.Payments;
 using Newtonsoft.Json;
