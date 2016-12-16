@@ -6,14 +6,14 @@ namespace GoPay.Model.Payments
     {
 
         [JsonProperty("name")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty("value")]
-        public string value { get; set; }
+        public string Value { get; set; }
 
         public override string ToString()
         {
-            return string.Format("AdditionalParam[{}={}]", name, value);
+            return string.Format("AdditionalParam[{}={}]", Name, Value);
         }
 
     }

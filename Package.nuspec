@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>GoPay.NET</id>
+    <version>1.0.1</version>
+    <authors>Frantisek Sichinger</authors>
+    <owners>GoPay s.r.o.</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
+    <iconUrl>https://www.platebnibrana.cz/theme/images/brand/gopay-logo-color.png?v=0.4.3</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Gopay .net sdk</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>GoPay Platebni brana</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
+      <dependency id="RestSharp" version="105.2.3"/>
+      <dependency id="RestSharp.Newtonsoft.Json" version="1.0.0"/>
+    </dependencies>
+  </metadata>
+</package>

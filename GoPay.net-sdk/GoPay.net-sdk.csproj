@@ -53,8 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\GPAuthenticator.cs" />
-    <Compile Include="src\IGPConnector.cs" />
+    <Compile Include="src\GPConnector.cs" />
     <Compile Include="src\Model\APIError.cs" />
     <Compile Include="src\Model\Common\Currency.cs" />
     <Compile Include="src\Model\AccessToken.cs" />

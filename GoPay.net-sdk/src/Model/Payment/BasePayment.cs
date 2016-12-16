@@ -51,5 +51,24 @@ namespace GoPay.Model.Payment
             Items = new List<OrderItem>();
             AdditionalParams = new List<AdditionalParam>();
         }
+
+        public void AddAdditionalParams(string key,string value)
+        {
+            AdditionalParams.Add(new AdditionalParam()
+            {
+                Name = key,
+                Value = value
+            });
+        }
+
+        public void AddOrderItem(string name, long amount, long count)
+        {
+            Items.Add(new OrderItem()
+            {
+                Amount = amount,
+                Count = count,
+                Name = name
+            });
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace GoPay.Tests
 
        
 
-       // [TestMethod()]
+        [TestMethod()]
         public void GPConnectorTest()
         {
             var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET); 
@@ -28,7 +28,7 @@ namespace GoPay.Tests
             Assert.IsNotNull(connector.AccessToken.Token);
         }
 
-   //     [TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestCreatePayment()
         {
             var connector = new GPConnector(API_URL, CLIENT_ID, CLIENT_SECRET);

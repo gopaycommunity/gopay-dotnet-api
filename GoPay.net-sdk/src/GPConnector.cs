@@ -5,7 +5,6 @@ using GoPay.Model.Payments;
 
 using RestSharp;
 using RestSharp.Authenticators;
-using System.Net;
 using GoPay.Model.Payment;
 using Newtonsoft.Json;
 using GoPay.Payments;
@@ -171,7 +170,7 @@ namespace GoPay
 
         /// <exception cref="ApplicationException"></exception>
         public Payment PaymentStatus(long id) {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}", null, Method.GET);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
@@ -200,13 +199,13 @@ namespace GoPay
             }
             return JsonConvert.DeserializeObject<T>(Content);
         }
-
+        
         private IRestRequest CreateRestRequest(string url)
         {
             return CreateRestRequest(url, null);
         }
 
-        private IRestRequest CreateRestRequest(string url, Parameter parameter)
+        private IRestRequest CreateRestRequest(string url, Parameter parameter, Method method = Method.POST)
         {
             var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(url, Method.POST);
             if (parameter != null) { 
