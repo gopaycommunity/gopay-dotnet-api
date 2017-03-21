@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -54,30 +57,49 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\GPConnector.cs" />
+    <Compile Include="src\Model\Account\AccountStatement.cs" />
     <Compile Include="src\Model\APIError.cs" />
+    <Compile Include="src\Model\Common\CheckoutGroup.cs" />
+    <Compile Include="src\Model\Common\Country.cs" />
     <Compile Include="src\Model\Common\Currency.cs" />
     <Compile Include="src\Model\AccessToken.cs" />
     <Compile Include="src\Model\AuthHeader.cs" />
+    <Compile Include="src\Model\Common\SessionSubState.cs" />
+    <Compile Include="src\Model\Account\StatementGeneratingFormat.cs" />
+    <Compile Include="src\Model\EET\EET.cs" />
+    <Compile Include="src\Model\EET\EETCode.cs" />
+    <Compile Include="src\Model\EET\EETReceipt.cs" />
+    <Compile Include="src\Model\EET\EETReceiptFilter.cs" />
     <Compile Include="src\Model\ErrorElement.cs" />
     <Compile Include="src\GPClientException.cs" />
     <Compile Include="src\Model\OAuth.cs" />
     <Compile Include="src\Model\Common\GPDateAdapter.cs" />
     <Compile Include="src\Model\Payment\AdditionalParam.cs" />
+    <Compile Include="src\Model\Payment\BankAccount.cs" />
     <Compile Include="src\Model\Payment\BasePayment.cs" />
     <Compile Include="src\Model\Payment\Callback.cs" />
+    <Compile Include="src\Model\Payment\EnabledPaymentInstrument.cs" />
+    <Compile Include="src\Model\Payment\Group.cs" />
+    <Compile Include="src\Model\Payment\Image.cs" />
+    <Compile Include="src\Model\Payment\ItemType.cs" />
     <Compile Include="src\Model\Payment\Lang.cs" />
     <Compile Include="src\Model\Payment\NextPayment.cs" />
     <Compile Include="src\Model\Payment\OrderItem.cs" />
     <Compile Include="src\Model\Payment\Payer.cs" />
     <Compile Include="src\Model\Payment\PayerContact.cs" />
+    <Compile Include="src\Model\Payment\PayerPaymentCard.cs" />
     <Compile Include="src\Model\Payment\Payment.cs" />
     <Compile Include="src\Model\Payment\PaymentInstrument.cs" />
+    <Compile Include="src\Model\Payment\PaymentInstrumentRoot.cs" />
     <Compile Include="src\Model\Payment\PaymentResult.cs" />
     <Compile Include="src\Model\Payment\PreAuthorization.cs" />
     <Compile Include="src\Model\Payment\Recurrence.cs" />
     <Compile Include="src\Model\Payment\RecurrenceCycle.cs" />
+    <Compile Include="src\Model\Payment\RefundPayment.cs" />
+    <Compile Include="src\Model\Payment\Swift.cs" />
     <Compile Include="src\Model\Payment\Target.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Model\Payment\VatRate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

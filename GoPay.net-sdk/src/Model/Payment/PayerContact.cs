@@ -1,5 +1,8 @@
 ﻿
+using System;
 using Newtonsoft.Json;
+using GoPay.Common;
+using Newtonsoft.Json.Converters;
 
 namespace GoPay.Model.Payments
 {
@@ -28,14 +31,15 @@ namespace GoPay.Model.Payments
         public string PostalCode { get; set; }
 
         [JsonProperty("country_code")]
-        public string CountryCode { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Country CountryCode { get; set; }
 
         public override string ToString()
         {
             return string.Format(
                     "PayerContact [firstName={}, lastName={}, email={}, phoneNumber={}, city={}, street={}, postalCode={}, countryCode={}]",
-                    FirstName, LastName, Email, PhoneNumber, City, Street, PostalCode, CountryCode);
+                    FirstName, LastName, Email, PhoneNumber, City, Street, PostalCode, Enum.GetName(typeof(Country), CountryCode));
         }
-        
+
     }
 }

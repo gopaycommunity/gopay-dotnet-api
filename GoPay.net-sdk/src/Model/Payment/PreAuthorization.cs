@@ -23,7 +23,7 @@ namespace GoPay.Model.Payments
 
         public override string ToString()
         {
-            return string.Format("Preauthorization [requested={}, preAuthState={}]", Requested, Enum.GetName(typeof(PreAuthState), State));
+            return string.Format("Preauthorization [requested={0}, preAuthState={1}]", Requested, Enum.GetName(typeof(PreAuthState), State));
         }
    
     }

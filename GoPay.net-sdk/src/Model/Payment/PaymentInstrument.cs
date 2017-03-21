@@ -6,13 +6,10 @@
         BANK_ACCOUNT,
         PRSMS,
         MPAYMENT,
-        COUPON,
         PAYSAFECARD,
         SUPERCASH,
         GOPAY,
         PAYPAL,
-        BITCOIN,
-        MASTERPASS,
-        ACCOUNT
+        BITCOIN
     }
 }
