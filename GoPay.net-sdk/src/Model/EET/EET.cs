@@ -75,7 +75,7 @@ namespace GoPay.EETProp
                 + "cestSluz={8}, pouzitZboz1={9}, pouzitZboz2={10}, pouzitZboz3={11}, urcenoCerpZuct={12}, cerpZuct={13}, dicPoverujiciho={14}, "
                 + "mena={15}]",
                 CelkTrzba, ZaklNepodlDPH, ZaklDan1, Dan1, ZaklDan2, Dan2, ZaklDan3, Dan3, CestSluz, PouzitZboz1, PouzitZboz2, PouzitZboz3, UrcenoCerpZuct, CerpZuct,
-                DicPoverujiciho, Mena
+                DicPoverujiciho, Enum.GetName(typeof(Currency), Mena)
                 );
         }
     }

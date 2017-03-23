@@ -96,8 +96,8 @@ namespace GoPay.Tests
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
-                Console.WriteLine("Payment instrument: {0}", Enum.GetName(typeof(PaymentInstrument), result.PaymentInstrument));
-
+                Console.WriteLine("Payment instrument: {0}", result.PaymentInstrument);
+                Console.WriteLine(result.Payer.Contact);
             }
             catch (GPClientException exception)
             {

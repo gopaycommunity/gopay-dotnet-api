@@ -28,6 +28,7 @@ namespace GoPay.Tests
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
+                Console.WriteLine("Payment instrument: {0}", result.PaymentInstrument);
                 Console.WriteLine("PreAuthorization: {0}", result.PreAuthorization);
 
             }
@@ -47,7 +48,7 @@ namespace GoPay.Tests
         public void GPConnectorTestVoidAuthorization()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            long id = 3048992973;
+            long id = 3049249125;
             try
             {
                 var result = connector.GetAppToken().VoidAuthorization(id);
@@ -71,7 +72,7 @@ namespace GoPay.Tests
         public void GPConnectorTestCapturePayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            long id = 3048993688;
+            long id = 3049249190;
             try
             {
                 var result = connector.GetAppToken().CapturePayment(id);

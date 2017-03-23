@@ -13,7 +13,7 @@ namespace GoPay.Model.Payments
 
         public override string ToString()
         {
-            return string.Format("Callback [ returnUrl={}, notificationUrl={}]", ReturnUrl, NotificationUrl);
+            return string.Format("Callback [ returnUrl={0}, notificationUrl={1}]", ReturnUrl, NotificationUrl);
         }
     }
 }

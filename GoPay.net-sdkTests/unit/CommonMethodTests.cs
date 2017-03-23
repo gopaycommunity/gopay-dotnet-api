@@ -25,16 +25,10 @@ namespace GoPay.Tests
         }
 
 
-        //[TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestStatus()
         {
-            //long id = 3049014176;         //PAID
-            //long id = 3048994806;           //RECURRENT
-            //long id = 3048993688;           //AUTHORIZED
-            //long id = 3048962072;           //CAPTURED
-            //long id = 3048995378;           //ONDEMAND
-
-            long id = 3049187778;           //REFUNDED
+            long id = 3049249619;
 
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             try {
@@ -44,7 +38,7 @@ namespace GoPay.Tests
                 Console.WriteLine("Payment id: {0}", payment.Id);
                 Console.WriteLine("Payment gw_url: {0}", payment.GwUrl);
                 Console.WriteLine("Payment state: {0}", payment.State);
-                Console.WriteLine("Payment instrument: {0}", Enum.GetName(typeof(PaymentInstrument), payment.PaymentInstrument));
+                Console.WriteLine("Payment instrument: {0}", payment.PaymentInstrument);
                 Console.WriteLine("PreAuthorization: {0}", payment.PreAuthorization);
                 Console.WriteLine("Recurrence: {0}", payment.Recurrence);
 
@@ -88,7 +82,7 @@ namespace GoPay.Tests
             }
         }
 
-        [TestMethod()]
+        //[TestMethod()]
         public void GPConnectorTestStatementGenerating()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -98,7 +92,6 @@ namespace GoPay.Tests
                 DateFrom = new DateTime(2017, 1, 1),
                 DateTo = new DateTime(2017, 2, 27),
                 GoID = TestUtils.GOID,
-                //GoID = 8712700,                       // testovani reakce na chybu
                 Currency = Currency.CZK,
                 Format = StatementGeneratingFormat.CSV_A
             };
@@ -107,7 +100,6 @@ namespace GoPay.Tests
             {
                 byte[] statement = connector.GetAppToken().GetStatement(accountStatement);
                 Assert.IsNotNull(statement);
-
                 
                 string content = System.Text.Encoding.UTF8.GetString(statement);
 
@@ -119,8 +111,6 @@ namespace GoPay.Tests
                 {
                     Console.Write(" {0}", statement[i]);
                 }
-                
-
             }
             catch (GPClientException ex)
             {

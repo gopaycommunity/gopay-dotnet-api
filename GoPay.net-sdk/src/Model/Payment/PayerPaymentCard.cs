@@ -25,7 +25,7 @@ namespace GoPay.Model.Payments
         public override string ToString()
         {
             return string.Format(
-                    "PayerPaymentCard [cardNumber={}, cardExpiration={}, cardBrand={}, cardIssuerCountry={}, cardIssuerBank={}]",
+                    "PayerPaymentCard [cardNumber={0}, cardExpiration={1}, cardBrand={2}, cardIssuerCountry={3}, cardIssuerBank={4}]",
                     CardNumber, CardExpiration, CardBrand, CardIssuerCountry, CardIssuerBank
                     );
         }

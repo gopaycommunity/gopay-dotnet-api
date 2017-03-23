@@ -32,13 +32,24 @@ namespace GoPay.Model.Payments
 
         [JsonProperty("country_code")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public Country CountryCode { get; set; }
+        public Nullable<Country> CountryCode { get; set; }
 
         public override string ToString()
         {
-            return string.Format(
-                    "PayerContact [firstName={}, lastName={}, email={}, phoneNumber={}, city={}, street={}, postalCode={}, countryCode={}]",
+            if (CountryCode != null)
+            {
+                return string.Format(
+                    "PayerContact [firstName={0}, lastName={1}, email={2}, phoneNumber={3}, city={4}, street={5}, postalCode={6}, countryCode={7}]",
                     FirstName, LastName, Email, PhoneNumber, City, Street, PostalCode, Enum.GetName(typeof(Country), CountryCode));
+            }
+            else
+            {
+                return string.Format(
+                    "PayerContact [firstName={0}, lastName={1}, email={2}, phoneNumber={3}, city={4}, street={5}, postalCode={6}, countryCode={7}]",
+                    FirstName, LastName, Email, PhoneNumber, City, Street, PostalCode, CountryCode);
+            }
+
+            
         }
 
     }

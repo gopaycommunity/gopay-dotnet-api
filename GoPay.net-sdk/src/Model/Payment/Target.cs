@@ -14,14 +14,14 @@ namespace GoPay.Model.Payments
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public TargetType Type { get; set; }
+        public Nullable<TargetType> Type { get; set; }
 
         [JsonProperty("goid")]
         public long GoId { get; set; }
 
         public override string ToString()
         {
-            return string.Format("TargetParty [type={}, goId={}]", Enum.GetName(typeof(TargetType),Type), GoId);
+            return string.Format("TargetParty [type={0}, goId={1}]", Type, GoId);
         }
 
         public static Target CreateEshop(long goID)

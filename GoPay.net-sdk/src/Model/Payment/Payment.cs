@@ -32,15 +32,15 @@ namespace GoPay.Model.Payments
 
         [JsonProperty("state")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public SessionState State { get; set; }
+        public Nullable<SessionState> State { get; set; }
 
         [JsonProperty("sub_state")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public SessionSubState SubState { get; set; }
+        public Nullable<SessionSubState> SubState { get; set; }
 
         [JsonProperty("payment_instrument")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public PaymentInstrument PaymentInstrument { get; set; }
+        public Nullable<PaymentInstrument> PaymentInstrument { get; set; }
 
         [JsonProperty("amount")]
         public long Amount { get; set; }
@@ -95,8 +95,7 @@ namespace GoPay.Model.Payments
         {
             return string.Format(
                    "Payment [id={0}, parentId={1}, state={2}, paymentInstrument={3}, amount={4}, currency={5}, payer={6}, target={7}, recurrence={8}, aditionalParams={9}, preAuthorization={10}, lang={11}]",
-                   Id, ParentId, Enum.GetName(typeof(SessionState), State), Enum.GetName(typeof(PaymentInstrument), PaymentInstrument), Amount,
-                   Enum.GetName(typeof(Currency), Currency), Payer, Target, Recurrence, AdditionalParams, PreAuthorization, Lang
+                   Id, ParentId, State, PaymentInstrument, Amount, Enum.GetName(typeof(Currency), Currency), Payer, Target, Recurrence, AdditionalParams, PreAuthorization, Lang
                    );
         }
 

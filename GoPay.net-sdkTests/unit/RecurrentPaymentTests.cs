@@ -11,7 +11,7 @@ namespace GoPay.Tests
     public class RecurrentPaymentTests
     {
 
-        //[TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestCreateRecurrentPayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -35,6 +35,7 @@ namespace GoPay.Tests
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
+                Console.WriteLine("Payment instrument: {0}", result.PaymentInstrument);
                 Console.WriteLine("Recurrence: {0}", result.Recurrence);
 
             }
@@ -51,11 +52,11 @@ namespace GoPay.Tests
         }
 
 
-        [TestMethod()]
+        //[TestMethod()]
         public void GPConnectorTestVoidRecurrency()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            long id = 3048994806;
+            long id = 3049249619;
             try
             {
                 var result = connector.GetAppToken().VoidRecurrency(id);

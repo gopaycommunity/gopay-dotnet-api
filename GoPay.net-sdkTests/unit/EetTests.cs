@@ -87,7 +87,7 @@ namespace GoPay.Tests
 
                 Console.WriteLine("EET Payment id: {0}", result.Id);
                 Console.WriteLine("EET Payment gw_url: {0}", result.GwUrl);
-                Console.WriteLine("EET Payment instrument: {0}", Enum.GetName(typeof(PaymentInstrument), result.PaymentInstrument));
+                Console.WriteLine("EET Payment instrument: {0}", result.PaymentInstrument);
                 Console.WriteLine(baseEETPayment.Eet);
 
             }
@@ -144,12 +144,14 @@ namespace GoPay.Tests
             baseEETPayment.Recurrence = recurrence;
             */
 
+            
             Recurrence onDemandRecurrence = new Recurrence()
             {
                 Cycle = RecurrenceCycle.ON_DEMAND,
                 DateTo = new DateTime(2018, 4, 1)
             };
             baseEETPayment.Recurrence = onDemandRecurrence;
+            
 
             EET eet = new EET()
             {
@@ -194,10 +196,11 @@ namespace GoPay.Tests
                 };
                 nextPayment.Eet = eet;
 
-                Payment onDemandEETPayment = connector.GetAppToken().CreateRecurrentPayment(3049009015, nextPayment);
+                Payment onDemandEETPayment = connector.GetAppToken().CreateRecurrentPayment(3049250282, nextPayment);
 
                 Console.WriteLine("OnDemand payment id: {0}", onDemandEETPayment.Id);
                 Console.WriteLine("OnDemand payment gw_url: {0}", onDemandEETPayment.GwUrl);
+                Console.WriteLine("OnDemand EET Payment instrument: {0}", onDemandEETPayment.PaymentInstrument);
                 Console.WriteLine("OnDemand recurrence: {0}", onDemandEETPayment.Recurrence);
                 Console.WriteLine("OnDemand amount: {0}", onDemandEETPayment.Amount);
                 Console.Write(onDemandEETPayment.EetCode);
@@ -216,12 +219,10 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestEETStatus()
         {
-            long id = 3049205133;           // Payed
-            //long id = 3049005388;           // Recurrent
-            //long id = 3049009587;           // nextOnDemandEET
+            long id = 3049250282;
 
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
             try
@@ -232,7 +233,7 @@ namespace GoPay.Tests
                 Console.WriteLine("EET Payment id: {0}", payment.Id);
                 Console.WriteLine("EET Payment gw_url: {0}", payment.GwUrl);
                 Console.WriteLine("EET Payment state: {0}", payment.State);
-                Console.WriteLine("EET Payment instrument: {0}", Enum.GetName(typeof(PaymentInstrument), payment.PaymentInstrument));
+                Console.WriteLine("EET Payment instrument: {0}", payment.PaymentInstrument);
                 Console.WriteLine("EET PreAuthorization: {0}", payment.PreAuthorization);
                 Console.WriteLine("EET Recurrence: {0}", payment.Recurrence);
                 Console.WriteLine(payment.EetCode);
@@ -296,7 +297,7 @@ namespace GoPay.Tests
 
             try
             {
-                var refundEETPayment = connector.GetAppToken().RefundPayment(3049191977, refundObject);
+                var refundEETPayment = connector.GetAppToken().RefundPayment(3049250113, refundObject);
                 Console.WriteLine("EET refund result: {0}", refundEETPayment);
             }
             catch (GPClientException ex)
@@ -347,8 +348,7 @@ namespace GoPay.Tests
             }
         }
 
-
-        [TestMethod()]
+        //[TestMethod()]
         public void GPConnectorTestEETPReceiptFindByPaymentId()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);

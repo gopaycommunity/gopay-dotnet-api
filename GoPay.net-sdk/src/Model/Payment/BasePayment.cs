@@ -94,7 +94,7 @@ namespace GoPay.Model.Payment
         public override string ToString()
         {
             return string.Format(
-                   "BasePayment [orderNumber={}, payer={}, target={}, amount={}, currency={}, callback={}, recurrence={}, preAuthorization={}, lang={}]",
+                   "BasePayment [orderNumber={0}, payer={1}, target={2}, amount={3}, currency={4}, callback={5}, recurrence={6}, preAuthorization={7}, lang={8}]",
                    OrderNumber, Payer, Target, Amount, Enum.GetName(typeof(Currency), Currency), Callback, Recurrence, PreAuthorization, Lang
                    );
         }

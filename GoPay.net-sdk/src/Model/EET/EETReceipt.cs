@@ -131,7 +131,7 @@ namespace GoPay.EETProp
         {
             return string.Format(
                    "EETReceipt [paymentId={0}, state={1}, idProvoz={2}, datTrzby={3}, celkTrzba={4}]",
-                   PaymentId, Enum.GetName(typeof(EETReceiptState), State), IdProvoz, DatTrzby, CelkTrzba
+                   PaymentId, State, IdProvoz, DatTrzby, CelkTrzba
                    );
         }
 

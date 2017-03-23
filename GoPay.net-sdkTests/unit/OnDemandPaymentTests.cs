@@ -35,6 +35,7 @@ namespace GoPay.Tests
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
+                Console.WriteLine("Payment instrument: {0}", result.PaymentInstrument);
                 Console.WriteLine("Recurrence: {0}", result.Recurrence);
                 Console.WriteLine("Payment amount: {0}", result.Amount);
             }
@@ -66,10 +67,11 @@ namespace GoPay.Tests
                 };
                 nextPayment.Items.Add(new OrderItem() { Name = "OnDemand First Item", Amount = 2000, Count = 2 });
 
-                Payment onDemandPayment = connector.GetAppToken().CreateRecurrentPayment(3048995378, nextPayment);
+                Payment onDemandPayment = connector.GetAppToken().CreateRecurrentPayment(3049249957, nextPayment);
 
                 Console.WriteLine("OnDemand payment id: {0}", onDemandPayment.Id);
                 Console.WriteLine("OnDemand payment gw_url: {0}", onDemandPayment.GwUrl);
+                Console.WriteLine("OnDemand Payment instrument: {0}", onDemandPayment.PaymentInstrument);
                 Console.WriteLine("OnDemand recurrence: {0}", onDemandPayment.Recurrence);
                 Console.WriteLine("OnDemand amount: {0}", onDemandPayment.Amount);
 

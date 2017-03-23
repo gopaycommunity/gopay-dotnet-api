@@ -16,7 +16,7 @@ namespace GoPay.Model.Payments
         }
         
         [JsonProperty("recurrence_cycle")]
-        public RecurrenceCycle Cycle { get; set; }
+        public Nullable<RecurrenceCycle> Cycle { get; set; }
         
         [JsonProperty("recurrence_period")]
         public int Period { get; set; }
@@ -34,7 +34,7 @@ namespace GoPay.Model.Payments
         {
             return string.Format(
                    "Recurrence [recurrenceCycle={0}, recurrencePeriod={1}, recurrenceDateTo={2}, recurrencState={3}]",
-                   Cycle, Period, DateTo, Enum.GetName(typeof(RecurrenceState),State));
+                   Cycle, Period, DateTo, State);
         }
          
         
