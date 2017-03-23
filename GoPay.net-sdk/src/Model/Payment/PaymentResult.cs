@@ -24,7 +24,7 @@ namespace GoPay.Payments
 
         public override string ToString()
         {
-            return string.Format("PaymentResult[Id={},Result={},Description={}]", Id, Result, Description);
+            return string.Format("PaymentResult[Id={0},Result={1},Description={2}]", Id, Result, Description);
         }
 
         internal bool Error { get { return false; } }

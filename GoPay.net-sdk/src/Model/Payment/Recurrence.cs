@@ -33,7 +33,7 @@ namespace GoPay.Model.Payments
         public override string ToString()
         {
             return string.Format(
-                   "Recurrence [recurrenceCycle={}, recurrencePeriod={}, recurrenceDateTo={}, recurrencState={}]",
+                   "Recurrence [recurrenceCycle={0}, recurrencePeriod={1}, recurrenceDateTo={2}, recurrencState={3}]",
                    Cycle, Period, DateTo, Enum.GetName(typeof(RecurrenceState),State));
         }
          
