@@ -217,7 +217,10 @@ namespace GoPay
             restRequest.AddParameter("currency", currency, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
 
-            response.Content = ProcessPaymentInstrumentRootContent(response.Content);
+            if (!response.Content.Contains("error_code"))
+            {
+                response.Content = ProcessPaymentInstrumentRootContent(response.Content);
+            }
 
             return ProcessResponse<PaymentInstrumentRoot>(response);
         }
