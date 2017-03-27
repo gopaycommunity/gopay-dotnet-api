@@ -27,17 +27,6 @@ namespace GoPay
         static GPConnector()
         {
             Client = new RestClient();
-            
-
-            /*
-            HttpConfiguration config = GlobalConfiguration.Configuration;
-            config.Formatters.JsonFormatter.SerializerSettings.Formatting =
-                Newtonsoft.Json.Formatting.Indented;
-
-            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add
-                (new Newtonsoft.Json.Converters.StringEnumConverter());
-                */
-
         }
 
         public GPConnector(string APIUrl, string clientid, string clientsecret)
@@ -227,6 +216,9 @@ namespace GoPay
             restRequest.AddParameter("goid", goid, ParameterType.UrlSegment);
             restRequest.AddParameter("currency", currency, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
+
+            response.Content = ProcessPaymentInstrumentRootContent(response.Content);
+
             return ProcessResponse<PaymentInstrumentRoot>(response);
         }
 
@@ -313,10 +305,19 @@ namespace GoPay
                 restRequest.AddHeader("Content-Type", contentType);
             }
 
-
-
             restRequest.AddHeader("Authorization", "Bearer " + AccessToken.Token);
             return restRequest;
+        }
+
+        private string ProcessPaymentInstrumentRootContent(string content)
+        {
+            string[] separator = new string[1];
+            separator[0] = "enabledPaymentInstruments";
+            string[] both = content.Split(separator, StringSplitOptions.None);
+            both[0] = both[0].Replace("card-payment", "card_payment");
+            both[0] = both[0].Replace("bank-transfer", "bank_transfer");
+            content = both[0] + "enabledPaymentInstruments" + both[1];
+            return content;
         }
     }
 }

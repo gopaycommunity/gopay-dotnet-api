@@ -24,5 +24,15 @@ namespace GoPay.Model.Payments
             this.Label.Add(locale, label);
             return this;
         }
+
+        public override string ToString()
+        {
+            string output = "";
+            foreach(KeyValuePair<CultureInfo, string> label in Label)
+            {
+                output += string.Format("Group [locale={0}, description={1}]\n", label.Key.ToString(), label.Value);
+            }
+            return output;
+        }
     }
 }

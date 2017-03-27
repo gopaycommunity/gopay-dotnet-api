@@ -56,5 +56,13 @@ namespace GoPay.Model.Payments
             return this;
         }
 
+        public override string ToString()
+        {
+            return string.Format(
+                   "EnabledPaymentInstrument: [paymentInstrument={0}, label={1}, image={2}, group={3}, enabledSwifts={4}]",
+                   PaymentInstrument, Label, Image, Group, EnabledSwifts
+                   );
+        }
+
     }
 }

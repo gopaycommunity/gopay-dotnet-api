@@ -13,5 +13,10 @@ namespace GoPay.Model.Payments
         [JsonProperty("large")]
         public string Large { get; set; }
 
+        public override string ToString()
+        {
+            return string.Format(
+                   "Image [normal={0}, large={1}]", Normal, Large);
+        }
     }
 }

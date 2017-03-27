@@ -319,8 +319,6 @@ namespace GoPay.Tests
 
             EETReceiptFilter filter = new EETReceiptFilter()
             {
-                //DateFrom = new DateTime(2017, 4, 2),          //testovani reakce na chybu
-                //DateTo = new DateTime(2017, 3, 2),            //testovani reakce na chybu
                 DateFrom = new DateTime(2017, 3, 2),
                 DateTo = new DateTime(2017, 4, 2),
                 IdProvoz = 11
@@ -356,7 +354,6 @@ namespace GoPay.Tests
             try
             {
                 List<EETReceipt> receipts = connector.GetAppToken().GetEETReceiptByPaymentId(3049205133);
-                //List<EETReceipt> receipts = connector.GetAppToken().GetEETReceiptByPaymentId(304920);         //testovani reakce na chybu
 
                 foreach (EETReceipt currReceipt in receipts)
                 {

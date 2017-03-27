@@ -7,24 +7,19 @@ using System.Runtime.Serialization;
 
 namespace GoPay.Common
 {
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum CheckoutGroup
     {
         
         [GroupCaption("card-payment"), EnumSetPaymentInstruments(PaymentInstrument.PAYMENT_CARD)]
-        [EnumMember(Value = "card-payment")]
         CARD_PAYMENT,
 
         [GroupCaption("bank-transfer"), EnumSetPaymentInstruments(PaymentInstrument.BANK_ACCOUNT)]
-        [EnumMember(Value = "bank-transfer")]
         BANK_TRANSFER,
 
         [GroupCaption("wallet"), EnumSetPaymentInstruments(PaymentInstrument.GOPAY, PaymentInstrument.BITCOIN, PaymentInstrument.PAYPAL)]
-        [EnumMember(Value = "wallet")]
         WALLET,
 
         [GroupCaption("others"), EnumSetPaymentInstruments(PaymentInstrument.PRSMS, PaymentInstrument.MPAYMENT, PaymentInstrument.PAYSAFECARD, PaymentInstrument.SUPERCASH)]
-        [EnumMember(Value = "others")]
         OTHERS
 
     }

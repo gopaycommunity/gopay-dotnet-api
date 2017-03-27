@@ -15,7 +15,6 @@ namespace GoPay.Tests
         public void GPConnectorTestRefund()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            //var connector = new GPConnector(@"http://192.168.25.17:8180/gp/api", "app@musicshop.cz", "VpnJVcTn");
             long id = 3049215286;
             try
             {

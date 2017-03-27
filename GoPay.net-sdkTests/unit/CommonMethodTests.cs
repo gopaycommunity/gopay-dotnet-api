@@ -25,13 +25,14 @@ namespace GoPay.Tests
         }
 
 
-        [TestMethod()]
+        //[TestMethod()]
         public void GPConnectorTestStatus()
         {
             long id = 3049249619;
 
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            try {
+            try
+            {
                 var payment = connector.GetAppToken().PaymentStatus(id);
                 Assert.IsNotNull(payment.Id);
 
@@ -42,7 +43,8 @@ namespace GoPay.Tests
                 Console.WriteLine("PreAuthorization: {0}", payment.PreAuthorization);
                 Console.WriteLine("Recurrence: {0}", payment.Recurrence);
 
-            } catch (GPClientException ex)
+            }
+            catch (GPClientException ex)
             {
                 Console.WriteLine("Payment status ERROR");
                 var err = ex.Error;
@@ -54,7 +56,7 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
+        [TestMethod()]
         public void GPConnectorTestPaymentInstrumentRoot()
         {
 
@@ -65,10 +67,8 @@ namespace GoPay.Tests
                 PaymentInstrumentRoot instrumentsList = connector.GetAppToken().GetPaymentInstruments(TestUtils.GOID, Currency.CZK);
                 Assert.IsNotNull(instrumentsList);
 
-                Console.WriteLine("List of enabled payment instruments for shop with go_id: {0}", TestUtils.GOID);
-                Console.WriteLine("{0}", instrumentsList.Groups);
-                Console.WriteLine("----------------------------------------------------------------------------------------");
-                Console.WriteLine("{0}", instrumentsList.EnabledPaymentInstruments);
+                Console.WriteLine("List of enabled payment instruments for shop with go_id: {0} - OK", TestUtils.GOID);
+                Console.WriteLine(instrumentsList.ToString());
             }
             catch (GPClientException ex)
             {
@@ -100,14 +100,14 @@ namespace GoPay.Tests
             {
                 byte[] statement = connector.GetAppToken().GetStatement(accountStatement);
                 Assert.IsNotNull(statement);
-                
+
                 string content = System.Text.Encoding.UTF8.GetString(statement);
 
                 Console.WriteLine("Content of Array to string: {0}", content);
                 Console.WriteLine("----------------------------------------------------------------------------------------");
 
                 Console.Write("Byte content: ");
-                for(int i = 0; i < statement.Length; i++)
+                for (int i = 0; i < statement.Length; i++)
                 {
                     Console.Write(" {0}", statement[i]);
                 }
@@ -123,6 +123,5 @@ namespace GoPay.Tests
                 }
             }
         }
-
     }
 }

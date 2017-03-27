@@ -40,5 +40,20 @@ namespace GoPay.Model.Payments
             return this;
         }
 
+        public override string ToString()
+        {
+            string output = "PaymentInstrumentRoot {\nGroups:\n";
+            foreach(KeyValuePair<CheckoutGroup, Group> dictionaryEntry in Groups)
+            {
+                output += string.Format("CheckoutGroup={0} : {1}", dictionaryEntry.Key, dictionaryEntry.Value);
+            }
+            output += "EnabledPaymentInstruments:\n";
+            foreach(EnabledPaymentInstrument instrument in EnabledPaymentInstruments)
+            {
+                output += instrument.ToString() + "\n";
+            }
+            return output;
+        }
+
     }
 }
