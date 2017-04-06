@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GoPay.Model.Payments
 {
@@ -11,16 +13,28 @@ namespace GoPay.Model.Payments
         [JsonProperty("amount")]
         public long Amount { get; set; }
         
-        [JsonProperty("fee")]
-        public long Fee { get; set; }
-        
         [JsonProperty("count")]
         public long Count { get; set; }
-        
+
+        [JsonProperty("vat_rate")]
+        public int VatRate { get; set; }
+
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Nullable<ItemType> ItemType { get; set; }
+
+        [JsonProperty("product_url")]
+        public string ProductURL { get; set; }
+
+        [JsonProperty("ean")]
+        public string Ean { get; set; }
+
+
         public override string ToString()
         {
-            return string.Format("ROrderItem [name=%s, amount=%s, fee=%s, count=%s]", Name, Amount, Fee, Count);
+            return string.Format("OrderItem [name={0}, amount={1}, count={2}, vatRate={3}, type={4}, ean={5}, url={6}]", 
+                Name, Amount, Count, VatRate, ItemType, Ean, ProductURL
+                );
         }
-
     }
 }

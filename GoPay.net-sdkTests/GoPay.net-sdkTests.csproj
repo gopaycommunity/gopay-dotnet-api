@@ -63,8 +63,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GPConnectorTests.cs" />
+    <Compile Include="unit\CreatePaymentTests.cs" />
+    <Compile Include="unit\EetTests.cs" />
+    <Compile Include="unit\CommonMethodTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="unit\OnDemandPaymentTests.cs" />
+    <Compile Include="unit\PreAuthorizationTests.cs" />
+    <Compile Include="unit\RecurrentPaymentTests.cs" />
+    <Compile Include="unit\RefundsTests.cs" />
+    <Compile Include="unit\TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoPay.net-sdk\GoPay.net-sdk.csproj">

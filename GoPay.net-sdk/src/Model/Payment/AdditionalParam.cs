@@ -13,7 +13,7 @@ namespace GoPay.Model.Payments
 
         public override string ToString()
         {
-            return string.Format("AdditionalParam[{}={}]", Name, Value);
+            return string.Format("AdditionalParam[{0}={1}]", Name, Value);
         }
 
     }

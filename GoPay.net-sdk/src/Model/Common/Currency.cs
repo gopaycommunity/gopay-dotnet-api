@@ -8,9 +8,12 @@ namespace GoPay.Common
     {
 
         [CurrencyCode(203)]CZK,
+        [CurrencyCode(978)]EUR,
         [CurrencyCode(985)]PLN,
-        [CurrencyCode(978)]EUR
-            
+        [CurrencyCode(348)]HUF,
+        [CurrencyCode(840)]USD,
+        [CurrencyCode(826)]GBP
+
     }
 
     public static class CurrencyExtension

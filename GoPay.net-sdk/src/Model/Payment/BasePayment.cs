@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
-using GoPay.Model.Payments;
 using GoPay.Common;
 using Newtonsoft.Json.Converters;
+using GoPay.EETProp;
+using GoPay.Model.Payments;
 
 namespace GoPay.Model.Payment
 {
@@ -46,6 +48,10 @@ namespace GoPay.Model.Payment
         [JsonProperty("lang")]
         public string Lang { get; set; }
 
+        [JsonProperty("eet")]
+        public EET Eet { get; set; }
+
+
         public BasePayment()
         {
             Items = new List<OrderItem>();
@@ -70,5 +76,28 @@ namespace GoPay.Model.Payment
                 Name = name
             });
         }
+
+        public void AddOrderItem(string name, long amount, long count, int vatRate, ItemType type, string ean, string url)
+        {
+            Items.Add(new OrderItem()
+            {
+                Name = name,
+                Amount = amount,
+                Count = count,
+                VatRate = vatRate,
+                ItemType = type,
+                Ean = ean,
+                ProductURL = url
+            });
+        }
+
+        public override string ToString()
+        {
+            return string.Format(
+                   "BasePayment [orderNumber={0}, payer={1}, target={2}, amount={3}, currency={4}, callback={5}, recurrence={6}, preAuthorization={7}, lang={8}]",
+                   OrderNumber, Payer, Target, Amount, Enum.GetName(typeof(Currency), Currency), Callback, Recurrence, PreAuthorization, Lang
+                   );
+        }
+
     }
 }
