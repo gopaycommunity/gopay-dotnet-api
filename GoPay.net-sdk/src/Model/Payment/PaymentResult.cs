@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace GoPay.Payments
@@ -17,14 +18,14 @@ namespace GoPay.Payments
         
         [JsonProperty("result")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public PaymentResults Result { get; set; }
+        public Nullable<PaymentResults> Result { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
 
         public override string ToString()
         {
-            return string.Format("PaymentResult[Id={},Result={},Description={}]", Id, Result, Description);
+            return string.Format("PaymentResult[Id={0},Result={1},Description={2}]", Id, Result, Description);
         }
 
         internal bool Error { get { return false; } }
