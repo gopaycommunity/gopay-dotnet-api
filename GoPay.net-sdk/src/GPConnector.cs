@@ -13,6 +13,7 @@ using GoPay.Common;
 using GoPay.Account;
 using System.Collections.Generic;
 using GoPay.EETProp;
+using GoPay.Supercash;
 
 namespace GoPay
 {
@@ -32,7 +33,7 @@ namespace GoPay
         public GPConnector(string APIUrl, string clientid, string clientsecret)
         {
             Client.BaseUrl = new Uri(APIUrl);
-            ClientID = clientid;         
+            ClientID = clientid;
             ClientSecret = clientsecret;
             Client.UserAgent = "GoPay .NET Client ";
         }
@@ -53,11 +54,11 @@ namespace GoPay
             restRequest.AddParameter("application/x-www-form-urlencoded", "grant_type=client_credentials&scope=" + scope, ParameterType.RequestBody);
             var authenticator = new HttpBasicAuthenticator(ClientID, ClientSecret);
             authenticator.Authenticate(Client, restRequest);
-            var response = Client.Execute(restRequest);    
+            var response = Client.Execute(restRequest);
             AccessToken = Deserialize<AccessToken>(response.Content);
             return this;
         }
-        
+
 
         /// <exception cref="GPClientException"></exception>
         public Payment CreatePayment(BasePayment payment)
@@ -259,6 +260,60 @@ namespace GoPay
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return DeserializeComplex<List<EETReceipt>>(response.Content);
+        }
+
+        /// <exception cref="GPClientException"></exception>
+        public SupercashCoupon CreateSupercashCoupon(SupercashCouponRequest couponRequest)
+        {
+            var restRequest = CreateRestRequest(@"/supercash/coupon", "application/json");
+            restRequest.AddJsonBody(couponRequest);
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<SupercashCoupon>(response);
+        }
+
+        /// <exception cref="GPClientException"></exception>
+        public SupercashBatchResult CreateSupercashCouponBatch(SupercashBatchRequest batchRequest)
+        {
+            var restRequest = CreateRestRequest(@"/supercash/coupon/batch", "application/json");
+            restRequest.AddJsonBody(batchRequest);
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<SupercashBatchResult>(response);
+        }
+
+        /// <exception cref="ApplicationException"></exception>
+        public SupercashBatchState GetSupercashCouponBatchStatus(long batchId)
+        {
+            var restRequest = CreateRestRequest(@"/batch/{batch_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            restRequest.AddParameter("batch_id", batchId, ParameterType.UrlSegment);
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<SupercashBatchState>(response);
+        }
+
+        public SupercashBatch GetSupercashCouponBatch(long batchId, long goid)
+        {
+            var restRequest = CreateRestRequest(@"/supercash/coupon/find?batch_request_id={batch_id}&go_id={go_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            restRequest.AddParameter("batch_id", batchId, ParameterType.UrlSegment);
+            restRequest.AddParameter("go_id", goid, ParameterType.UrlSegment);
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<SupercashBatch>(response);
+        }
+
+        public SupercashBatch FindSupercashCoupons(long goid, params long[] paymentSessionIds)
+        {
+            string ids = string.Join(",", paymentSessionIds);
+            var restRequest = CreateRestRequest(@"/supercash/coupon/find?payment_session_id_list=" + ids + "&go_id={go_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            restRequest.AddParameter("go_id", goid, ParameterType.UrlSegment);
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<SupercashBatch>(response);
+        }
+        
+        public SupercashPayment GetSupercashCoupon(long couponId)
+        {
+            var restRequest = CreateRestRequest(@"/supercash/coupon/{coupon_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            restRequest.AddParameter("coupon_id", couponId, ParameterType.UrlSegment);
+            var response = Client.Execute(restRequest);
+
+            return ProcessResponse<SupercashPayment>(response);
         }
 
         private T ProcessResponse<T>(IRestResponse response)
