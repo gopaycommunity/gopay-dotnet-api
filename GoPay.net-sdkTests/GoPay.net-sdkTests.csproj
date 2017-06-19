@@ -71,6 +71,7 @@
     <Compile Include="unit\PreAuthorizationTests.cs" />
     <Compile Include="unit\RecurrentPaymentTests.cs" />
     <Compile Include="unit\RefundsTests.cs" />
+    <Compile Include="unit\SupercashTests.cs" />
     <Compile Include="unit\TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
