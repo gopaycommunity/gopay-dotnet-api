@@ -6,7 +6,7 @@ Detailed guide: [https://doc.gopay.com](https://doc.gopay.com)
 
 # Requirements
 
- - .NET 4.5.2+
+ - .NET 4.5+
 
 # NuGet #
 
