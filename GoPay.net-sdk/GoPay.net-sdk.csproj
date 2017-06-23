@@ -102,6 +102,15 @@
     <Compile Include="src\Model\Payment\Target.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Model\Payment\VatRate.cs" />
+    <Compile Include="src\Model\Supercash\SupercashBatchRequest.cs" />
+    <Compile Include="src\Model\Supercash\SupercashBatchItem.cs" />
+    <Compile Include="src\Model\Supercash\SupercashCouponRequest.cs" />
+    <Compile Include="src\Model\Supercash\SupercashBatchResult.cs" />
+    <Compile Include="src\Model\Supercash\SupercashBatchState.cs" />
+    <Compile Include="src\Model\Supercash\SubType.cs" />
+    <Compile Include="src\Model\Supercash\SupercashBatch.cs" />
+    <Compile Include="src\Model\Supercash\SupercashCoupon.cs" />
+    <Compile Include="src\Model\Supercash\SupercashPayment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

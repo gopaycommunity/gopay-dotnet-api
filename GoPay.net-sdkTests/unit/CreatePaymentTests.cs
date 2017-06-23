@@ -87,7 +87,6 @@ namespace GoPay.Tests
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
             BasePayment basePayment = createBasePayment();
-
             try
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
@@ -111,6 +110,36 @@ namespace GoPay.Tests
             }
         }
 
+        [TestMethod()]
+        public void GPCOnnectorTestPaymentStatis()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            BasePayment basePayment = createBasePayment();
 
+            try
+            {
+                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                Payment payment = connector.GetAppToken().PaymentStatus(result.Id);
+                
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.Id);
+
+                Console.WriteLine("Payment id: {0}", payment.Id);
+                Console.WriteLine("Payment state: {0}", payment.State);
+                Console.WriteLine("Payment gw_url: {0}", payment.GwUrl);
+                Console.WriteLine("Payment instrument: {0}", payment.PaymentInstrument);
+                Console.WriteLine(result.Payer.Contact);
+            }
+            catch (GPClientException exception)
+            {
+                Console.WriteLine("Create payment ERROR");
+                var err = exception.Error;
+                DateTime date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+                    //
+                }
+            }
+        }
     }
 }
