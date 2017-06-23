@@ -2,8 +2,8 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.1.4</version>
-    <authors>Tomáš Ivaniè, Frantisek Sichinger</authors>
+    <version>1.1.5</version>
+    <authors>Tomas Ivanic, Frantisek Sichinger</authors>
     <owners>GoPay s.r.o.</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
@@ -20,6 +20,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="GoPay.net-sdk\bin\Release\*.dll" target="lib\net452" />
+    <file src="GoPay.net-sdk\bin\Release\*.dll" target="lib\net45" />
   </files>
 </package>
