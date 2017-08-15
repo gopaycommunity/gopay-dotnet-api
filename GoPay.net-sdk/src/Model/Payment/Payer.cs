@@ -35,6 +35,12 @@ namespace GoPay.Model.Payments
         [JsonProperty("bank_account")]
         public BankAccount BankAccount { get; set; }
 
+        [JsonProperty("allowed_card_token")]
+        public string AllowedCardToken { get; set; }
+
+        [JsonProperty("verify_pin")]
+        public string VerifyPin { get; set; }
+
 
         public Payer()
         {
@@ -45,8 +51,8 @@ namespace GoPay.Model.Payments
         public override string ToString()
         {
             return string.Format(
-                    "PayerParty [paymentInstrument={0}, allowedPaymentInstruments={1}, allowedSwifts={2}, defaultPaymentInstrument={3}, defaultSwift={4}, contact={5}, paymentCard={6}, bankAccount={7}]",
-                    PaymentInstrument, AllowedPaymentInstruments, AllowedSwifts, DefaultPaymentInstrument, DefaultSwift, Contact, PaymendCard, BankAccount);
+                    "PayerParty [paymentInstrument={0}, allowedPaymentInstruments={1}, allowedSwifts={2}, defaultPaymentInstrument={3}, defaultSwift={4}, contact={5}, paymentCard={6}, bankAccount={7}, allowedCardToken={8}, verifyPin={9}]",
+                    PaymentInstrument, AllowedPaymentInstruments, AllowedSwifts, DefaultPaymentInstrument, DefaultSwift, Contact, PaymendCard, BankAccount, AllowedCardToken, VerifyPin);
         }
 
     }

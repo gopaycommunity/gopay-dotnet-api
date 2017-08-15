@@ -21,12 +21,18 @@ namespace GoPay.Model.Payments
         [JsonProperty("card_issuer_bank")]
         public string CardIssuerBank { get; set; }
 
+        [JsonProperty("card_token")]
+        public string CardToken { get; set; }
+
+        [JsonProperty("3ds_result")]
+        public string ThreeDResult { get; set; }
+
 
         public override string ToString()
         {
             return string.Format(
-                    "PayerPaymentCard [cardNumber={0}, cardExpiration={1}, cardBrand={2}, cardIssuerCountry={3}, cardIssuerBank={4}]",
-                    CardNumber, CardExpiration, CardBrand, CardIssuerCountry, CardIssuerBank
+                    "PayerPaymentCard [cardNumber={0}, cardExpiration={1}, cardBrand={2}, cardIssuerCountry={3}, cardIssuerBank={4}, cardToken={5}, threeDResult={6}]",
+                    CardNumber, CardExpiration, CardBrand, CardIssuerCountry, CardIssuerBank, CardToken, ThreeDResult
                     );
         }
 

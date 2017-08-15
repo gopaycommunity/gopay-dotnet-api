@@ -228,3 +228,6 @@ FakesAssemblies/
 
 # GhostDoc plugin setting file
 *.GhostDoc.xml
+
+# Dll files
+*.dll

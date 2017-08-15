@@ -1,32 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
-using System.Collections.Generic;
 
 namespace GoPay.Tests
-
 {
     [TestClass()]
-    public class CreatePaymentTests
+    public class CardTokenTests
     {
 
-        public static BasePayment createBasePayment()
+        public static BasePayment createBaseCardTokenPayment()
         {
             List<AdditionalParam> addParams = new List<AdditionalParam>();
             addParams.Add(new AdditionalParam() { Name = "AdditionalKey", Value = "AdditionalValue" });
 
             List<OrderItem> addItems = new List<OrderItem>();
-            addItems.Add(new OrderItem() { Name = "First Item", Amount = 1700, Count = 1 });
+            addItems.Add(new OrderItem() { Name = "First Item", Amount = 4000, Count = 1 });
 
             List<PaymentInstrument> allowedInstruments = new List<PaymentInstrument>();
-            allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
             allowedInstruments.Add(PaymentInstrument.PAYMENT_CARD);
-
-            List<string> swifts = new List<string>();
-            swifts.Add("GIBACZPX");
-            swifts.Add("RZBCCZPP");
 
             BasePayment basePayment = new BasePayment()
             {
@@ -37,7 +31,7 @@ namespace GoPay.Tests
                 },
 
                 OrderNumber = "4321",
-                Amount = 1700,
+                Amount = 4000,
                 Currency = Currency.CZK,
                 OrderDescription = "4321Description",
 
@@ -56,13 +50,15 @@ namespace GoPay.Tests
                 Payer = new Payer()
                 {
                     AllowedPaymentInstruments = allowedInstruments,
-                    AllowedSwifts = swifts,
-                    //DefaultPaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
-                    //PaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
+                    DefaultPaymentInstrument = PaymentInstrument.PAYMENT_CARD,
                     Contact = new PayerContact()
                     {
-                        Email = "test@test.gopay.cz"
-                    }
+                        FirstName = "Jarda",
+                        LastName = "Sokol",
+                        Email = "test-sokol27@test.cz"
+                    },
+                    AllowedCardToken = "VUHweq2TUuQpgU6UaD4c+123xzUwTBXiZK7jHhW7rhSbUb07XcG69Q0cwTxTYvBG3qyym3sJ5zphQS4vL0kEHvvinxXYMqkZtx4rBA9mtZj9JSpy4cIHkXnH3gR+i6CoQ4M+zI2EXGJ+TQ==",
+                    // VerifyPin = ""
                 }
             };
 
@@ -71,11 +67,11 @@ namespace GoPay.Tests
 
 
         [TestMethod()]
-        public void GPConnectorTestCreatePayment()
+        public void GPConnectorTestPaymentWithCardToken()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
-            BasePayment basePayment = createBasePayment();
+            BasePayment basePayment = createBaseCardTokenPayment();
             try
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
@@ -99,30 +95,28 @@ namespace GoPay.Tests
             }
         }
 
-        [TestMethod()]
-        public void GPCOnnectorTestPaymentStatis()
-        {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            BasePayment basePayment = createBasePayment();
 
+        [TestMethod()]
+        public void GPConnectorTestCardTokenPaymentStatus()
+        {
+            long id = 3052269740;
+
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
-                Payment payment = connector.GetAppToken().PaymentStatus(result.Id);
-                
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.Id);
+                var payment = connector.GetAppToken().PaymentStatus(id);
+                Assert.IsNotNull(payment.Id);
 
                 Console.WriteLine("Payment id: {0}", payment.Id);
-                Console.WriteLine("Payment state: {0}", payment.State);
                 Console.WriteLine("Payment gw_url: {0}", payment.GwUrl);
-                Console.WriteLine("Payment instrument: {0}", payment.PaymentInstrument);
-                Console.WriteLine(result.Payer.Contact);
+                Console.WriteLine("Payment state: {0}", payment.State);
+                Console.WriteLine("PayerCard - card token: {0}", payment.Payer.PaymendCard.CardToken);
+                Console.WriteLine("Payer 3DS Result: {0}", payment.Payer.PaymendCard.ThreeDResult);
             }
-            catch (GPClientException exception)
+            catch (GPClientException ex)
             {
-                Console.WriteLine("Create payment ERROR");
-                var err = exception.Error;
+                Console.WriteLine("Payment status ERROR");
+                var err = ex.Error;
                 DateTime date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
@@ -130,5 +124,6 @@ namespace GoPay.Tests
                 }
             }
         }
+
     }
 }

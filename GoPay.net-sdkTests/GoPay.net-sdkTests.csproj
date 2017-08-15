@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="unit\CardTokenTests.cs" />
     <Compile Include="unit\CreatePaymentTests.cs" />
     <Compile Include="unit\EetTests.cs" />
     <Compile Include="unit\CommonMethodTests.cs" />
