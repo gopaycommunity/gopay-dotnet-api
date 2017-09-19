@@ -80,6 +80,7 @@
     <Compile Include="src\Model\Payment\BankAccount.cs" />
     <Compile Include="src\Model\Payment\BasePayment.cs" />
     <Compile Include="src\Model\Payment\Callback.cs" />
+    <Compile Include="src\Model\Payment\CapturePayment.cs" />
     <Compile Include="src\Model\Payment\EnabledPaymentInstrument.cs" />
     <Compile Include="src\Model\Payment\Group.cs" />
     <Compile Include="src\Model\Payment\Image.cs" />

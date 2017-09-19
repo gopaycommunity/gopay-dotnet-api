@@ -176,6 +176,16 @@ namespace GoPay
         }
 
         /// <exception cref="GPClientException"></exception>
+        public PaymentResult CapturePayment(long id, CapturePayment capturePayment)
+        {
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture", "application/json");
+            restRequest.AddParameter("id", id, ParameterType.UrlSegment);
+            restRequest.AddJsonBody(capturePayment);
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<PaymentResult>(response);
+        }
+
+        /// <exception cref="GPClientException"></exception>
         public PaymentResult VoidAuthorization(long id)
         {
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-authorization", "application/x-www-form-urlencoded");
