@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using GoPay.Common;
 using GoPay.Account;
 using System.Collections.Generic;
+using System.Net;
 using GoPay.EETProp;
 using GoPay.Supercash;
 
@@ -30,8 +31,11 @@ namespace GoPay
             Client = new RestClient();
         }
 
-        public GPConnector(string APIUrl, string clientid, string clientsecret)
+        public GPConnector(string APIUrl, string clientid, string clientsecret, bool setSecurityProtocol = true)
         {
+            if (setSecurityProtocol) { 
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            }
             Client.BaseUrl = new Uri(APIUrl);
             ClientID = clientid;
             ClientSecret = clientsecret;
