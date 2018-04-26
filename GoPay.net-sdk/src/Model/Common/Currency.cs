@@ -7,12 +7,24 @@ namespace GoPay.Common
     public enum Currency
     {
 
-        [CurrencyCode(203)]CZK,
-        [CurrencyCode(978)]EUR,
-        [CurrencyCode(985)]PLN,
-        [CurrencyCode(348)]HUF,
-        [CurrencyCode(840)]USD,
-        [CurrencyCode(826)]GBP
+        [CurrencyCode(203)]
+        CZK,
+        [CurrencyCode(978)]
+        EUR,
+        [CurrencyCode(985)]
+        PLN,
+        [CurrencyCode(348)]
+        HUF,
+        [CurrencyCode(840)]
+        USD,
+        [CurrencyCode(826)]
+        GBP,
+        [CurrencyCode(191)]
+        HRK,
+        [CurrencyCode(975)]
+        BGN,
+        [CurrencyCode(946)]
+        RON
 
     }
 
