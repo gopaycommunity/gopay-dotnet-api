@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
-using System.Collections.Generic;
 
 namespace GoPay.Tests
 
@@ -11,6 +9,7 @@ namespace GoPay.Tests
     [TestClass()]
     public class PreAuthorizationTests
     {
+        
 
         //[TestMethod()]
         public void GPConnectorTestCreatePreAuthorizedPayment()

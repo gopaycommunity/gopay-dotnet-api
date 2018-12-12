@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using GoPay.Model.Payments;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace GoPay.Common
 {

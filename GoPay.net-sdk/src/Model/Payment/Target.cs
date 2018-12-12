@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+
 namespace GoPay.Model.Payments
 {
     public class Target

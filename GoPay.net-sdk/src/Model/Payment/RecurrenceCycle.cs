@@ -1,9 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel;
-
-namespace GoPay.Model.Payments
+﻿namespace GoPay.Model.Payments
 {
     public enum RecurrenceCycle
     {

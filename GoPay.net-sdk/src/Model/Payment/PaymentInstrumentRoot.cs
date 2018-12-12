@@ -1,5 +1,4 @@
-﻿using System;
-using GoPay.Common;
+﻿using GoPay.Common;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

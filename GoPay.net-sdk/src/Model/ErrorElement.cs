@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using GoPay.Common;
 using Newtonsoft.Json.Converters;
 
 namespace GoPay.Model

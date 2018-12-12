@@ -73,6 +73,9 @@ namespace GoPay.Model.Payments
         [JsonProperty("eet_code")]
         public EETCode EetCode { get; set; }
 
+        [JsonProperty("items")]
+        public IList<OrderItem> Items { get; set; }
+
 
         public Payment()
         {

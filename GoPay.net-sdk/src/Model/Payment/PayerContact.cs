@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using GoPay.Common;
 using Newtonsoft.Json.Converters;

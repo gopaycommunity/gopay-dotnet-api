@@ -68,7 +68,10 @@ namespace GoPay
         public Payment CreatePayment(BasePayment payment)
         {
             var restRequest = CreateRestRequest(@"/payments/payment", "application/json");
-            restRequest.AddJsonBody(payment);
+
+            var jsonData = serializeToJson(payment);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
         }
@@ -76,7 +79,10 @@ namespace GoPay
         public async Task<Payment> CreatePaymentAsync(BasePayment payment)
         {
             var restRequest = CreateRestRequest(@"/payments/payment", "application/json");
-            restRequest.AddJsonBody(payment);
+
+            var jsonData = serializeToJson(payment);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+            
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => ProcessResponse<Payment>(response));
         }
@@ -107,7 +113,11 @@ namespace GoPay
         {
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", "application/json");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
-            restRequest.AddJsonBody(refundPayment);
+
+
+            var jsonData = serializeToJson(refundPayment);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
             var response = Client.Execute<PaymentResult>(restRequest);
             return ProcessResponse<PaymentResult>(response);
         }
@@ -117,7 +127,12 @@ namespace GoPay
         {
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", "application/json");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
-            restRequest.AddJsonBody(refundPayment);
+
+            var jsonData = serializeToJson(refundPayment);
+        
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
+
             var response = await Client.ExecuteTaskAsync(restRequest);
             var result = await Task.Factory.StartNew(() => ProcessResponse<PaymentResult>(response));
             return result;
@@ -126,10 +141,13 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public Payment CreateRecurrentPayment(long id, NextPayment nextPayment)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/create-recurrence", "application/json");
-            restRequest.AddParameter("id", id, ParameterType.UrlSegment);
-            restRequest.AddJsonBody(nextPayment);
-            var response = Client.Execute(restRequest);
+            var recurrentPayment = CreateRestRequest(@"/payments/payment/{id}/create-recurrence", "application/json");
+            recurrentPayment.AddParameter("id", id, ParameterType.UrlSegment);
+
+            var jsonData = serializeToJson(nextPayment);
+            recurrentPayment.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
+            var response = Client.Execute(recurrentPayment);
             return ProcessResponse<Payment>(response);
         }
 
@@ -184,7 +202,10 @@ namespace GoPay
         {
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture", "application/json");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
-            restRequest.AddJsonBody(capturePayment);
+
+            var jsonData = serializeToJson(capturePayment);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
             var response = Client.Execute(restRequest);
             return ProcessResponse<PaymentResult>(response);
         }
@@ -214,11 +235,11 @@ namespace GoPay
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
         }
-
+        
         /// <exception cref="ApplicationException"></exception>
         public async Task<Payment> PaymentStatusAsync(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded", null, Method.GET);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => Deserialize<Payment>(response.Content));
@@ -244,9 +265,10 @@ namespace GoPay
         public byte[] GetStatement(AccountStatement accountStatement)
         {
             var restRequest = CreateRestRequest(@"/accounts/account-statement", "application/json");
-            restRequest.AddJsonBody(accountStatement);
-            var response = Client.Execute(restRequest);
+            var jsonData = serializeToJson(accountStatement);
 
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+            var response = Client.Execute(restRequest);
             string content = response.Content.ToString();
 
             if (content.Contains("error_code"))
@@ -261,7 +283,10 @@ namespace GoPay
         public List<EETReceipt> FindEETReceiptsByFilter(EETReceiptFilter filter)
         {
             var restRequest = CreateRestRequest(@"/eet-receipts", "application/json");
-            restRequest.AddJsonBody(filter);
+
+            var jsonData = serializeToJson(filter);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
             var response = Client.Execute(restRequest);
             return DeserializeComplex<List<EETReceipt>>(response.Content);
 
@@ -280,7 +305,10 @@ namespace GoPay
         public SupercashCoupon CreateSupercashCoupon(SupercashCouponRequest couponRequest)
         {
             var restRequest = CreateRestRequest(@"/supercash/coupon", "application/json");
-            restRequest.AddJsonBody(couponRequest);
+
+            var jsonData = serializeToJson(couponRequest);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
             var response = Client.Execute(restRequest);
             return ProcessResponse<SupercashCoupon>(response);
         }
@@ -289,7 +317,9 @@ namespace GoPay
         public SupercashBatchResult CreateSupercashCouponBatch(SupercashBatchRequest batchRequest)
         {
             var restRequest = CreateRestRequest(@"/supercash/coupon/batch", "application/json");
-            restRequest.AddJsonBody(batchRequest);
+
+            var jsonData = serializeToJson(batchRequest);
+            restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
             var response = Client.Execute(restRequest);
             return ProcessResponse<SupercashBatchResult>(response);
         }
@@ -390,6 +420,14 @@ namespace GoPay
             both[0] = both[0].Replace("bank-transfer", "bank_transfer");
             content = both[0] + "enabledPaymentInstruments" + both[1];
             return content;
+        }
+
+        private string serializeToJson(object o)
+        {
+            return JsonConvert.SerializeObject(o, Formatting.Indented, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
         }
     }
 }
