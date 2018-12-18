@@ -411,6 +411,11 @@ namespace GoPay
             return restRequest;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         private string ProcessPaymentInstrumentRootContent(string content)
         {
             string[] separator = new string[1];

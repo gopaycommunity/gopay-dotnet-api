@@ -6,7 +6,7 @@
      BANK_ACCOUNT, 
      PRSMS, 
      MPAYMENT, 
-     COUPON, 
+     COUPON,
      PAYSAFECARD, 
      SUPERCASH, 
      GOPAY, 
@@ -14,7 +14,8 @@
      BITCOIN, 
      MASTERPASS, 
      ACCOUNT, 
-     GPAY
-
+     GPAY,
+     
+     UNKNOWN
     }
 }
