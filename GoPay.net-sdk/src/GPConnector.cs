@@ -33,7 +33,7 @@ namespace GoPay
 
         public GPConnector(string APIUrl, string clientid, string clientsecret, bool setSecurityProtocol = true)
         {
-            if (setSecurityProtocol) { 
+            if (setSecurityProtocol) {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             }
             Client.BaseUrl = new Uri(APIUrl);
@@ -59,6 +59,7 @@ namespace GoPay
             var authenticator = new HttpBasicAuthenticator(ClientID, ClientSecret);
             authenticator.Authenticate(Client, restRequest);
             var response = Client.Execute(restRequest);
+            OnIncomingDataEvent(response);
             AccessToken = Deserialize<AccessToken>(response.Content);
             return this;
         }
@@ -73,6 +74,7 @@ namespace GoPay
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
 
             var response = Client.Execute(restRequest);
+           
             return ProcessResponse<Payment>(response);
         }
 
@@ -82,7 +84,7 @@ namespace GoPay
 
             var jsonData = serializeToJson(payment);
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
-            
+
             var response = await Client.ExecuteTaskAsync(restRequest);
             return await Task.Factory.StartNew(() => ProcessResponse<Payment>(response));
         }
@@ -104,6 +106,7 @@ namespace GoPay
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             restRequest.AddParameter("amount", amount);
             var response = await Client.ExecuteTaskAsync(restRequest);
+
             var result = await Task.Factory.StartNew(() => ProcessResponse<PaymentResult>(response));
             return result;
         }
@@ -117,7 +120,7 @@ namespace GoPay
 
             var jsonData = serializeToJson(refundPayment);
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
-
+            
             var response = Client.Execute<PaymentResult>(restRequest);
             return ProcessResponse<PaymentResult>(response);
         }
@@ -129,9 +132,7 @@ namespace GoPay
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
 
             var jsonData = serializeToJson(refundPayment);
-        
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
-
 
             var response = await Client.ExecuteTaskAsync(restRequest);
             var result = await Task.Factory.StartNew(() => ProcessResponse<PaymentResult>(response));
@@ -153,10 +154,14 @@ namespace GoPay
 
         public async Task<Payment> CreateRecurrentPaymentAsync(long id, NextPayment nextPayment)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/create-recurrence", "application/json");
-            restRequest.AddParameter("id", id, ParameterType.UrlSegment);
-            var content = await Client.ExecuteTaskAsync(restRequest);
-            var result = await Task.Factory.StartNew(() => Deserialize<Payment>(content.Content));
+            var recurrentPayment = CreateRestRequest(@"/payments/payment/{id}/create-recurrence", "application/json");
+            recurrentPayment.AddParameter("id", id, ParameterType.UrlSegment);
+
+            var jsonData = serializeToJson(nextPayment);
+            recurrentPayment.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+
+            var content = await Client.ExecuteTaskAsync(recurrentPayment);
+            var result = await Task.Factory.StartNew(() => ProcessResponse<Payment>(content));
             return result;
         }
 
@@ -175,7 +180,7 @@ namespace GoPay
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-recurrence", "application/x-www-form-urlencoded");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
-            var result = await Task.Factory.StartNew(() => Deserialize<PaymentResult>(response.Content));
+            var result = await Task.Factory.StartNew(() => ProcessResponse<PaymentResult>(response));
             return result;
         }
 
@@ -194,7 +199,7 @@ namespace GoPay
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/capture", "application/x-www-form-urlencoded");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
-            return await Task.Factory.StartNew(() => Deserialize<PaymentResult>(response.Content));
+            return await Task.Factory.StartNew(() => ProcessResponse<PaymentResult>(response));
         }
 
         /// <exception cref="GPClientException"></exception>
@@ -225,7 +230,7 @@ namespace GoPay
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/void-authorization", "application/x-www-form-urlencoded");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
-            return await Task.Factory.StartNew(() => Deserialize<PaymentResult>(response.Content));
+            return await Task.Factory.StartNew(() => ProcessResponse<PaymentResult>(response));
         }
 
         /// <exception cref="ApplicationException"></exception>
@@ -235,14 +240,14 @@ namespace GoPay
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
         }
-        
+
         /// <exception cref="ApplicationException"></exception>
         public async Task<Payment> PaymentStatusAsync(long id)
         {
             var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded", null, Method.GET);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteTaskAsync(restRequest);
-            return await Task.Factory.StartNew(() => Deserialize<Payment>(response.Content));
+            return await Task.Factory.StartNew(() => ProcessResponse<Payment>(response));
         }
 
         /// <exception cref="GPClientException"></exception>
@@ -273,7 +278,7 @@ namespace GoPay
 
             if (content.Contains("error_code"))
             {
-                Deserialize<APIError>(content);
+                ProcessResponse<APIError>(response);
             }
 
             return System.Text.Encoding.UTF8.GetBytes(content);
@@ -350,7 +355,7 @@ namespace GoPay
             var response = Client.Execute(restRequest);
             return ProcessResponse<SupercashBatch>(response);
         }
-        
+
         public SupercashPayment GetSupercashCoupon(long couponId)
         {
             var restRequest = CreateRestRequest(@"/supercash/coupon/{coupon_id}", "application/x-www-form-urlencoded", null, Method.GET);
@@ -362,18 +367,19 @@ namespace GoPay
 
         private T ProcessResponse<T>(IRestResponse response)
         {
+            OnIncomingDataEvent(response);
             return Deserialize<T>(response.Content);
         }
 
         private T Deserialize<T>(string Content)
         {
-            
+
             var err = JsonConvert.DeserializeObject<APIError>(Content);
             if (err.ErrorMessages != null)
             {
                 throw new GPClientException() { Error = err };
             }
-            
+
             return JsonConvert.DeserializeObject<T>(Content);
         }
 
@@ -395,9 +401,9 @@ namespace GoPay
 
         private IRestRequest CreateRestRequest(string url, string contentType, Parameter parameter, Method method = Method.POST)
         {
-            
+
             var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(url, method);
-            if (parameter != null) { 
+            if (parameter != null) {
                 restRequest.AddParameter(parameter);
             }
             restRequest.AddHeader("Accept", "application/json");
@@ -433,6 +439,38 @@ namespace GoPay
             {
                 NullValueHandling = NullValueHandling.Ignore
             });
+
+        }
+
+        private void OnIncomingDataEvent(IRestResponse response)
+        {
+            IncomingDataEventHandler.Invoke(this, ResponseToSHD(response));
+        }
+
+        public delegate void ServerEventHandler(object sender, ServerHandlerData myValue);
+
+        public event ServerEventHandler IncomingDataEventHandler = delegate { };
+
+        public struct ServerHandlerData
+        {
+            public long ContentLength { get; internal set; }
+            public HttpStatusCode HttpStatusCode { get; internal set; }
+            public byte[] Body { get; internal set; }
+            public string StatusDescription { get; internal set; }
+            public string ContentEncoding { get; internal set; }
+            public string ContentType { get; internal set; }
+        }
+
+        public ServerHandlerData ResponseToSHD(IRestResponse response)
+        {
+            return new ServerHandlerData
+            {
+                HttpStatusCode = response.StatusCode,
+                Body = (byte[]) response.RawBytes.Clone(),
+                StatusDescription = response.StatusDescription,
+                ContentEncoding = response.ContentEncoding,
+                ContentType = response.ContentType
+            };
         }
     }
 }

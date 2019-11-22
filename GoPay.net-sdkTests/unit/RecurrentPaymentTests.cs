@@ -75,6 +75,5 @@ namespace GoPay.Tests
                 }
             }
         }
-
     }
 }

@@ -75,6 +75,8 @@ namespace GoPay.Tests
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
+            connector.IncomingDataEventHandler += incomingDataListener;
+
             BasePayment basePayment = createBasePayment();
             try
             {
@@ -97,6 +99,12 @@ namespace GoPay.Tests
                     //
                 }
             }
+        }
+
+        private void incomingDataListener(object sender, GPConnector.ServerHandlerData data)
+        {
+            var body = System.Text.Encoding.UTF8.GetString(data.Body, 0, data.Body.Length);
+            Console.WriteLine($"{data.HttpStatusCode} {body}");
         }
 
         [TestMethod()]

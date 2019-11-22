@@ -1,50 +1,74 @@
 <?xml version="1.0"?>
 
-<package >
 
+    <package >
+
+     
   <metadata>
 
-    <id>GoPay.NET</id>
 
-    <version>1.1.8</version>
+         <id>GoPay.NET</id>
 
-    <authors>Tomas Ivanic, Frantisek Sichinger</authors>
 
-    <owners>GoPay s.r.o.</owners>
+         <version>1.1.12</version>
 
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
 
+         <authors>Tomas Ivanic, Frantisek Sichinger</authors>
+
+
+         <owners>GoPay s.r.o.</owners>
+
+
+         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+
+     
     <projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
 
-    <iconUrl>https://www.platebnibrana.cz/theme/images/brand/gopay-logo-color.png?v=0.4.3</iconUrl>
 
+         <iconUrl>https://dl.dropboxusercontent.com/s/789td1ftr97101z/icona-gopay-blue.png?dl=0</iconUrl>
+
+     
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
+     
     <description>Gopay .net sdk</description>
 
 
-    <releaseNotes>First release.</releaseNotes>
 
+         <releaseNotes>First release.</releaseNotes>
+
+     
     <copyright>Copyright 2018</copyright>
 
+     
     <tags>GoPay Platebni brana</tags>
 
-    <dependencies>
+
+         <dependencies>
+
  
-     <dependency id="Newtonsoft.Json" version="9.0.1" />
+          <dependency id="Newtonsoft.Json" version="9.0.1" />
 
-      <dependency id="RestSharp" version="105.2.3"/>
+ 
+           <dependency id="RestSharp" version="105.2.3"/>
 
-      <dependency id="RestSharp.Newtonsoft.Json" version="1.0.0"/>
 
+           <dependency id="RestSharp.Newtonsoft.Json" version="1.0.0"/>
+
+     
     </dependencies>
 
-  </metadata>
 
+       </metadata>
+
+     
   <files>
 
+     
     <file src="GoPay.net-sdk\bin\Release\*.dll" target="lib\net45" />
 
+     
   </files>
+
 
 </package>

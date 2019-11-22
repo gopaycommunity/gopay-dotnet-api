@@ -66,6 +66,7 @@
     <Compile Include="src\Model\Common\Currency.cs" />
     <Compile Include="src\Model\AccessToken.cs" />
     <Compile Include="src\Model\AuthHeader.cs" />
+    <Compile Include="src\Model\Common\DefensiveJsonEnumStringConvertor.cs" />
     <Compile Include="src\Model\Common\SessionSubState.cs" />
     <Compile Include="src\Model\Account\StatementGeneratingFormat.cs" />
     <Compile Include="src\Model\EET\EET.cs" />
