@@ -25,7 +25,7 @@ namespace GoPay
         internal static RestClient Client { get; private set; }
         private string ClientID;
         private string ClientSecret;
-
+        
         static GPConnector()
         {
             Client = new RestClient();
@@ -60,7 +60,7 @@ namespace GoPay
             authenticator.Authenticate(Client, restRequest);
             var response = Client.Execute(restRequest);
             OnIncomingDataEvent(response);
-            AccessToken = Deserialize<AccessToken>(response.Content);
+            AccessToken = ProcessResponse<AccessToken>(response);
             return this;
         }
 
@@ -293,7 +293,7 @@ namespace GoPay
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
 
             var response = Client.Execute(restRequest);
-            return DeserializeComplex<List<EETReceipt>>(response.Content);
+            return processComplex<List<EETReceipt>>(response);
 
         }
 
@@ -303,7 +303,7 @@ namespace GoPay
             var restRequest = CreateRestRequest(@"/payments/payment/{id}/eet-receipts", "application/json", null, Method.GET);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
-            return DeserializeComplex<List<EETReceipt>>(response.Content);
+            return processComplex<List<EETReceipt>>(response);
         }
 
         /// <exception cref="GPClientException"></exception>
@@ -368,19 +368,34 @@ namespace GoPay
         private T ProcessResponse<T>(IRestResponse response)
         {
             OnIncomingDataEvent(response);
-            return Deserialize<T>(response.Content);
+            try { 
+                return Deserialize<T>(response.Content);
+            } catch (Exception e)
+            {
+                throw new GPClientException($"Could not read server response. HTTP Stats code: \"{response.StatusCode}\", Content: \"{response.Content}\", {response.ErrorMessage}");
+            }
         }
 
         private T Deserialize<T>(string Content)
         {
-
             var err = JsonConvert.DeserializeObject<APIError>(Content);
             if (err.ErrorMessages != null)
             {
                 throw new GPClientException() { Error = err };
             }
-
             return JsonConvert.DeserializeObject<T>(Content);
+        }
+
+        private T processComplex<T>(IRestResponse response)
+        {
+            try
+            {
+                return DeserializeComplex<T>(response.Content);
+            }
+            catch (Exception e)
+            {
+                throw new GPClientException($"Could not read server response. HTTP Stats code: \"{response.StatusCode}\", Content: \"{response.Content}\", {response.ErrorMessage}");
+            }
         }
 
         private T DeserializeComplex<T>(string Content)
@@ -389,8 +404,7 @@ namespace GoPay
             {
                 Deserialize<APIError>(Content);
             }
-
-            return JsonConvert.DeserializeObject<T>(Content);
+            return JsonConvert.DeserializeObject<T>(Content);          
         }
 
 
@@ -466,10 +480,10 @@ namespace GoPay
             return new ServerHandlerData
             {
                 HttpStatusCode = response.StatusCode,
-                Body = (byte[]) response.RawBytes.Clone(),
+                Body = (byte[]) (response.RawBytes == null ? null : response.RawBytes.Clone()),
                 StatusDescription = response.StatusDescription,
                 ContentEncoding = response.ContentEncoding,
-                ContentType = response.ContentType
+                ContentType = response.ContentType                
             };
         }
     }

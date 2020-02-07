@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
-using System.Collections.Generic;
 
 namespace GoPay.Tests
 {
@@ -20,9 +18,8 @@ namespace GoPay.Tests
 
             Recurrence recurrence = new Recurrence()
             {
-                Cycle = RecurrenceCycle.WEEK,
-                Period = 1,
-                DateTo = new DateTime(2018, 4, 1)
+                Cycle = RecurrenceCycle.ON_DEMAND,
+                DateTo = new DateTime(2022, 4, 1)
             };
 
             basePayment.Recurrence = recurrence;
@@ -30,6 +27,7 @@ namespace GoPay.Tests
             try
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
+              
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 
@@ -49,6 +47,7 @@ namespace GoPay.Tests
                     //
                 }
             }
+            
         }
 
 
