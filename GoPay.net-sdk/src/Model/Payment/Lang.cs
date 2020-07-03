@@ -7,5 +7,13 @@
         public const string SK = "SK";
         public const string DE = "DE";
         public const string RU = "RU";
+        public const string PL = "PL";
+        public const string HU = "HU";
+        public const string FR = "FR";
+        public const string RO = "RO";
+        public const string BG = "BG";
+        public const string HR = "HR";
+        public const string IT = "IT";
+        public const string ES = "ES";
     }
 }

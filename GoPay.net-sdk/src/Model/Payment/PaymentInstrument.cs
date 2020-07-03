@@ -15,7 +15,8 @@
      MASTERPASS, 
      ACCOUNT, 
      GPAY,
-     
+     APPLE_PAY,
+
      UNKNOWN
     }
 }

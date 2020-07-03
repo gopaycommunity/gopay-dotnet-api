@@ -8,7 +8,12 @@ namespace GoPay
 
         public GPClientException() : base() { }
 
-        public GPClientException(string message) : base(message) {}
+        public GPClientException(string message) : base(message) { }
+
+        public GPClientException(APIError error) : base()
+        {
+            Error = error;
+        }
 
         public APIError Error { get; set; }
     }

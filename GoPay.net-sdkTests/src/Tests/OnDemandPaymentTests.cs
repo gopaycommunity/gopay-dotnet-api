@@ -3,7 +3,6 @@ using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
-using System.Collections.Generic;
 
 namespace GoPay.Tests
 

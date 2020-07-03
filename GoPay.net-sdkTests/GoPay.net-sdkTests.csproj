@@ -36,9 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
@@ -63,17 +62,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="unit\CardTokenTests.cs" />
-    <Compile Include="unit\CreatePaymentTests.cs" />
-    <Compile Include="unit\EetTests.cs" />
-    <Compile Include="unit\CommonMethodTests.cs" />
+    <Compile Include="src\Tests\CardTokenTests.cs" />
+    <Compile Include="src\Tests\CreatePaymentTests.cs" />
+    <Compile Include="src\Tests\EetTests.cs" />
+    <Compile Include="src\Tests\CommonMethodTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="unit\OnDemandPaymentTests.cs" />
-    <Compile Include="unit\PreAuthorizationTests.cs" />
-    <Compile Include="unit\RecurrentPaymentTests.cs" />
-    <Compile Include="unit\RefundsTests.cs" />
-    <Compile Include="unit\SupercashTests.cs" />
-    <Compile Include="unit\TestUtils.cs" />
+    <Compile Include="src\Tests\OnDemandPaymentTests.cs" />
+    <Compile Include="src\Tests\PreAuthorizationTests.cs" />
+    <Compile Include="src\Tests\RecurrentPaymentTests.cs" />
+    <Compile Include="src\Tests\RefundsTests.cs" />
+    <Compile Include="src\Tests\SupercashTests.cs" />
+    <Compile Include="src\Tests\TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoPay.net-sdk\GoPay.net-sdk.csproj">

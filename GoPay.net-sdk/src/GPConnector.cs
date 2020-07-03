@@ -25,7 +25,7 @@ namespace GoPay
         internal static RestClient Client { get; private set; }
         private string ClientID;
         private string ClientSecret;
-        
+
         static GPConnector()
         {
             Client = new RestClient();
@@ -74,7 +74,7 @@ namespace GoPay
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
 
             var response = Client.Execute(restRequest);
-           
+
             return ProcessResponse<Payment>(response);
         }
 
@@ -120,7 +120,7 @@ namespace GoPay
 
             var jsonData = serializeToJson(refundPayment);
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
-            
+
             var response = Client.Execute<PaymentResult>(restRequest);
             return ProcessResponse<PaymentResult>(response);
         }
@@ -306,6 +306,7 @@ namespace GoPay
             return processComplex<List<EETReceipt>>(response);
         }
 
+        [Obsolete("Payment method SuperCash is no longer supported", false)]
         /// <exception cref="GPClientException"></exception>
         public SupercashCoupon CreateSupercashCoupon(SupercashCouponRequest couponRequest)
         {
@@ -318,6 +319,7 @@ namespace GoPay
             return ProcessResponse<SupercashCoupon>(response);
         }
 
+        [Obsolete("Payment method SuperCash is no longer supported", false)]
         /// <exception cref="GPClientException"></exception>
         public SupercashBatchResult CreateSupercashCouponBatch(SupercashBatchRequest batchRequest)
         {
@@ -368,9 +370,15 @@ namespace GoPay
         private T ProcessResponse<T>(IRestResponse response)
         {
             OnIncomingDataEvent(response);
-            try { 
+            try
+            {
                 return Deserialize<T>(response.Content);
-            } catch (Exception e)
+            }
+            catch (GPClientException)
+            {
+                throw;
+            }
+            catch (Exception)
             {
                 throw new GPClientException($"Could not read server response. HTTP Stats code: \"{response.StatusCode}\", Content: \"{response.Content}\", {response.ErrorMessage}");
             }
@@ -381,7 +389,9 @@ namespace GoPay
             var err = JsonConvert.DeserializeObject<APIError>(Content);
             if (err.ErrorMessages != null)
             {
-                throw new GPClientException() { Error = err };
+                var ex = new GPClientException();
+                ex.Error = err;
+                throw ex;
             }
             return JsonConvert.DeserializeObject<T>(Content);
         }
@@ -392,7 +402,7 @@ namespace GoPay
             {
                 return DeserializeComplex<T>(response.Content);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new GPClientException($"Could not read server response. HTTP Stats code: \"{response.StatusCode}\", Content: \"{response.Content}\", {response.ErrorMessage}");
             }
