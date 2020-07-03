@@ -1,74 +1,27 @@
 <?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>GoPay.NET</id>
+		<version>1.1.14</version>
+		<authors>Tomas Ivanic, Frantisek Sichinger</authors>
+		<owners>GoPay s.r.o.</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
+		<icon>images/icon.png</icon>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>GoPay .NET sdk</description>
+		<releaseNotes>Added apple pay, updated supported languages, updated newtonsoft.json</releaseNotes>
+		<copyright>Copyright 2020</copyright>
+		<tags>GoPay Platebni brana</tags>
+		<dependencies>
+			<dependency id="Newtonsoft.Json" version="12.0.3" />
+			<dependency id="RestSharp" version="105.2.3"/>
+			<dependency id="RestSharp.Newtonsoft.Json" version="1.0.0"/>
+		</dependencies>
 
-
-    <package >
-
-     
-  <metadata>
-
-
-         <id>GoPay.NET</id>
-
-
-         <version>1.1.12</version>
-
-
-         <authors>Tomas Ivanic, Frantisek Sichinger</authors>
-
-
-         <owners>GoPay s.r.o.</owners>
-
-
-         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-
-     
-    <projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
-
-
-         <iconUrl>https://dl.dropboxusercontent.com/s/789td1ftr97101z/icona-gopay-blue.png?dl=0</iconUrl>
-
-     
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-
-     
-    <description>Gopay .net sdk</description>
-
-
-
-         <releaseNotes>First release.</releaseNotes>
-
-     
-    <copyright>Copyright 2018</copyright>
-
-     
-    <tags>GoPay Platebni brana</tags>
-
-
-         <dependencies>
-
- 
-          <dependency id="Newtonsoft.Json" version="9.0.1" />
-
- 
-           <dependency id="RestSharp" version="105.2.3"/>
-
-
-           <dependency id="RestSharp.Newtonsoft.Json" version="1.0.0"/>
-
-     
-    </dependencies>
-
-
-       </metadata>
-
-     
-  <files>
-
-     
-    <file src="GoPay.net-sdk\bin\Release\*.dll" target="lib\net45" />
-
-     
-  </files>
-
-
+	</metadata>
+	<files>
+		<file src="GoPay.net-sdk\bin\Release\*.dll" target="lib\net45" />
+		<file src="./icon.png" target="images\" />
+	</files>
 </package>
