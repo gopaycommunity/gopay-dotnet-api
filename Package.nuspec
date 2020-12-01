@@ -9,19 +9,19 @@
 		<projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
 		<icon>images/icon.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>GoPay .NET sdk</description>
+		<description>GoPay .NET 5</description>
 		<releaseNotes>Added apple pay, updated supported languages, updated newtonsoft.json</releaseNotes>
 		<copyright>Copyright 2020</copyright>
 		<tags>GoPay Platebni brana</tags>
 		<dependencies>
 			<dependency id="Newtonsoft.Json" version="12.0.3" />
-			<dependency id="RestSharp" version="105.2.3"/>
-			<dependency id="RestSharp.Newtonsoft.Json" version="1.0.0"/>
+			<dependency id="RestSharp" version="106.11.7"/>
+			<dependency id="RestSharp.Serializers.NewtonsoftJson" version="106.11.7"/>
 		</dependencies>
 
 	</metadata>
 	<files>
-		<file src="GoPay.net-sdk\bin\Release\*.dll" target="lib\net45" />
+		<file src="GoPay.net-sdk\bin\Release\netstandard2.1\*.dll" target="lib\netstandard2.1" />
 		<file src="./icon.png" target="images\" />
 	</files>
 </package>
