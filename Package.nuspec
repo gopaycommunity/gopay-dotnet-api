@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>GoPay.NET</id>
-		<version>1.1.14</version>
+		<version>1.1.15</version>
 		<authors>Tomas Ivanic, Frantisek Sichinger</authors>
 		<owners>GoPay s.r.o.</owners>
 		<license type="expression">MIT</license>
@@ -10,14 +10,14 @@
 		<icon>images/icon.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>GoPay .NET sdk</description>
-		<releaseNotes>Added apple pay, updated supported languages, updated newtonsoft.json</releaseNotes>
-		<copyright>Copyright 2020</copyright>
+		<releaseNotes>Dependency updates, .NetStandard 2.0</releaseNotes>
+		<copyright>Copyright 2021</copyright>
 		<tags>GoPay Platebni brana</tags>
 		<dependencies>
 			<group targetFramework=".NETStandard2.0">
-				<dependency id="Newtonsoft.Json" version="12.0.3" />
-				<dependency id="RestSharp" version="106.11.7"/>
-				<dependency id="RestSharp.Serializers.NewtonsoftJson" version="106.11.7"/>
+				<dependency id="Newtonsoft.Json" version="13.0.1" />
+				<dependency id="RestSharp" version="106.12.0"/>
+				<dependency id="RestSharp.Serializers.NewtonsoftJson" version="106.12.0"/>
 			</group>
 		</dependencies>
 
