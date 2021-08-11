@@ -59,14 +59,15 @@ To be able to communicate with our gateway it's required to create an auth token
   
 | Method        | API Action    |
 | :------------ |:--------------|
-| [CreatePayment](#create) | https://doc.gopay.com/en/#standard-payment |
-| [PaymentStatus](#status) | https://doc.gopay.com/en/#status-of-the-payment |
-| [RefundPayment](#refund) | https://doc.gopay.com/en/#refund-of-the-payment-(cancelation) |
-| [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/en/#recurring-payment |
-| [CreateRecurrentPayment](#createrecdem) | https://doc.gopay.com/en/#recurring-payment-on-demand |
-| [VoidRecurrency](#voidrec) | https://doc.gopay.com/en/#cancellation-of-the-recurring-payment |
-| [VoidAuthorization](#voidauth) | https://doc.gopay.com/en/#cancellation-of-the-pre-authorized-payment |
-| [CapturePayment](#capt) | https://doc.gopay.com/en/#charge-of-pre-authorized-payment |
+| [CreatePayment](#create) | https://doc.gopay.com/#payment-creation |
+| [PaymentStatus](#status) | https://doc.gopay.com/#payment-status |
+| [RefundPayment](#refund) | https://doc.gopay.com/#payment-refund |
+| [CreateRecurrentPayment](#createrec) | https://doc.gopay.com/#recurring-payments |
+| [CreateRecurrentPayment](#createrecdem) | https://doc.gopay.com/#recurring-on-demand |
+| [VoidRecurrency](#voidrec) | https://doc.gopay.com/#recurring-payment-cancellation |
+| [PreauthorizedPazment](#preauth) | https://doc.gopay.com/#preauthorized-payment-creation |
+| [VoidAuthorization](#voidauth) | https://doc.gopay.com/#cancelling-a-preauthorized-payment |
+| [CapturePayment](#capt) | https://doc.gopay.com/#capturing-a-preauthorized-payment |
  
  
 ###### Create a payment <a id="create">
@@ -127,9 +128,9 @@ try {
 }
 ```
  
-###### Create preauthorized payment 
+###### Create preauthorized payment <a id="preauth">
 
-```Java
+```cs
 var payment = new BasePayment() 
 {
   PreAuthorize = true,
@@ -200,7 +201,7 @@ try {
 
 ###### Void recurrency <a id="voidrec">
 
- ```Java
+ ```cs
 try {
     var voidRecurrency = connector.VoidRecurrency(<ID>);
 } catch (GPClientException ex) {
