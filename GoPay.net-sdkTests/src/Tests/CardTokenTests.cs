@@ -10,7 +10,6 @@ namespace GoPay.Tests
     [TestClass()]
     public class CardTokenTests
     {
-
         public static BasePayment createBaseCardTokenPayment()
         {
             List<AdditionalParam> addParams = new List<AdditionalParam>();

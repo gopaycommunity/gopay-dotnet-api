@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 <package >
-	<metadata>
-		<id>GoPay.NET</id>
-		<version>1.1.15</version>
-		<authors>Tomas Ivanic, Frantisek Sichinger</authors>
-		<owners>GoPay s.r.o.</owners>
-		<license type="expression">MIT</license>
-		<projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
-		<icon>images/icon.png</icon>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>GoPay .NET sdk</description>
-		<releaseNotes>Dependency updates, .NetStandard 2.0</releaseNotes>
-		<copyright>Copyright 2021</copyright>
-		<tags>GoPay Platebni brana</tags>
-		<dependencies>
-			<group targetFramework=".NETStandard2.0">
-				<dependency id="Newtonsoft.Json" version="13.0.1" />
-				<dependency id="RestSharp" version="106.12.0"/>
-				<dependency id="RestSharp.Serializers.NewtonsoftJson" version="106.12.0"/>
-			</group>
-		</dependencies>
+  <metadata>
+    <id>GoPay.NET</id>
+    <version>1.1.15</version>
+    <authors>Tomas Ivanic, Frantisek Sichinger</authors>
+    <owners>GoPay s.r.o.</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
+    <icon>images/icon.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>GoPay .NET sdk</description>
+    <releaseNotes>Dependency updates, .NetStandard 2.0</releaseNotes>
+    <copyright>Copyright 2021</copyright>
+    <tags>GoPay Platebni brana</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Newtonsoft.Json" version="13.0.1" />
+        <dependency id="RestSharp" version="106.12.0"/>
+        <dependency id="RestSharp.Serializers.NewtonsoftJson" version="106.12.0"/>
+      </group>
+    </dependencies>
 
-	</metadata>
-	<files>
-		<file src="GoPay.net-sdk\bin\Release\netstandard2.0\GoPay.net-sdk.dll" target="lib\netstandard2.0\GoPay.net-sdk.dll" />
-		<file src="./icon.png" target="images\" />
-	</files>
+  </metadata>
+  <files>
+    <file src="GoPay.net-sdk\bin\Release\netstandard2.0\GoPay.net-sdk.dll" target="lib\netstandard2.0\GoPay.net-sdk.dll" />
+    <file src="./icon.png" target="images\" />
+  </files>
 </package>
