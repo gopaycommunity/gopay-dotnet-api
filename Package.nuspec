@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.1.16</version>
+    <version>1.1.17</version>
     <authors>Tomas Ivanic, Frantisek Sichinger</authors>
     <owners>GoPay s.r.o.</owners>
     <license type="expression">MIT</license>
@@ -10,7 +10,7 @@
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Dependency updates, .NetStandard 2.0</releaseNotes>
+    <releaseNotes>Added CLICK_TO_PAY, Added payer.bank_account.account_token property</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>
