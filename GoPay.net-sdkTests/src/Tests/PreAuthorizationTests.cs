@@ -12,16 +12,17 @@ namespace GoPay.Tests
         
 
         //[TestMethod()]
-        public void GPConnectorTestCreatePreAuthorizedPayment()
+        public async void GPConnectorTestCreatePreAuthorizedPayment()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
 
             BasePayment basePayment = CreatePaymentTests.createBasePayment();
             basePayment.PreAuthorization = true;
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                await connector.GetAppTokenAsync();
+                Payment result = await connector.CreatePaymentAsync(basePayment);
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 
@@ -44,13 +45,14 @@ namespace GoPay.Tests
         }
 
         //[TestMethod()]
-        public void GPConnectorTestVoidAuthorization()
+        public async void GPConnectorTestVoidAuthorization()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
             long id = 3049249125;
             try
             {
-                var result = connector.GetAppToken().VoidAuthorization(id);
+                await connector.GetAppTokenAsync();
+                var result = await connector.VoidAuthorizationAsync(id);
                 Assert.IsNotNull(result.Id);
 
                 Console.WriteLine("Void Authorization result: {0}", result);
@@ -68,13 +70,14 @@ namespace GoPay.Tests
         }
 
         [TestMethod()]
-        public void GPConnectorTestCapturePayment()
+        public async void GPConnectorTestCapturePayment()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
             long id = 3049249190;
             try
             {
-                var result = connector.GetAppToken().CapturePayment(id);
+                await connector.GetAppTokenAsync();
+                var result = connector.CapturePaymentAsync(id);
                 Assert.IsNotNull(result.Id);
 
                 Console.WriteLine("Capture payment result: {0}", result);

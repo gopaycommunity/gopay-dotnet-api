@@ -4,6 +4,8 @@ using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
 using System.Collections.Generic;
+using HttpTracer;
+using static GoPay.GPConnector;
 
 namespace GoPay.Tests
 
@@ -71,16 +73,20 @@ namespace GoPay.Tests
 
 
         [TestMethod()]
-        public void GPConnectorTestCreatePayment()
+        public async void GPConnectorTestCreatePayment()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-
-            connector.IncomingDataEventHandler += incomingDataListener;
+            var connector = new GPConnector(TestUtils.API_URL, 
+                TestUtils.CLIENT_ID, 
+                TestUtils.CLIENT_SECRET, 
+                true,
+                interceptor => new HttpTracerHandler(interceptor, new ConsoleLogger(), HttpMessageParts.All));
 
             BasePayment basePayment = createBasePayment();
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                await connector.GetAppTokenAsync();
+
+                Payment result = await connector.CreatePaymentAsync(basePayment);
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 
@@ -101,23 +107,21 @@ namespace GoPay.Tests
             }
         }
 
-        private void incomingDataListener(object sender, GPConnector.ServerHandlerData data)
-        {
-            var body = System.Text.Encoding.UTF8.GetString(data.Body, 0, data.Body.Length);
-            Console.WriteLine($"{data.HttpStatusCode} {body}");
-        }
-
         [TestMethod()]
-        public void GPCOnnectorTestPaymentStatis()
+        public async void GPCOnnectorTestPaymentStatis()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             BasePayment basePayment = createBasePayment();
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
-                Payment payment = connector.GetAppToken().PaymentStatus(result.Id);
+                await connector.GetAppTokenAsync();
                 
+                Payment result = await connector.CreatePaymentAsync(basePayment);
+                Payment payment = await connector.PaymentStatusAsync(result.Id);
+                
+                
+
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 

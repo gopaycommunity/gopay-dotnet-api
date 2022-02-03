@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
+using System.Threading.Tasks;
 
 namespace GoPay.Tests
 {
@@ -66,14 +67,14 @@ namespace GoPay.Tests
 
 
         [TestMethod()]
-        public void GPConnectorTestPaymentWithCardToken()
+        public async Task GPConnectorTestPaymentWithCardToken()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-
+            var connector = TestUtils.CreateClient();
             BasePayment basePayment = createBaseCardTokenPayment();
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                await connector.GetAppTokenAsync();
+                Payment result = await connector.CreatePaymentAsync(basePayment);
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 
@@ -91,19 +92,21 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                throw;
             }
         }
 
 
         [TestMethod()]
-        public void GPConnectorTestCardTokenPaymentStatus()
+        public async void GPConnectorTestCardTokenPaymentStatus()
         {
             long id = 3052269740;
 
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
             try
             {
-                var payment = connector.GetAppToken().PaymentStatus(id);
+                await connector.GetAppTokenAsync();
+                var payment = await connector.PaymentStatusAsync(id);
                 Assert.IsNotNull(payment.Id);
 
                 Console.WriteLine("Payment id: {0}", payment.Id);

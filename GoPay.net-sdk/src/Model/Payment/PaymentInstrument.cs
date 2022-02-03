@@ -16,6 +16,7 @@
      ACCOUNT, 
      GPAY,
      APPLE_PAY,
+     CLICK_TO_PAY,
 
      UNKNOWN
     }

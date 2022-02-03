@@ -31,19 +31,23 @@ namespace GoPay.Model.Payments
         [JsonConverter(typeof(StringEnumConverter))]
         public Nullable<Country> Country { get; set; }
 
+        [JsonProperty("account_token")]
+        public string AccountToken { get; set; }
+
+
         public override string ToString()
         {
             if (Country != null)
             {
                 return string.Format(
-                    "BankAccount [prefix={0}, accountNumber={1}, bankCode={2}, IBAN={3}, BIC={4}, accountName={5}, country={6}]",
-                    Prefix, AccountNumber, BankCode, IBAN, BIC, AccountName, Enum.GetName(typeof(Country), Country));
+                    "BankAccount [prefix={0}, accountNumber={1}, bankCode={2}, IBAN={3}, BIC={4}, accountName={5}, country={6}, accountToken={7}]",
+                    Prefix, AccountNumber, BankCode, IBAN, BIC, AccountName, Enum.GetName(typeof(Country), Country), AccountToken);
             }
             else
             {
                 return string.Format(
-                    "BankAccount [prefix={0}, accountNumber={1}, bankCode={2}, IBAN={3}, BIC={4}, accountName={5}, country={6}]",
-                    Prefix, AccountNumber, BankCode, IBAN, BIC, AccountName, Country);
+                    "BankAccount [prefix={0}, accountNumber={1}, bankCode={2}, IBAN={3}, BIC={4}, accountName={5}, country={6}, accountToken={7}]",
+                    Prefix, AccountNumber, BankCode, IBAN, BIC, AccountName, Country, AccountToken);
             }
             
         }

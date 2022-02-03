@@ -5,6 +5,7 @@ using GoPay.Model.Payments;
 using GoPay.Model.Payment;
 using GoPay.EETProp;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GoPay.Tests
 
@@ -75,13 +76,14 @@ namespace GoPay.Tests
             return baseEETPayment;
         }
 
-        private Payment createEETPaymentObject(GPConnector connector, BasePayment baseEETPayment)
+        private async Task<Payment> createEETPaymentObjectAsync(GPConnector connector, BasePayment baseEETPayment)
         {
             Payment result = null;
 
             try
             {
-                result = connector.GetAppToken().CreatePayment(baseEETPayment);
+                await connector.GetAppTokenAsync();
+                result = await connector.CreatePaymentAsync(baseEETPayment);
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 
@@ -106,7 +108,7 @@ namespace GoPay.Tests
         }
 
         //[TestMethod()]
-        public void GPConnectorTestCreateEETPayment()
+        public async void GPConnectorTestCreateEETPayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
 
@@ -124,11 +126,11 @@ namespace GoPay.Tests
 
             baseEETPayment.Eet = eet;
 
-            Payment result = createEETPaymentObject(connector, baseEETPayment);
+            Payment result = await createEETPaymentObjectAsync(connector, baseEETPayment);
         }
 
         //[TestMethod()]
-        public void GPConnectorTestCreateRecurrentEETPayment()
+        public async void GPConnectorTestCreateRecurrentEETPayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
 
@@ -165,12 +167,12 @@ namespace GoPay.Tests
 
             baseEETPayment.Eet = eet;
 
-            Payment result = createEETPaymentObject(connector, baseEETPayment);
+            Payment result = await createEETPaymentObjectAsync(connector, baseEETPayment);
             Console.WriteLine(result.Recurrence);
         }
 
         //[TestMethod()]
-        public void GPConnectorTestNextOnDemandEET()
+        public async void GPConnectorTestNextOnDemandEET()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
 
@@ -196,7 +198,8 @@ namespace GoPay.Tests
                 };
                 nextPayment.Eet = eet;
 
-                Payment onDemandEETPayment = connector.GetAppToken().CreateRecurrentPayment(3049250282, nextPayment);
+                await connector.GetAppTokenAsync();
+                Payment onDemandEETPayment = await connector.CreateRecurrentPaymentAsync(3049250282, nextPayment);
 
                 Console.WriteLine("OnDemand payment id: {0}", onDemandEETPayment.Id);
                 Console.WriteLine("OnDemand payment gw_url: {0}", onDemandEETPayment.GwUrl);
@@ -220,14 +223,15 @@ namespace GoPay.Tests
         }
 
         [TestMethod()]
-        public void GPConnectorTestEETStatus()
+        public async void GPConnectorTestEETStatus()
         {
             long id = 3049250282;
 
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
+            var connector = TestUtils.CreateClient();
             try
             {
-                var payment = connector.GetAppToken().PaymentStatus(id);
+                await connector.GetAppTokenAsync();
+                var payment = await connector.PaymentStatusAsync(id);
                 Assert.IsNotNull(payment.Id);
 
                 Console.WriteLine("EET Payment id: {0}", payment.Id);
@@ -252,9 +256,9 @@ namespace GoPay.Tests
         }
 
         //[TestMethod()]
-        public void GPConnectorTestEETPaymentRefund()
+        public async void GPConnectorTestEETPaymentRefund()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
+            var connector = TestUtils.CreateClient();
 
             List<OrderItem> refundedItems = new List<OrderItem>();
             refundedItems.Add(new OrderItem()
@@ -297,7 +301,8 @@ namespace GoPay.Tests
 
             try
             {
-                var refundEETPayment = connector.GetAppToken().RefundPayment(3049250113, refundObject);
+                await connector.GetAppTokenAsync();
+                var refundEETPayment = await connector.RefundPaymentAsync(3049250113, refundObject);
                 Console.WriteLine("EET refund result: {0}", refundEETPayment);
             }
             catch (GPClientException ex)
@@ -313,9 +318,9 @@ namespace GoPay.Tests
         }
 
         //[TestMethod()]
-        public void GPConnectorTestEETPReceiptFindByFilter()
+        public async void GPConnectorTestEETPReceiptFindByFilter()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
+            var connector = TestUtils.CreateClient();
 
             EETReceiptFilter filter = new EETReceiptFilter()
             {
@@ -326,7 +331,8 @@ namespace GoPay.Tests
 
             try
             {
-                List<EETReceipt> receipts = connector.GetAppToken().FindEETReceiptsByFilter(filter);
+                await connector.GetAppTokenAsync();
+                List<EETReceipt> receipts = await connector.FindEETReceiptsByFilterAsync(filter);
 
                 foreach(EETReceipt currReceipt in receipts)
                 {
@@ -346,14 +352,16 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
-        public void GPConnectorTestEETPReceiptFindByPaymentId()
+        //[TestMe*thod()]
+        /*
+        public async void GPConnectorTestEETPReceiptFindByPaymentId()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID_EET, TestUtils.CLIENT_SECRET_EET);
+            var connector = TestUtils.CreateClient();
 
             try
             {
-                List<EETReceipt> receipts = connector.GetAppToken().GetEETReceiptByPaymentId(3049205133);
+                await connector.GetAppToken();
+                List<EETReceipt> receipts = connector.GetEETReceiptByPaymentId(3049205133);
 
                 foreach (EETReceipt currReceipt in receipts)
                 {
@@ -371,6 +379,6 @@ namespace GoPay.Tests
                     //
                 }
             }
-        }
+        }*/
     }
 }

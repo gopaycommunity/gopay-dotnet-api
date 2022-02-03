@@ -12,9 +12,9 @@ namespace GoPay.Tests
     {
 
         //[TestMethod()]
-        public void GPConnectorTestOnDemand()
+        public async void GPConnectorTestOnDemand()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
 
             BasePayment basePayment = CreatePaymentTests.createBasePayment();
 
@@ -28,7 +28,8 @@ namespace GoPay.Tests
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                await connector.GetAppTokenAsync();
+                Payment result = await connector.CreatePaymentAsync(basePayment);
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 
@@ -51,9 +52,9 @@ namespace GoPay.Tests
         }
 
         [TestMethod()]
-        public void GPConnectorTestNextOnDemand()
+        public async void GPConnectorTestNextOnDemand()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
 
             try
             {
@@ -66,7 +67,8 @@ namespace GoPay.Tests
                 };
                 nextPayment.Items.Add(new OrderItem() { Name = "OnDemand First Item", Amount = 2000, Count = 2 });
 
-                Payment onDemandPayment = connector.GetAppToken().CreateRecurrentPayment(3049249957, nextPayment);
+                await connector.GetAppTokenAsync();
+                Payment onDemandPayment = await connector.CreateRecurrentPaymentAsync(3049249957, nextPayment);
 
                 Console.WriteLine("OnDemand payment id: {0}", onDemandPayment.Id);
                 Console.WriteLine("OnDemand payment gw_url: {0}", onDemandPayment.GwUrl);

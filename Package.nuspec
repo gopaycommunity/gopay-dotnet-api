@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.1.16</version>
+    <version>1.2.1</version>
     <authors>Tomas Ivanic, Frantisek Sichinger</authors>
     <owners>GoPay s.r.o.</owners>
     <license type="expression">MIT</license>
@@ -10,14 +10,14 @@
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Dependency updates, .NetStandard 2.0</releaseNotes>
+    <releaseNotes>Added CLICK_TO_PAY payment method, added payer.bank_account.account_token property, updated newtonsoft to 107.1</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Newtonsoft.Json" version="13.0.1" />
-        <dependency id="RestSharp" version="106.12.0"/>
-        <dependency id="RestSharp.Serializers.NewtonsoftJson" version="106.12.0"/>
+        <dependency id="RestSharp" version="107.1.2"/>
+        <dependency id="RestSharp.Serializers.NewtonsoftJson" version="107.1.2"/>
       </group>
     </dependencies>
 

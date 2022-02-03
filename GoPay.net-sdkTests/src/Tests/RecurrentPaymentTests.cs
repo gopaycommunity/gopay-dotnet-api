@@ -10,9 +10,9 @@ namespace GoPay.Tests
     {
 
         [TestMethod()]
-        public void GPConnectorTestCreateRecurrentPayment()
+        public async void GPConnectorTestCreateRecurrentPayment()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
 
             BasePayment basePayment = CreatePaymentTests.createBasePayment();
 
@@ -26,7 +26,8 @@ namespace GoPay.Tests
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                await connector.GetAppTokenAsync();
+                Payment result = await connector.CreatePaymentAsync(basePayment);
               
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
@@ -52,13 +53,14 @@ namespace GoPay.Tests
 
 
         //[TestMethod()]
-        public void GPConnectorTestVoidRecurrency()
+        public async void GPConnectorTestVoidRecurrency()
         {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var connector = TestUtils.CreateClient();
             long id = 3049249619;
             try
             {
-                var result = connector.GetAppToken().VoidRecurrency(id);
+                await connector.GetAppTokenAsync();
+                var result = connector.VoidRecurrencyAsync(id);
                 Assert.IsNotNull(result.Id);
 
                 Console.WriteLine("Void Recurrency result: {0}", result);

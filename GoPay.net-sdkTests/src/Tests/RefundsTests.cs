@@ -12,13 +12,14 @@ namespace GoPay.Tests
     {
 
         [TestMethod()]
-        public void GPConnectorTestRefund()
+        public async void GPConnectorTestRefund()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             long id = 3049215286;
             try
             {
-                var refundResult = connector.GetAppToken().RefundPayment(id, 1000);
+                await connector.GetAppTokenAsync();
+                var refundResult = connector.RefundPaymentAsync(id, 1000);
                 Assert.IsNotNull(refundResult);
                 Assert.IsNotNull(refundResult.Id);
 
