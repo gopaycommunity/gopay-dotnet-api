@@ -47,10 +47,11 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                Assert.Fail();
             }
         }
 
-        [TestMethod()]
+        //[TestMethod()]
         public void GPConnectorTestNextOnDemand()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -84,6 +85,7 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                Assert.Fail();
             }
         }
 

@@ -9,7 +9,7 @@ namespace GoPay.Tests
     public class RecurrentPaymentTests
     {
 
-        [TestMethod()]
+       // [TestMethod()]
         public void GPConnectorTestCreateRecurrentPayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -46,6 +46,7 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                Assert.Fail();
             }
             
         }
@@ -72,6 +73,7 @@ namespace GoPay.Tests
                 {
                     //Handle
                 }
+                Assert.Fail();
             }
         }
     }

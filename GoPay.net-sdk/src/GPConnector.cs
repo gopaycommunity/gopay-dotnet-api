@@ -92,7 +92,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public PaymentResult RefundPayment(long id, long amount)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", "multipart/form-data");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", "application/json");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             restRequest.AddParameter("amount", amount);
             var response = Client.Execute<PaymentResult>(restRequest);
@@ -102,7 +102,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public async Task<PaymentResult> RefundPaymentAsync(long id, long amount)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", "multipart/form-data");
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refund", "application/json");
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             restRequest.AddParameter("amount", amount);
             var response = await Client.ExecuteAsync(restRequest);

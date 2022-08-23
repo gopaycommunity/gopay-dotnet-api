@@ -40,6 +40,7 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                Assert.Fail();
             }
         }
 
@@ -64,10 +65,11 @@ namespace GoPay.Tests
                 {
                     //Handle
                 }
+                Assert.Fail();
             }
         }
 
-        [TestMethod()]
+        //[TestMethod()]
         public void GPConnectorTestCapturePayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -88,6 +90,7 @@ namespace GoPay.Tests
                 {
                     //Handle
                 }
+                Assert.Fail();
             }
         }
 

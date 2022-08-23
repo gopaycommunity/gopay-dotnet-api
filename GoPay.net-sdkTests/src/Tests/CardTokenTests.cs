@@ -91,6 +91,7 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                Assert.Fail();
             }
         }
 
@@ -121,6 +122,7 @@ namespace GoPay.Tests
                 {
                     //
                 }
+                Assert.Fail();
             }
         }
 

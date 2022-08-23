@@ -11,14 +11,14 @@ namespace GoPay.Tests
     public class RefundsTests
     {
 
-        [TestMethod()]
+       // [TestMethod()]
         public void GPConnectorTestRefund()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            long id = 3049215286;
+            long id = 3166388667;
             try
             {
-                var refundResult = connector.GetAppToken().RefundPayment(id, 1000);
+                var refundResult = connector.GetAppToken().RefundPayment(id, 1700);
                 Assert.IsNotNull(refundResult);
                 Assert.IsNotNull(refundResult.Id);
 
@@ -26,13 +26,14 @@ namespace GoPay.Tests
             }
             catch (GPClientException exception)
             {
-                Console.WriteLine("CHYBA refundu");
+                Console.WriteLine("Unable to refund payment");
                 var err = exception.Error;
                 DateTime date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //Handle
                 }
+                Assert.Fail();
             }
         }
     }
