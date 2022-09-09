@@ -36,7 +36,7 @@ PM> Install-Package GOPAY.NET
 ## Creating an instance of GPConnector
 
 ```cs
-var connector = new GPConnector(<API_URL>,<USER_SECRET>, <USER_ID>);
+var connector = new GPConnector(<API_URL>,<USER_ID>, <USER_SECRET>);
 ```
 
 The connector provides methods for interacting with our gateway.
