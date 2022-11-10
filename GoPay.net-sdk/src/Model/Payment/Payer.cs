@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Converters;
+using System.Xml.Linq;
 
 namespace GoPay.Model.Payments
 {
@@ -31,6 +32,9 @@ namespace GoPay.Model.Payments
         [JsonProperty("payment_card")]
         public PayerPaymentCard PaymendCard { get; set; }
 
+        [JsonProperty("card_id")]
+        public string CardId { get; set; }
+
         [JsonProperty("bank_account")]
         public BankAccount BankAccount { get; set; }
 
@@ -40,6 +44,11 @@ namespace GoPay.Model.Payments
         [JsonProperty("verify_pin")]
         public string VerifyPin { get; set; }
 
+        [JsonProperty("request_card_token")]
+        public bool RequestCardToken { get; set; }
+
+        [JsonProperty("masked_pan")]
+        public string MaskedPan { get; set; }
 
         public Payer()
         {
@@ -50,8 +59,8 @@ namespace GoPay.Model.Payments
         public override string ToString()
         {
             return string.Format(
-                    "PayerParty [paymentInstrument={0}, allowedPaymentInstruments={1}, allowedSwifts={2}, defaultPaymentInstrument={3}, defaultSwift={4}, contact={5}, paymentCard={6}, bankAccount={7}, allowedCardToken={8}, verifyPin={9}]",
-                    PaymentInstrument, AllowedPaymentInstruments, AllowedSwifts, DefaultPaymentInstrument, DefaultSwift, Contact, PaymendCard, BankAccount, AllowedCardToken, VerifyPin);
+                    "PayerParty [paymentInstrument={0}, allowedPaymentInstruments={1}, allowedSwifts={2}, defaultPaymentInstrument={3}, defaultSwift={4}, contact={5}, paymentCard={6}, bankAccount={7}, allowedCardToken={8}, verifyPin={9}, requestCardToken={10}, maskedPan={11}, cardId={12}]",
+                    PaymentInstrument, AllowedPaymentInstruments, AllowedSwifts, DefaultPaymentInstrument, DefaultSwift, Contact, PaymendCard, BankAccount, AllowedCardToken, VerifyPin, RequestCardToken, MaskedPan, CardId);
         }
 
     }
