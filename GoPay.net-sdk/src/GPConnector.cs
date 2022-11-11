@@ -36,10 +36,11 @@ namespace GoPay
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             }
-            Client.BaseUrl = new Uri(APIUrl);
+
+            Client.Options.BaseUrl = new Uri(APIUrl);
+            Client.Options.UserAgent = "GoPay .NET Client ";
             ClientID = clientid;
             ClientSecret = clientsecret;
-            Client.UserAgent = "GoPay .NET Client ";
             Client.UseNewtonsoftJson();
         }
 
@@ -52,7 +53,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public GPConnector GetAppToken(string scope)
         {
-            var restRequest = new RestRequest(@"/oauth2/token", Method.POST);
+            var restRequest = new RestRequest(@"/oauth2/token", Method.Post);
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddHeader("Accept", "application/json");
             restRequest.AddParameter("application/x-www-form-urlencoded", "grant_type=client_credentials&scope=" + scope, ParameterType.RequestBody);
@@ -236,7 +237,7 @@ namespace GoPay
         /// <exception cref="ApplicationException"></exception>
         public Payment PaymentStatus(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded", null, Method.Get);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<Payment>(response);
@@ -245,7 +246,7 @@ namespace GoPay
         /// <exception cref="ApplicationException"></exception>
         public async Task<Payment> PaymentStatusAsync(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}", "application/x-www-form-urlencoded", null, Method.Get);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = await Client.ExecuteAsync(restRequest);
             return await Task.Factory.StartNew(() => ProcessResponse<Payment>(response));
@@ -254,7 +255,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public PaymentInstrumentRoot GetPaymentInstruments(long goid, Currency currency)
         {
-            var restRequest = CreateRestRequest(@"/eshops/eshop/{goid}/payment-instruments/{currency}", null, null, Method.GET);
+            var restRequest = CreateRestRequest(@"/eshops/eshop/{goid}/payment-instruments/{currency}", null, null, Method.Get);
             restRequest.AddParameter("goid", goid, ParameterType.UrlSegment);
             restRequest.AddParameter("currency", currency, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
@@ -301,7 +302,7 @@ namespace GoPay
         /// <exception cref="ApplicationException"></exception>
         public List<EETReceipt> GetEETReceiptByPaymentId(long id)
         {
-            var restRequest = CreateRestRequest(@"/payments/payment/{id}/eet-receipts", "application/json", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/eet-receipts", "application/json", null, Method.Get);
             restRequest.AddParameter("id", id, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return processComplex<List<EETReceipt>>(response);
@@ -335,7 +336,7 @@ namespace GoPay
         /// <exception cref="ApplicationException"></exception>
         public SupercashBatchState GetSupercashCouponBatchStatus(long batchId)
         {
-            var restRequest = CreateRestRequest(@"/batch/{batch_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/batch/{batch_id}", "application/x-www-form-urlencoded", null, Method.Get);
             restRequest.AddParameter("batch_id", batchId, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<SupercashBatchState>(response);
@@ -343,7 +344,7 @@ namespace GoPay
 
         public SupercashBatch GetSupercashCouponBatch(long batchId, long goid)
         {
-            var restRequest = CreateRestRequest(@"/supercash/coupon/find?batch_request_id={batch_id}&go_id={go_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/supercash/coupon/find?batch_request_id={batch_id}&go_id={go_id}", "application/x-www-form-urlencoded", null, Method.Get);
             restRequest.AddParameter("batch_id", batchId, ParameterType.UrlSegment);
             restRequest.AddParameter("go_id", goid, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
@@ -353,7 +354,7 @@ namespace GoPay
         public SupercashBatch FindSupercashCoupons(long goid, params long[] paymentSessionIds)
         {
             string ids = string.Join(",", paymentSessionIds);
-            var restRequest = CreateRestRequest(@"/supercash/coupon/find?payment_session_id_list=" + ids + "&go_id={go_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/supercash/coupon/find?payment_session_id_list=" + ids + "&go_id={go_id}", "application/x-www-form-urlencoded", null, Method.Get);
             restRequest.AddParameter("go_id", goid, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
             return ProcessResponse<SupercashBatch>(response);
@@ -361,14 +362,14 @@ namespace GoPay
 
         public SupercashPayment GetSupercashCoupon(long couponId)
         {
-            var restRequest = CreateRestRequest(@"/supercash/coupon/{coupon_id}", "application/x-www-form-urlencoded", null, Method.GET);
+            var restRequest = CreateRestRequest(@"/supercash/coupon/{coupon_id}", "application/x-www-form-urlencoded", null, Method.Get);
             restRequest.AddParameter("coupon_id", couponId, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
 
             return ProcessResponse<SupercashPayment>(response);
         }
 
-        private T ProcessResponse<T>(IRestResponse response)
+        private T ProcessResponse<T>(RestResponse response)
         {
             OnIncomingDataEvent(response);
             try
@@ -397,7 +398,7 @@ namespace GoPay
             return JsonConvert.DeserializeObject<T>(Content);
         }
 
-        private T processComplex<T>(IRestResponse response)
+        private T processComplex<T>(RestResponse response)
         {
             try
             {
@@ -419,12 +420,12 @@ namespace GoPay
         }
 
 
-        private IRestRequest CreateRestRequest(string url, string contentType)
+        private RestRequest CreateRestRequest(string url, string contentType)
         {
             return CreateRestRequest(url, contentType, null);
         }
 
-        private IRestRequest CreateRestRequest(string url, string contentType, Parameter parameter, Method method = Method.POST)
+        private RestRequest CreateRestRequest(string url, string contentType, Parameter parameter, Method method = Method.Post)
         {
 
             var restRequest = new RestRequest(url, method);
@@ -468,7 +469,7 @@ namespace GoPay
 
         }
 
-        private void OnIncomingDataEvent(IRestResponse response)
+        private void OnIncomingDataEvent(RestResponse response)
         {
             IncomingDataEventHandler.Invoke(this, ResponseToSHD(response));
         }
@@ -483,11 +484,13 @@ namespace GoPay
             public HttpStatusCode HttpStatusCode { get; internal set; }
             public byte[] Body { get; internal set; }
             public string StatusDescription { get; internal set; }
-            public string ContentEncoding { get; internal set; }
+
+            public ICollection<string> ContentEncoding { get; internal set; }
+
             public string ContentType { get; internal set; }
         }
 
-        public ServerHandlerData ResponseToSHD(IRestResponse response)
+        public ServerHandlerData ResponseToSHD(RestResponse response)
         {
             return new ServerHandlerData
             {
