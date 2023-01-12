@@ -1,6 +1,8 @@
-﻿namespace GoPay.Model.Payments
+﻿using System;
+
+namespace GoPay.Model.Payments
 {
-    class Lang
+    public class Lang
     {
         public const string CS = "CS";
         public const string EN = "EN";
@@ -15,5 +17,11 @@
         public const string HR = "HR";
         public const string IT = "IT";
         public const string ES = "ES";
+        public const string UK = "UK";
+        public const string EE = "EE";
+        public const string LT = "LT";
+        public const string LV = "LV";
+        public const string SI = "SI";
+        public const string PT = "PT";
     }
 }

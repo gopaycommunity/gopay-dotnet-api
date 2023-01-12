@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <authors>Stanislav Kouba, Frantisek Sichinger</authors>
     <owners>GoPay s.r.o.</owners>
     <license type="expression">MIT</license>
@@ -10,7 +10,7 @@
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Dependency updates, Added _5050 substate, MCOF params</releaseNotes>
+    <releaseNotes>Removed HRK, updated languages</releaseNotes>
     <copyright>Copyright 2022</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>

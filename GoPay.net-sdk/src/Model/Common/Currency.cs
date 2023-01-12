@@ -18,8 +18,6 @@ namespace GoPay.Common
         USD,
         [CurrencyCode(826)]
         GBP,
-        [CurrencyCode(191)]
-        HRK,
         [CurrencyCode(975)]
         BGN,
         [CurrencyCode(946)]

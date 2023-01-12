@@ -41,7 +41,7 @@ namespace GoPay.Tests
                 Currency = Currency.CZK,
                 OrderDescription = "4321Description",
 
-                Lang = "CS",
+                Lang = Lang.CS,
 
                 AdditionalParams = addParams,
 
