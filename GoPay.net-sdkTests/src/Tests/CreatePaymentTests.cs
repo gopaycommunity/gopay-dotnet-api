@@ -109,7 +109,7 @@ namespace GoPay.Tests
         }
 
         [TestMethod()]
-        public void GPCOnnectorTestPaymentStatis()
+        public void GPConnectorTestPaymentStatus()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             BasePayment basePayment = createBasePayment();

@@ -26,12 +26,15 @@ namespace GoPay.Model.Payments
         [JsonProperty("3ds_result")]
         public string ThreeDResult { get; set; }
 
+        [JsonProperty("card_fingerprint")]
+        public string CardFingerPrint { get; set; }
+
 
         public override string ToString()
         {
             return string.Format(
-                    "PayerPaymentCard [cardNumber={0}, cardExpiration={1}, cardBrand={2}, cardIssuerCountry={3}, cardIssuerBank={4}, cardToken={5}, threeDResult={6}]",
-                    CardNumber, CardExpiration, CardBrand, CardIssuerCountry, CardIssuerBank, CardToken, ThreeDResult
+                    "PayerPaymentCard [cardNumber={0}, cardExpiration={1}, cardBrand={2}, cardIssuerCountry={3}, cardIssuerBank={4}, cardToken={5}, threeDResult={6}, cardFingerPrint={7}]",
+                    CardNumber, CardExpiration, CardBrand, CardIssuerCountry, CardIssuerBank, CardToken, ThreeDResult, CardFingerPrint
                     );
         }
 
