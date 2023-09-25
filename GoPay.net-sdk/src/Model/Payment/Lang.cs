@@ -18,10 +18,10 @@ namespace GoPay.Model.Payments
         public const string IT = "IT";
         public const string ES = "ES";
         public const string UK = "UK";
-        public const string EE = "EE";
+        public const string ET = "ET";
         public const string LT = "LT";
         public const string LV = "LV";
-        public const string SI = "SI";
+        public const string SL = "SL";
         public const string PT = "PT";
     }
 }
