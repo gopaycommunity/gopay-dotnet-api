@@ -17,6 +17,8 @@
      GPAY,
      APPLE_PAY,
      CLICK_TO_PAY,
+     TWISTO,
+     SKIPPAY,
 
      UNKNOWN
     }

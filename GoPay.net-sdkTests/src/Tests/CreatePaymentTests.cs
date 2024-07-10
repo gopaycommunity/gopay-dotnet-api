@@ -21,12 +21,22 @@ namespace GoPay.Tests
             addItems.Add(new OrderItem() { Name = "First Item", Amount = 1700, Count = 1 });
 
             List<PaymentInstrument> allowedInstruments = new List<PaymentInstrument>();
-            allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
-            allowedInstruments.Add(PaymentInstrument.PAYMENT_CARD);
+                    allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
+                    allowedInstruments.Add(PaymentInstrument.PAYMENT_CARD);
 
-            List<string> swifts = new List<string>();
-            swifts.Add("GIBACZPX");
-            swifts.Add("RZBCCZPP");
+            //    allowedInstruments.Add(PaymentInstrument.TWISTO);
+            //    allowedInstruments.Add(PaymentInstrument.SKIPPAY);
+
+                    List<string> swifts = new List<string>();
+                    swifts.Add("GIBACZPX");
+                    swifts.Add("RZBCCZPP"); 
+
+        /*    List<string> allowedBnplTypes = new List<string>
+            {
+                "LATER",
+                "THIRDS"
+            }; */
+
 
             BasePayment basePayment = new BasePayment()
             {
@@ -56,9 +66,12 @@ namespace GoPay.Tests
                 Payer = new Payer()
                 {
                     AllowedPaymentInstruments = allowedInstruments,
-                    AllowedSwifts = swifts,
-                    //DefaultPaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
-                    //PaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
+                        AllowedSwifts = swifts,
+                    // AllowedBnplTypes = allowedBnplTypes,
+                    DefaultPaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
+                    // DefaultPaymentInstrument = PaymentInstrument.TWISTO,
+                    // DefaultBnplType = "LATER",
+                    // PaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
                     Contact = new PayerContact()
                     {
                         Email = "test@test.gopay.cz"
