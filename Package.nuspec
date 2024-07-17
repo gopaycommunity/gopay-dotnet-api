@@ -2,16 +2,16 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.2.6</version>
-    <authors>Stanislav Kouba, Frantisek Sichinger</authors>
+    <version>1.2.7</version>
+    <authors>Stanislav Kouba, Frantisek Sichinger, Patrik Maryska</authors>
     <owners>GoPay s.r.o.</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/gopaycommunity/gopay-dotnet-api</projectUrl>
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Fixed languages</releaseNotes>
-    <copyright>Copyright 2023</copyright>
+    <releaseNotes>Added card detail, card removal</releaseNotes>
+    <copyright>Copyright 2024</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">

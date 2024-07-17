@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
+using gopay_dotnet_standard_api.src.Model.Payment;
+using RestSharp;
 
 namespace GoPay.Tests
 {
@@ -123,6 +125,56 @@ namespace GoPay.Tests
                     //
                 }
                 Assert.Fail();
+            }
+        }
+
+        // [TestMethod()]
+        public void GPConnectorTestCardDetail()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            long cardId = 3824914275;
+
+            try
+            {
+                Card result = connector.GetAppToken().GetCardDetail(cardId);
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual(cardId, result.CardId);
+                Assert.AreEqual("Visa Gold", result.CardBrand);
+                Console.WriteLine(result.ToString());
+            }
+            catch (GPClientException ex)
+            {
+                Console.WriteLine("Card Detail ERROR");
+                var err = ex.Error;
+                DateTime date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+
+                }
+            }
+        }
+
+        // [TestMethod()]
+        public void GPConnectorTestCardDelete()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            long cardId = 3824914275;
+
+            try
+            {
+                RestResponse response = connector.GetAppToken().DeleteCard(cardId);
+                Assert.IsNotNull(response.IsSuccessful);
+            }
+            catch (GPClientException ex)
+            {
+                Console.WriteLine("Card Detail ERROR");
+                var err = ex.Error;
+                DateTime date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+
+                }
             }
         }
 

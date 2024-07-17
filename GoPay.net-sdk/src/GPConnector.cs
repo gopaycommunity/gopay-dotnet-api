@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Net;
 using Newtonsoft.Json;
 using RestSharp.Serializers.NewtonsoftJson;
+using gopay_dotnet_standard_api.src.Model.Payment;
 
 namespace GoPay
 {
@@ -367,6 +368,25 @@ namespace GoPay
             var response = Client.Execute(restRequest);
 
             return ProcessResponse<SupercashPayment>(response);
+        }
+
+        /// <exception cref="GPClientException"></exception>
+        public Card GetCardDetail(long cardId)
+        {
+            var restRequest = CreateRestRequest(@"/payments/cards/{card_id}", null, null, Method.Get);
+            restRequest.AddParameter("card_id", cardId, ParameterType.UrlSegment);
+            var response = Client.Execute(restRequest);
+
+            return ProcessResponse<Card>(response);
+        }
+
+        /// <exception cref="GPClientException"></exception>
+        public RestResponse DeleteCard(long cardId)
+        {
+            var restRequest = CreateRestRequest(@"/payments/cards/{card_id}", null, null, Method.Delete);
+            restRequest.AddParameter("card_id", cardId, ParameterType.UrlSegment);
+
+            return Client.Execute(restRequest);
         }
 
         private T ProcessResponse<T>(RestResponse response)
