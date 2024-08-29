@@ -25,6 +25,9 @@ namespace GoPay.Model.Payments
         [JsonProperty("enabledSwifts")]
         public List<Swift> EnabledSwifts { get; set; }
 
+        [JsonProperty("enabledBnplTypes")]
+        public List<BnplType> EnabledBnplTypes { get; set; }
+
 
         public EnabledPaymentInstrument AddLabel(CultureInfo locale, string label)
         {
@@ -55,11 +58,23 @@ namespace GoPay.Model.Payments
             return this;
         }
 
+        public EnabledPaymentInstrument AddEnabledBnplType(BnplType bnplType)
+        {
+
+            if (this.EnabledBnplTypes == null)
+            {
+                this.EnabledBnplTypes = new List<BnplType>();
+            }
+
+            this.EnabledBnplTypes.Add(bnplType);
+            return this;
+        }
+
         public override string ToString()
         {
             return string.Format(
-                   "EnabledPaymentInstrument: [paymentInstrument={0}, label={1}, image={2}, group={3}, enabledSwifts={4}]",
-                   PaymentInstrument, Label, Image, Group, EnabledSwifts
+                   "EnabledPaymentInstrument: [paymentInstrument={0}, label={1}, image={2}, group={3}, enabledSwifts={4}, enabledBnplTypes={5}]",
+                   PaymentInstrument, Label, Image, Group, EnabledSwifts, EnabledBnplTypes
                    );
         }
 

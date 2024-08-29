@@ -16,6 +16,9 @@ namespace GoPay.Common
         [GroupCaption("wallet"), EnumSetPaymentInstruments(PaymentInstrument.GOPAY, PaymentInstrument.BITCOIN, PaymentInstrument.PAYPAL)]
         WALLET,
 
+        [GroupCaption("bnpl"), EnumSetPaymentInstruments(PaymentInstrument.SKIPPAY, PaymentInstrument.TWISTO)]
+        BNPL,
+
         [GroupCaption("others"), EnumSetPaymentInstruments(PaymentInstrument.PRSMS, PaymentInstrument.MPAYMENT, PaymentInstrument.PAYSAFECARD, PaymentInstrument.SUPERCASH, PaymentInstrument.GPAY)]
         OTHERS
 

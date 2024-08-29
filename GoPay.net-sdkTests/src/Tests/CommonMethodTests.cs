@@ -70,6 +70,7 @@ namespace GoPay.Tests
 
                 Console.WriteLine("List of enabled payment instruments for shop with go_id: {0} - OK", TestUtils.GOID);
                 Console.WriteLine(instrumentsList.ToString());
+
             }
             catch (GPClientException ex)
             {
