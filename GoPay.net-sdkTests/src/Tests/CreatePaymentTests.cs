@@ -29,13 +29,13 @@ namespace GoPay.Tests
 
                     List<string> swifts = new List<string>();
                     swifts.Add("GIBACZPX");
-                    swifts.Add("RZBCCZPP"); 
+                    swifts.Add("RZBCCZPP");
 
-        /*    List<string> allowedBnplTypes = new List<string>
-            {
-                "LATER",
-                "THIRDS"
-            }; */
+            /*    List<BnplType> allowedBnplTypes = new List<BnplType>
+                {
+                    BnplType.DEFERRED_PAYMENT,
+                    BnplType.PAY_IN_THREE
+                }; */
 
 
             BasePayment basePayment = new BasePayment()
@@ -70,7 +70,7 @@ namespace GoPay.Tests
                     // AllowedBnplTypes = allowedBnplTypes,
                     DefaultPaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
                     // DefaultPaymentInstrument = PaymentInstrument.TWISTO,
-                    // DefaultBnplType = "LATER",
+                    // DefaultBnplType = BnplType.DEFERRED_PAYMENT,
                     // PaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
                     Contact = new PayerContact()
                     {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Converters;
 using System.Xml.Linq;
+using GoPay.Common;
 
 namespace GoPay.Model.Payments
 {
@@ -26,11 +27,12 @@ namespace GoPay.Model.Payments
         [JsonProperty("default_swift")]
         public string DefaultSwift { get; set; }
 
-        [JsonProperty("allowed_bnpl_types")]
-        public IList<string> AllowedBnplTypes { get; set; }
+        [JsonProperty("allowed_bnpl_types", ItemConverterType = typeof(StringEnumConverter))]
+        public IList<BnplType> AllowedBnplTypes { get; set; }
 
-        [JsonProperty("default_bnpl_type")]
-        public string DefaultBnplType { get; set; }
+        [JsonProperty(PropertyName = "default_bnpl_type")]
+        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int) BnplType.UNKNOWN)]
+        public Nullable<BnplType> DefaultBnplType { get; set; }
 
         [JsonProperty("contact")]
         public PayerContact Contact { get; set; }
@@ -60,7 +62,7 @@ namespace GoPay.Model.Payments
         {
             AllowedPaymentInstruments = new List<PaymentInstrument>();
             AllowedSwifts = new List<string>();
-            AllowedBnplTypes = new List<string>();
+            AllowedBnplTypes = new List<BnplType>();
         }
 
         public override string ToString()

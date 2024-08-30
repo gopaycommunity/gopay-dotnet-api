@@ -26,7 +26,7 @@ namespace GoPay.Model.Payments
         public List<Swift> EnabledSwifts { get; set; }
 
         [JsonProperty("enabledBnplTypes")]
-        public List<BnplType> EnabledBnplTypes { get; set; }
+        public List<Bnpl> EnabledBnplTypes { get; set; }
 
 
         public EnabledPaymentInstrument AddLabel(CultureInfo locale, string label)
@@ -58,12 +58,12 @@ namespace GoPay.Model.Payments
             return this;
         }
 
-        public EnabledPaymentInstrument AddEnabledBnplType(BnplType bnplType)
+        public EnabledPaymentInstrument AddEnabledBnplType(Bnpl bnplType)
         {
 
             if (this.EnabledBnplTypes == null)
             {
-                this.EnabledBnplTypes = new List<BnplType>();
+                this.EnabledBnplTypes = new List<Bnpl>();
             }
 
             this.EnabledBnplTypes.Add(bnplType);
