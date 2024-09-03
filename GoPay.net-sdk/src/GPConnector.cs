@@ -389,6 +389,17 @@ namespace GoPay
             return Client.Execute(restRequest);
         }
 
+        /// <exception cref="GPClientException"></exception>
+        public List<Refund> GetRefundsHistory(long paymentId)
+        {
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/refunds", null, null, Method.Get);
+            restRequest.AddParameter("id", paymentId, ParameterType.UrlSegment);
+            var response = Client.Execute(restRequest);
+
+            return processComplex<List<Refund>>(response);
+
+        }
+
         private T ProcessResponse<T>(RestResponse response)
         {
             OnIncomingDataEvent(response);

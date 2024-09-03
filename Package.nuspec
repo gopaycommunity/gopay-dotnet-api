@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
     <authors>Stanislav Kouba, Frantisek Sichinger, Patrik Maryska</authors>
     <owners>GoPay s.r.o.</owners>
     <license type="expression">MIT</license>
@@ -10,7 +10,7 @@
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Added card detail, card removal</releaseNotes>
+    <releaseNotes>History of refunds</releaseNotes>
     <copyright>Copyright 2024</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>
