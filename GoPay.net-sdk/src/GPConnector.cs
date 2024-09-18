@@ -15,6 +15,8 @@ using System.Net;
 using Newtonsoft.Json;
 using RestSharp.Serializers.NewtonsoftJson;
 using gopay_dotnet_standard_api.src.Model.Payment;
+using gopay_dotnet_standard_api.src;
+using System.Reflection;
 
 namespace GoPay
 {
@@ -28,7 +30,12 @@ namespace GoPay
 
         static GPConnector()
         {
-            Client = new RestClient();
+            var options = new RestClientOptions
+            {
+                UserAgent = Utils.GetDefaultUserAgent()
+            };
+
+            Client = new RestClient(options);  
         }
 
         public GPConnector(string APIUrl, string clientid, string clientsecret, bool setSecurityProtocol = true)
@@ -39,14 +46,39 @@ namespace GoPay
             }
 
             Client.Options.BaseUrl = new Uri(APIUrl);
-            Client.Options.UserAgent = "GoPay .NET Client ";
             ClientID = clientid;
             ClientSecret = clientsecret;
             Client.UseNewtonsoftJson();
         }
 
-        /// <exception cref="GPClientException"></exception>
-        public GPConnector GetAppToken()
+        public GPConnector(string APIUrl, string clientid, string clientsecret, string customUserAgent, bool setSecurityProtocol = true)
+        {
+            if (setSecurityProtocol)
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            }
+
+            if (string.IsNullOrEmpty(customUserAgent))
+            {
+                customUserAgent = Utils.GetDefaultUserAgent();
+            }
+
+            var options = new RestClientOptions
+            {
+                UserAgent = customUserAgent
+            };
+
+            Client = new RestClient(options);
+
+
+            Client.Options.BaseUrl = new Uri(APIUrl);
+            ClientID = clientid;
+            ClientSecret = clientsecret;
+            Client.UseNewtonsoftJson();
+        }
+
+            /// <exception cref="GPClientException"></exception>
+            public GPConnector GetAppToken()
         {
             return GetAppToken(OAuth.SCOPE_PAYMENT_ALL);
         }
@@ -74,7 +106,7 @@ namespace GoPay
 
             var jsonData = serializeToJson(payment);
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
-
+ 
             var response = Client.Execute(restRequest);
 
             return ProcessResponse<Payment>(response);
