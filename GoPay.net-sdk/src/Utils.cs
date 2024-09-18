@@ -13,10 +13,10 @@ namespace gopay_dotnet_standard_api.src
 
             if (version == null)
             {
-                return "Gopay .NET 0.0.0";
+                return "GoPay .NET 0.0.0";
             }
 
-            return "Gopay .NET " + version;
+            return "GoPay .NET " + version;
         }
     }
 }
