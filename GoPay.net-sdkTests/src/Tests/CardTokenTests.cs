@@ -112,8 +112,8 @@ namespace GoPay.Tests
                 Console.WriteLine("Payment id: {0}", payment.Id);
                 Console.WriteLine("Payment gw_url: {0}", payment.GwUrl);
                 Console.WriteLine("Payment state: {0}", payment.State);
-                Console.WriteLine("PayerCard - card token: {0}", payment.Payer.PaymendCard.CardToken);
-                Console.WriteLine("Payer 3DS Result: {0}", payment.Payer.PaymendCard.ThreeDResult);
+                Console.WriteLine("PayerCard - card token: {0}", payment.Payer.PaymentCard.CardToken);
+                Console.WriteLine("Payer 3DS Result: {0}", payment.Payer.PaymentCard.ThreeDResult);
             }
             catch (GPClientException ex)
             {

@@ -38,7 +38,7 @@ namespace GoPay.Model.Payments
         public PayerContact Contact { get; set; }
 
         [JsonProperty("payment_card")]
-        public PayerPaymentCard PaymendCard { get; set; }
+        public PayerPaymentCard PaymentCard { get; set; }
 
         [JsonProperty("card_id")]
         public string CardId { get; set; }
@@ -69,7 +69,7 @@ namespace GoPay.Model.Payments
         {
             return string.Format(
                     "PayerParty [paymentInstrument={0}, allowedPaymentInstruments={1}, allowedSwifts={2}, defaultPaymentInstrument={3}, defaultSwift={4}, contact={5}, paymentCard={6}, bankAccount={7}, allowedCardToken={8}, verifyPin={9}, requestCardToken={10}, maskedPan={11}, cardId={12}]",
-                    PaymentInstrument, AllowedPaymentInstruments, AllowedSwifts, DefaultPaymentInstrument, DefaultSwift, Contact, PaymendCard, BankAccount, AllowedCardToken, VerifyPin, RequestCardToken, MaskedPan, CardId);
+                    PaymentInstrument, AllowedPaymentInstruments, AllowedSwifts, DefaultPaymentInstrument, DefaultSwift, Contact, PaymentCard, BankAccount, AllowedCardToken, VerifyPin, RequestCardToken, MaskedPan, CardId);
         }
 
     }
