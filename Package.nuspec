@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoPay.NET</id>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <authors>Stanislav Kouba, Frantisek Sichinger, Patrik Maryska</authors>
     <owners>GoPay s.r.o.</owners>
     <license type="expression">MIT</license>
@@ -10,14 +10,14 @@
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Added User-agent version</releaseNotes>
+    <releaseNotes>Updated version of dependencies</releaseNotes>
     <copyright>Copyright 2024</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Newtonsoft.Json" version="13.0.1" />
-        <dependency id="RestSharp" version="108.0.2"/>
-        <dependency id="RestSharp.Serializers.NewtonsoftJson" version="108.0.2"/>
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
+        <dependency id="RestSharp" version="112.1.0"/>
+        <dependency id="RestSharp.Serializers.NewtonsoftJson" version="112.1.0"/>
       </group>
     </dependencies>
 

@@ -45,10 +45,14 @@ namespace GoPay
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             }
 
-            Client.Options.BaseUrl = new Uri(APIUrl);
+            var options = new RestClientOptions
+            {
+                BaseUrl = new Uri(APIUrl)
+            };
+
+            Client = new RestClient(options);
             ClientID = clientid;
             ClientSecret = clientsecret;
-            Client.UseNewtonsoftJson();
         }
 
         public GPConnector(string APIUrl, string clientid, string clientsecret, string customUserAgent, bool setSecurityProtocol = true)
@@ -65,16 +69,13 @@ namespace GoPay
 
             var options = new RestClientOptions
             {
-                UserAgent = customUserAgent
+                UserAgent = customUserAgent,
+                BaseUrl = new Uri(APIUrl)
             };
 
             Client = new RestClient(options);
-
-
-            Client.Options.BaseUrl = new Uri(APIUrl);
             ClientID = clientid;
             ClientSecret = clientsecret;
-            Client.UseNewtonsoftJson();
         }
 
             /// <exception cref="GPClientException"></exception>
