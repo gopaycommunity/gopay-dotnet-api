@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>gopay_dotnet_standard_api</RootNamespace>
   </PropertyGroup>

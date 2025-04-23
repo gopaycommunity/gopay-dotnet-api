@@ -34,8 +34,6 @@ namespace GoPay.Model.Payments
 
         public override string ToString()
         {
-            Console.WriteLine("KONZOLE");
-            Console.WriteLine(bnplType);
             return string.Format(
                    "BnplType [BnplType={0}, Label={1}, Image={2}]",
                    bnplType, Label, Image
