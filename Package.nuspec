@@ -10,7 +10,7 @@
     <icon>images/icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoPay .NET sdk</description>
-    <releaseNotes>Fixed BankAccount ToString</releaseNotes>
+    <releaseNotes>New QR payment feature</releaseNotes>
     <copyright>Copyright 2025</copyright>
     <tags>GoPay Platebni brana</tags>
     <dependencies>
