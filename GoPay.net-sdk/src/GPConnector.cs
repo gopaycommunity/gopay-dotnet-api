@@ -287,6 +287,32 @@ namespace GoPay
         }
 
         /// <exception cref="GPClientException"></exception>
+        public QrPayment GetQrPayment(long id, QrPaymentFormat? format = null)
+        {
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/qr-payment", null, null, Method.Get);
+            restRequest.AddParameter("id", id, ParameterType.UrlSegment);
+            if (format.HasValue)
+            {
+                restRequest.AddParameter("format", format.Value.ToString(), ParameterType.QueryString);
+            }
+            var response = Client.Execute(restRequest);
+            return ProcessResponse<QrPayment>(response);
+        }
+
+        /// <exception cref="GPClientException"></exception>
+        public async Task<QrPayment> GetQrPaymentAsync(long id, QrPaymentFormat? format = null)
+        {
+            var restRequest = CreateRestRequest(@"/payments/payment/{id}/qr-payment", null, null, Method.Get);
+            restRequest.AddParameter("id", id, ParameterType.UrlSegment);
+            if (format.HasValue)
+            {
+                restRequest.AddParameter("format", format.Value.ToString(), ParameterType.QueryString);
+            }
+            var response = await Client.ExecuteAsync(restRequest);
+            return await Task.Factory.StartNew(() => ProcessResponse<QrPayment>(response));
+        }
+
+        /// <exception cref="GPClientException"></exception>
         public PaymentInstrumentRoot GetPaymentInstruments(long goid, Currency currency)
         {
             var restRequest = CreateRestRequest(@"/eshops/eshop/{goid}/payment-instruments/{currency}", null, null, Method.Get);

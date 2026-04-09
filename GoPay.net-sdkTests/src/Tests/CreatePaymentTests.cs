@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
@@ -144,6 +144,94 @@ namespace GoPay.Tests
             catch (GPClientException exception)
             {
                 Console.WriteLine("Create payment ERROR");
+                var err = exception.Error;
+                DateTime date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+                    //
+                }
+                Assert.Fail();
+            }
+        }
+        // [TestMethod()]
+        public void GPConnectorTestGetQrPayment()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            BasePayment basePayment = createBasePayment();
+
+            try
+            {
+                Payment payment = connector.GetAppToken().CreatePayment(basePayment);
+                Assert.IsNotNull(payment);
+                Assert.IsNotNull(payment.Id);
+
+                QrPayment qrPayment = connector.GetAppToken().GetQrPayment(payment.Id);
+                Assert.IsNotNull(qrPayment);
+                Assert.IsTrue(qrPayment.Amount > 0);
+                Assert.IsNotNull(qrPayment.QrCode);
+
+                Console.WriteLine("QR Payment amount: {0}", qrPayment.Amount);
+                Console.WriteLine("QR Payment currency: {0}", qrPayment.Currency);
+                if (qrPayment.Recipient != null)
+                {
+                    Console.WriteLine("QR Payment recipient name: {0}", qrPayment.Recipient.Name);
+                    if (qrPayment.Recipient.BankAccount?.Local != null)
+                    {
+                        Console.WriteLine("QR Payment local bank account: {0}/{1}", qrPayment.Recipient.BankAccount.Local.AccountNumber, qrPayment.Recipient.BankAccount.Local.BankCode);
+                    }
+                    if (qrPayment.Recipient.BankAccount?.International != null)
+                    {
+                        Console.WriteLine("QR Payment IBAN: {0}", qrPayment.Recipient.BankAccount.International.Iban);
+                        Console.WriteLine("QR Payment BIC: {0}", qrPayment.Recipient.BankAccount.International.Bic);
+                    }
+                }
+                if (qrPayment.QrCode.Spayd != null)
+                    Console.WriteLine("QR Code SPAYD (base64 length): {0}", qrPayment.QrCode.Spayd.Length);
+                if (qrPayment.QrCode.PayBySquare != null)
+                    Console.WriteLine("QR Code PayBySquare (base64 length): {0}", qrPayment.QrCode.PayBySquare.Length);
+                if (qrPayment.QrCode.Sepa != null)
+                    Console.WriteLine("QR Code SEPA (base64 length): {0}", qrPayment.QrCode.Sepa.Length);
+                if (qrPayment.QrCode.MnbQr != null)
+                    Console.WriteLine("QR Code MNB QR (base64 length): {0}", qrPayment.QrCode.MnbQr.Length);
+            }
+            catch (GPClientException exception)
+            {
+                Console.WriteLine("Get QR payment ERROR");
+                var err = exception.Error;
+                DateTime date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+                    //
+                }
+                Assert.Fail();
+            }
+        }
+
+        // [TestMethod()]
+        public void GPConnectorTestGetQrPaymentSvg()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            BasePayment basePayment = createBasePayment();
+
+            try
+            {
+                Payment payment = connector.GetAppToken().CreatePayment(basePayment);
+                Assert.IsNotNull(payment);
+                Assert.IsNotNull(payment.Id);
+
+                QrPayment qrPayment = connector.GetAppToken().GetQrPayment(payment.Id, QrPaymentFormat.svg);
+                Assert.IsNotNull(qrPayment);
+                Assert.IsTrue(qrPayment.Amount > 0);
+                Assert.IsNotNull(qrPayment.QrCode);
+
+                Console.WriteLine("QR Payment (SVG) amount: {0}", qrPayment.Amount);
+                Console.WriteLine("QR Payment (SVG) currency: {0}", qrPayment.Currency);
+                if (qrPayment.QrCode.Spayd != null)
+                    Console.WriteLine("QR Code SPAYD SVG (base64 length): {0}", qrPayment.QrCode.Spayd.Length);
+            }
+            catch (GPClientException exception)
+            {
+                Console.WriteLine("Get QR payment SVG ERROR");
                 var err = exception.Error;
                 DateTime date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
