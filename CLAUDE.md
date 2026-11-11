@@ -6,7 +6,7 @@ The GoPay .NET SDK (NuGet package `GoPay.NET`), a client library for the GoPay p
 
 ## Commands
 
-These match CI ([.github/workflows](.github/workflows/), which runs on windows-latest with .NET 5):
+These match CI ([.github/workflows](.github/workflows/), which runs on windows-latest). The build needs the .NET 10 SDK, pinned by [global.json](global.json). Running the tests also needs the .NET 5 runtime.
 
 ```bash
 dotnet restore
@@ -16,7 +16,20 @@ dotnet test --no-build --verbosity normal
 # Single test / single class
 dotnet test --filter "FullyQualifiedName~GoPay.Tests.CreatePaymentTests.<MethodName>"
 dotnet test --filter "ClassName=GoPay.Tests.CreatePaymentTests"
+
+# Public API compatibility vs. a released package (CI does this against API_BASELINE_VERSION)
+dotnet tool restore
+dotnet apicompat --left <released GoPay.net-sdk.dll> --right GoPay.net-sdk/bin/Release/netstandard2.0/GoPay.net-sdk.dll
 ```
+
+## Code quality tooling
+
+Backward compatibility of the published package comes first. The tooling is set up so that it never changes the public API:
+
+- `LangVersion` is pinned to `8.0` and `Nullable` is `warnings`, which analyses null-safety without emitting annotations into the public API. Don't switch to `enable` outside a major release.
+- Roslyn analyzers run at the pinned `AnalysisLevel` `10.0-recommended`. [.editorconfig](.editorconfig) groups the rules: rules whose fix would break the API are `none`, and rules whose fix changes behavior are `suggestion`. Don't "fix" a disabled rule by renaming or changing public members.
+- In CI (`CI=true`) the library treats warnings as errors, except the NuGet audit warnings NU1901–NU1904. A new warning has to be fixed or explicitly classified in `.editorconfig`.
+- The CI ApiCompat step fails if public API is removed or changed compared to `API_BASELINE_VERSION` in the workflow. Bump it after each release.
 
 To package for NuGet, build Release and pack with [Package.nuspec](Package.nuspec). It takes the DLL from `GoPay.net-sdk\bin\Release\netstandard2.0\` (Windows-style paths).
 
@@ -51,4 +64,4 @@ Changing any of these namespaces breaks consumers. Match the namespace already u
 
 ## Releasing / versioning
 
-The version is set in two places that must agree: `<version>` in [GoPay.net-sdk.csproj](GoPay.net-sdk/GoPay.net-sdk.csproj) and `<version>` in [Package.nuspec](Package.nuspec). Update `<releaseNotes>` in the nuspec too. The nuspec `<dependencies>` list is maintained by hand and must match the csproj `PackageReference` versions. The default User-Agent (`GoPay .NET <assembly version>`) is built from the assembly version.
+The version is set in two places that must agree: `<version>` in [GoPay.net-sdk.csproj](GoPay.net-sdk/GoPay.net-sdk.csproj) and `<version>` in [Package.nuspec](Package.nuspec). Update `<releaseNotes>` in the nuspec too. The nuspec `<dependencies>` list is maintained by hand and must match the csproj `PackageReference` versions. The default User-Agent (`GoPay .NET <assembly version>`) is built from the assembly version. After publishing, bump `API_BASELINE_VERSION` in [.github/workflows/dotnet.yml](.github/workflows/dotnet.yml) to the new version.
