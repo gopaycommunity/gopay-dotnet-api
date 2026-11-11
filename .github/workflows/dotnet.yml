@@ -25,5 +25,22 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: API compatibility check
+      # Fails when the public API of the library breaks compared to the last released
+      # NuGet version (removed/changed members). Additions are allowed.
+      # Bump API_BASELINE_VERSION after each release.
+      env:
+        API_BASELINE_VERSION: 1.4.0
+      shell: pwsh
+      run: |
+        dotnet tool restore
+        dotnet build GoPay.net-sdk/GoPay.net-sdk.csproj --configuration Release --no-restore
+        $baseline = Join-Path $env:RUNNER_TEMP "api-baseline"
+        Invoke-WebRequest "https://api.nuget.org/v3-flatcontainer/gopay.net/$env:API_BASELINE_VERSION/gopay.net.$env:API_BASELINE_VERSION.nupkg" -OutFile "$baseline.zip"
+        Expand-Archive "$baseline.zip" -DestinationPath $baseline
+        dotnet apicompat `
+          --left "$baseline/lib/netstandard2.0/GoPay.net-sdk.dll" `
+          --right "GoPay.net-sdk/bin/Release/netstandard2.0/GoPay.net-sdk.dll"
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     - name: Test
       run: dotnet test --no-build --verbosity normal
