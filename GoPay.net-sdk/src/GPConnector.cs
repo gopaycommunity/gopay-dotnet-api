@@ -320,7 +320,11 @@ namespace GoPay
             restRequest.AddParameter("currency", currency, ParameterType.UrlSegment);
             var response = Client.Execute(restRequest);
 
+            // TODO: Content is null on transport errors -> NullReferenceException instead of GPClientException.
+            // Fixing it changes the exception type thrown to callers, so it is deferred to a behavior-change release.
+#pragma warning disable CS8602
             if (!response.Content.Contains("error_code"))
+#pragma warning restore CS8602
             {
                 response.Content = ProcessPaymentInstrumentRootContent(response.Content);
             }
@@ -336,7 +340,11 @@ namespace GoPay
 
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
             var response = Client.Execute(restRequest);
+            // TODO: Content is null on transport errors -> NullReferenceException instead of GPClientException.
+            // Fixing it changes the exception type thrown to callers, so it is deferred to a behavior-change release.
+#pragma warning disable CS8602
             string content = response.Content.ToString();
+#pragma warning restore CS8602
 
             if (content.Contains("error_code"))
             {
@@ -479,7 +487,11 @@ namespace GoPay
         private T Deserialize<T>(string Content)
         {
             var err = JsonConvert.DeserializeObject<APIError>(Content);
+            // err is null for an empty or "null" body; the resulting NullReferenceException is caught
+            // in ProcessResponse/processComplex and rethrown as GPClientException.
+#pragma warning disable CS8602
             if (err.ErrorMessages != null)
+#pragma warning restore CS8602
             {
                 var ex = new GPClientException();
                 ex.Error = err;

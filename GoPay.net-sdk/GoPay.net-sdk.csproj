@@ -4,6 +4,14 @@
     <version>1.4.0</version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>gopay_dotnet_standard_api</RootNamespace>
+    <!-- Pinned on purpose: newer language versions make the compiler embed extra attributes
+         (e.g. RefSafetyRulesAttribute) into the assembly. 8.0 is the minimum for nullable analysis.
+         Its only metadata effect is IsReadOnlyAttribute on the ServerHandlerData getters
+         (informational, signatures unchanged). -->
+    <LangVersion>8.0</LangVersion>
+    <!-- "warnings" = null-safety analysis inside the library only. Unlike "enable", it emits no
+         nullable annotations into the public API, so consumers see no change. -->
+    <Nullable>warnings</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
