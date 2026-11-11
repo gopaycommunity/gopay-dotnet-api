@@ -19,6 +19,14 @@
     <AnalysisLevel>10.0-recommended</AnalysisLevel>
   </PropertyGroup>
 
+  <!-- CI (GitHub Actions sets CI=true) fails on any new warning in the library.
+       NuGet vulnerability audit warnings are excluded: fixing them means changing
+       package dependencies, which is a release decision, not a build failure. -->
+  <PropertyGroup Condition="'$(CI)' == 'true'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="112.1.0" />
