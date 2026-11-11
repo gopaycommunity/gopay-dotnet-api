@@ -92,7 +92,9 @@ namespace GoPay
             restRequest.AddHeader("Accept", "application/json");
             restRequest.AddParameter("application/x-www-form-urlencoded", "grant_type=client_credentials&scope=" + scope, ParameterType.RequestBody);
             var authenticator = new HttpBasicAuthenticator(ClientID, ClientSecret);
-            authenticator.Authenticate(Client, restRequest);
+            // Authenticate returns a ValueTask; for HttpBasicAuthenticator it completes synchronously.
+            // AsTask() makes blocking on it safe even if that ever changes.
+            authenticator.Authenticate(Client, restRequest).AsTask().GetAwaiter().GetResult();
             var response = Client.Execute(restRequest);
             OnIncomingDataEvent(response);
             AccessToken = ProcessResponse<AccessToken>(response);

@@ -12,6 +12,11 @@
     <!-- "warnings" = null-safety analysis inside the library only. Unlike "enable", it emits no
          nullable annotations into the public API, so consumers see no change. -->
     <Nullable>warnings</Nullable>
+    <!-- Build-time code analysis only; nothing is added to the package. The level is pinned
+         so that SDK updates do not introduce new rules unexpectedly. Rule severities are
+         configured in .editorconfig. -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>10.0-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>

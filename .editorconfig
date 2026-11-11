@@ -1,0 +1,46 @@
+root = true
+
+# Roslyn analyzer configuration for the GoPay.NET library
+# (enabled in GoPay.net-sdk.csproj via EnableNETAnalyzers / AnalysisLevel).
+#
+# Backward compatibility of the published NuGet package takes priority. Each rule
+# reported by AnalysisLevel 10.0-recommended is in one of these groups:
+#   none       - fixing it would change the public API (breaking change)
+#   suggestion - fixing it changes runtime behavior, or is an optional cleanup;
+#                to be addressed deliberately, not as part of tooling changes
+
+[*.cs]
+
+# --- Disabled: fixing would break the public API --------------------------------
+
+# Identifiers should not contain underscores (enum members such as PAYMENT_CARD, CZK_...)
+dotnet_diagnostic.CA1707.severity = none
+# Identifiers should have correct suffix (attribute classes not ending with "Attribute")
+dotnet_diagnostic.CA1710.severity = none
+# Identifiers should not have incorrect suffix (ServerEventHandler)
+dotnet_diagnostic.CA1711.severity = none
+# Identifiers should differ by more than case (EETReceipt.EETMode / EetMode)
+dotnet_diagnostic.CA1708.severity = none
+# Do not declare visible instance fields (Card)
+dotnet_diagnostic.CA1051.severity = none
+# Mark attributes with AttributeUsage: restricting targets would break consumers
+# that apply the attributes elsewhere
+dotnet_diagnostic.CA1018.severity = none
+# Use nameof in place of string: false positive, the literals are JSON property names
+# that must not follow C# renames
+dotnet_diagnostic.CA1507.severity = none
+
+# --- Deferred: fixing changes runtime behavior -----------------------------------
+
+# Specify IFormatProvider: all hits are in model ToString(); switching to
+# InvariantCulture changes their output on non-English locales
+dotnet_diagnostic.CA1305.severity = suggestion
+
+# --- Optional cleanups without public API impact ---------------------------------
+
+# Mark members as static: only for non-public members, making public ones static
+# would break the API
+dotnet_code_quality.CA1822.api_surface = private, internal
+dotnet_diagnostic.CA1822.severity = suggestion
+# Prefer generic overload (GetCustomAttribute<T>)
+dotnet_diagnostic.CA2263.severity = suggestion
