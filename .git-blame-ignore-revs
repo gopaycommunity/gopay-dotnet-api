@@ -1,0 +1,6 @@
+# Bulk formatting commits that `git blame` should skip.
+# GitHub uses this file automatically; locally run once:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# GPY030-29: apply dotnet format whitespace
+e7df1fac8a66ab20a4efc2651b8a791f30034536

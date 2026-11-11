@@ -17,6 +17,10 @@ dotnet test --no-build --verbosity normal
 dotnet test --filter "FullyQualifiedName~GoPay.Tests.CreatePaymentTests.<MethodName>"
 dotnet test --filter "ClassName=GoPay.Tests.CreatePaymentTests"
 
+# Formatting (CI runs the --verify-no-changes variant)
+dotnet format whitespace
+dotnet format whitespace --verify-no-changes
+
 # Public API compatibility vs. a released package (CI does this against API_BASELINE_VERSION)
 dotnet tool restore
 dotnet apicompat --left <released GoPay.net-sdk.dll> --right GoPay.net-sdk/bin/Release/netstandard2.0/GoPay.net-sdk.dll
@@ -29,6 +33,7 @@ Backward compatibility of the published package comes first. The tooling is set 
 - `LangVersion` is pinned to `8.0` and `Nullable` is `warnings`, which analyses null-safety without emitting annotations into the public API. Don't switch to `enable` outside a major release.
 - Roslyn analyzers run at the pinned `AnalysisLevel` `10.0-recommended`. [.editorconfig](.editorconfig) groups the rules: rules whose fix would break the API are `none`, and rules whose fix changes behavior are `suggestion`. Don't "fix" a disabled rule by renaming or changing public members.
 - In CI (`CI=true`) the library treats warnings as errors, except the NuGet audit warnings NU1901–NU1904. A new warning has to be fixed or explicitly classified in `.editorconfig`.
+- Formatting rules are in the top part of [.editorconfig](.editorconfig) and are checked in CI with `dotnet format whitespace --verify-no-changes`. Only the `whitespace` mode is used: `dotnet format style` and `dotnet format analyzers` can rename or change public members, so don't run them across the whole project. Files use LF, which [.gitattributes](.gitattributes) enforces. Don't set `charset`, because files are mixed UTF-8 with and without BOM. Add bulk reformat commits to [.git-blame-ignore-revs](.git-blame-ignore-revs).
 - The CI ApiCompat step fails if public API is removed or changed compared to `API_BASELINE_VERSION` in the workflow. Bump it after each release.
 
 To package for NuGet, build Release and pack with [Package.nuspec](Package.nuspec). It takes the DLL from `GoPay.net-sdk\bin\Release\netstandard2.0\` (Windows-style paths).

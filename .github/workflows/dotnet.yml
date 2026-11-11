@@ -23,6 +23,10 @@ jobs:
           10.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Check formatting
+      # Fails when code does not follow the formatting rules in .editorconfig.
+      # Fix locally with `dotnet format whitespace`.
+      run: dotnet format whitespace --verify-no-changes
     - name: Build
       run: dotnet build --no-restore
     - name: API compatibility check
