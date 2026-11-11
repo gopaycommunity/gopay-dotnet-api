@@ -101,7 +101,7 @@ namespace GoPay.Tests
         [TestMethod()]
         public void GPConnectorTestCardTokenPaymentStatus()
         {
-            long id = 3052269740;
+            long id = 3178283550;
 
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             try
