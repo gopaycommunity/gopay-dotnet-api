@@ -13,17 +13,17 @@ namespace GoPay.Model.Payments
         [JsonProperty("payment_instrument")]
         [JsonConverter(typeof(StringEnumConverter))]
         public Nullable<PaymentInstrument> PaymentInstrument { get; set; }
-        
-        [JsonProperty (PropertyName = "allowed_payment_instruments", ItemConverterType = typeof(StringEnumConverter))]
+
+        [JsonProperty(PropertyName = "allowed_payment_instruments", ItemConverterType = typeof(StringEnumConverter))]
         public IList<PaymentInstrument> AllowedPaymentInstruments { get; set; }
-        
+
         [JsonProperty("allowed_swifts")]
         public IList<string> AllowedSwifts { get; set; }
 
         [JsonProperty("default_payment_instrument")]
         [JsonConverter(typeof(StringEnumConverter))]
         public Nullable<PaymentInstrument> DefaultPaymentInstrument { get; set; }
-        
+
         [JsonProperty("default_swift")]
         public string DefaultSwift { get; set; }
 
@@ -31,7 +31,7 @@ namespace GoPay.Model.Payments
         public IList<BnplType> AllowedBnplTypes { get; set; }
 
         [JsonProperty(PropertyName = "default_bnpl_type")]
-        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int) BnplType.UNKNOWN)]
+        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int)BnplType.UNKNOWN)]
         public Nullable<BnplType> DefaultBnplType { get; set; }
 
         [JsonProperty("contact")]

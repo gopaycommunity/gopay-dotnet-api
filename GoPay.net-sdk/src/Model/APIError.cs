@@ -10,10 +10,10 @@ namespace GoPay.Model
         [JsonProperty("date_issued")]
         [JsonConverter(typeof(GPDateAdapter))]
         public DateTime DateIssued { get; set; }
-        
+
         [JsonProperty("errors")]
         public IList<ErrorElement> ErrorMessages { get; set; }
 
-        
+
     }
 }

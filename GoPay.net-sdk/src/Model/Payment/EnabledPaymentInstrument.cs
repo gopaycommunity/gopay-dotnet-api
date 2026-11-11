@@ -10,7 +10,7 @@ namespace GoPay.Model.Payments
     {
 
         [JsonProperty("paymentInstrument")]
-        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int) PaymentInstrument.UNKNOWN)]
+        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int)PaymentInstrument.UNKNOWN)]
         public PaymentInstrument PaymentInstrument { get; set; }
 
         [JsonProperty("label")]

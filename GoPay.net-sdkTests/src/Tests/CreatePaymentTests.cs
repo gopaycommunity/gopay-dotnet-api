@@ -21,15 +21,15 @@ namespace GoPay.Tests
             addItems.Add(new OrderItem() { Name = "First Item", Amount = 1700, Count = 1 });
 
             List<PaymentInstrument> allowedInstruments = new List<PaymentInstrument>();
-                    allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
-                    allowedInstruments.Add(PaymentInstrument.PAYMENT_CARD);
+            allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
+            allowedInstruments.Add(PaymentInstrument.PAYMENT_CARD);
 
             //    allowedInstruments.Add(PaymentInstrument.TWISTO);
             //    allowedInstruments.Add(PaymentInstrument.SKIPPAY);
 
-                    List<string> swifts = new List<string>();
-                    swifts.Add("GIBACZPX");
-                    swifts.Add("RZBCCZPP");
+            List<string> swifts = new List<string>();
+            swifts.Add("GIBACZPX");
+            swifts.Add("RZBCCZPP");
 
             /*    List<BnplType> allowedBnplTypes = new List<BnplType>
                 {
@@ -66,7 +66,7 @@ namespace GoPay.Tests
                 Payer = new Payer()
                 {
                     AllowedPaymentInstruments = allowedInstruments,
-                        AllowedSwifts = swifts,
+                    AllowedSwifts = swifts,
                     // AllowedBnplTypes = allowedBnplTypes,
                     DefaultPaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
                     // DefaultPaymentInstrument = PaymentInstrument.TWISTO,
@@ -131,7 +131,7 @@ namespace GoPay.Tests
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
                 Payment payment = connector.GetAppToken().PaymentStatus(result.Id);
-                
+
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Id);
 

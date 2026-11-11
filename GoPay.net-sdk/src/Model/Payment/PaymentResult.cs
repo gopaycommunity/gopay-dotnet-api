@@ -12,10 +12,10 @@ namespace GoPay.Payments
             FINISHED,
             FAILED
         }
-        
+
         [JsonProperty("id")]
         public long Id { get; set; }
-        
+
         [JsonProperty("result")]
         [JsonConverter(typeof(StringEnumConverter))]
         public Nullable<PaymentResults> Result { get; set; }

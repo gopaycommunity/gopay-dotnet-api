@@ -24,6 +24,6 @@ namespace GoPay.Model.Payments
         {
             return string.Format("Preauthorization [requested={0}, preAuthState={1}]", Requested, State);
         }
-   
+
     }
 }

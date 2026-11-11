@@ -81,7 +81,7 @@ namespace GoPay.Model.Payments
         {
             AdditionalParams = new List<AdditionalParam>();
         }
-      
+
         public bool Error { get { return false; } }
 
 

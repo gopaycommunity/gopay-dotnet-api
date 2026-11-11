@@ -48,7 +48,7 @@ namespace GoPay.Model.Payments
                     FirstName, LastName, Email, PhoneNumber, City, Street, PostalCode, CountryCode);
             }
 
-            
+
         }
 
     }

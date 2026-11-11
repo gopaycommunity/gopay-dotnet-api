@@ -25,7 +25,7 @@ namespace GoPay.Model.Payments
         public override string ToString()
         {
             string output = "";
-            foreach(KeyValuePair<CultureInfo, string> label in Label)
+            foreach (KeyValuePair<CultureInfo, string> label in Label)
             {
                 output += string.Format("Group [locale={0}, description={1}]\n", label.Key.ToString(), label.Value);
             }

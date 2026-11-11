@@ -7,7 +7,7 @@ namespace GoPay.Supercash
 {
     public class SupercashBatchItem
     {
-        
+
         [JsonProperty("sub_type")]
         public SubType SubType { get; set; }
 

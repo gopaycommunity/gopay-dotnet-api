@@ -58,7 +58,7 @@ namespace GoPay.Model.Payment
             AdditionalParams = new List<AdditionalParam>();
         }
 
-        public void AddAdditionalParams(string key,string value)
+        public void AddAdditionalParams(string key, string value)
         {
             AdditionalParams.Add(new AdditionalParam()
             {

@@ -63,7 +63,7 @@ namespace GoPay.EETProp
 
         }
 
-        public EET (long celkTrzba, Currency mena)
+        public EET(long celkTrzba, Currency mena)
         {
             this.CelkTrzba = celkTrzba;
             this.Mena = mena;

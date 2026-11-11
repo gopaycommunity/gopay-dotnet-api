@@ -11,7 +11,7 @@ namespace GoPay.Account
         [JsonConverter(typeof(GPDateAdapter))]
         [JsonProperty("date_from")]
         public DateTime DateFrom { get; set; }
-        
+
         [JsonConverter(typeof(GPDateAdapter))]
         [JsonProperty("date_to")]
         public DateTime DateTo { get; set; }

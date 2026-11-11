@@ -35,7 +35,7 @@ namespace GoPay
                 UserAgent = Utils.GetDefaultUserAgent()
             };
 
-            Client = new RestClient(options);  
+            Client = new RestClient(options);
         }
 
         public GPConnector(string APIUrl, string clientid, string clientsecret, bool setSecurityProtocol = true)
@@ -78,8 +78,8 @@ namespace GoPay
             ClientSecret = clientsecret;
         }
 
-            /// <exception cref="GPClientException"></exception>
-            public GPConnector GetAppToken()
+        /// <exception cref="GPClientException"></exception>
+        public GPConnector GetAppToken()
         {
             return GetAppToken(OAuth.SCOPE_PAYMENT_ALL);
         }
@@ -109,7 +109,7 @@ namespace GoPay
 
             var jsonData = serializeToJson(payment);
             restRequest.AddParameter("application/json", jsonData, ParameterType.RequestBody);
- 
+
             var response = Client.Execute(restRequest);
 
             return ProcessResponse<Payment>(response);

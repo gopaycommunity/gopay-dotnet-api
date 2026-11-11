@@ -27,7 +27,7 @@ namespace GoPay.Common
 
     public static class CurrencyExtension
     {
-        
+
         public static int GetCode(this Enum value)
         {
             FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
@@ -45,5 +45,5 @@ namespace GoPay.Common
             Code = code;
         }
     }
-     
+
 }

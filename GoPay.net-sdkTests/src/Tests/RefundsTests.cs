@@ -38,7 +38,7 @@ namespace GoPay.Tests
             }
         }
 
-    //    [TestMethod()]
+        //    [TestMethod()]
         public void TestRefundsHistory()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);

@@ -19,12 +19,26 @@ namespace GoPay.Tests
             addParams.Add(new AdditionalParam() { Name = "AdditionalKey", Value = "AdditionalValue" });
 
             List<OrderItem> addItems = new List<OrderItem>();
-            addItems.Add(new OrderItem() { Name = "Pocitac Item1", Amount = 119990, Count = 1,
-                VatRate = VatRate.RATE_4, ItemType = ItemType.ITEM, Ean = "1234567890123",
-                ProductURL = @"https://www.eshop123.cz/pocitac" });
-            addItems.Add(new OrderItem() { Name = "Oprava Item2", Amount = 19960, Count = 1,
-                VatRate = VatRate.RATE_3, ItemType = ItemType.ITEM, Ean = "1234567890189",
-                ProductURL = @"https://www.eshop123.cz/pocitac/oprava" });
+            addItems.Add(new OrderItem()
+            {
+                Name = "Pocitac Item1",
+                Amount = 119990,
+                Count = 1,
+                VatRate = VatRate.RATE_4,
+                ItemType = ItemType.ITEM,
+                Ean = "1234567890123",
+                ProductURL = @"https://www.eshop123.cz/pocitac"
+            });
+            addItems.Add(new OrderItem()
+            {
+                Name = "Oprava Item2",
+                Amount = 19960,
+                Count = 1,
+                VatRate = VatRate.RATE_3,
+                ItemType = ItemType.ITEM,
+                Ean = "1234567890189",
+                ProductURL = @"https://www.eshop123.cz/pocitac/oprava"
+            });
 
             List<PaymentInstrument> allowedInstruments = new List<PaymentInstrument>();
             allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
@@ -144,14 +158,14 @@ namespace GoPay.Tests
             baseEETPayment.Recurrence = recurrence;
             */
 
-            
+
             Recurrence onDemandRecurrence = new Recurrence()
             {
                 Cycle = RecurrenceCycle.ON_DEMAND,
                 DateTo = new DateTime(2018, 4, 1)
             };
             baseEETPayment.Recurrence = onDemandRecurrence;
-            
+
 
             EET eet = new EET()
             {
@@ -183,9 +197,16 @@ namespace GoPay.Tests
                     Currency = Currency.CZK,
                     OrderDescription = "EETOnDemand4321Description",
                 };
-                nextPayment.Items.Add(new OrderItem() { Name = "OnDemand Prodlouzena zaruka", Amount = 2000, Count = 1,
-                    VatRate = VatRate.RATE_4, ItemType = ItemType.ITEM, Ean = "12345678901234",
-                    ProductURL = @"https://www.eshop123.cz/pocitac/prodlouzena_zaruka" });
+                nextPayment.Items.Add(new OrderItem()
+                {
+                    Name = "OnDemand Prodlouzena zaruka",
+                    Amount = 2000,
+                    Count = 1,
+                    VatRate = VatRate.RATE_4,
+                    ItemType = ItemType.ITEM,
+                    Ean = "12345678901234",
+                    ProductURL = @"https://www.eshop123.cz/pocitac/prodlouzena_zaruka"
+                });
 
                 EET eet = new EET()
                 {
@@ -328,7 +349,7 @@ namespace GoPay.Tests
             {
                 List<EETReceipt> receipts = connector.GetAppToken().FindEETReceiptsByFilter(filter);
 
-                foreach(EETReceipt currReceipt in receipts)
+                foreach (EETReceipt currReceipt in receipts)
                 {
                     Console.WriteLine(currReceipt);
                 }

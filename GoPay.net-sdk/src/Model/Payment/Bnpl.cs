@@ -11,7 +11,7 @@ namespace GoPay.Model.Payments
     {
 
         [JsonProperty("bnplType")]
-        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int) BnplType.UNKNOWN)]
+        [JsonConverter(typeof(SafeJsonEnumStringConvertor), (int)BnplType.UNKNOWN)]
         public BnplType bnplType { get; set; }
 
         [JsonProperty("label")]

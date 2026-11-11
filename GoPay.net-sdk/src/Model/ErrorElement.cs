@@ -7,7 +7,7 @@ namespace GoPay.Model
     {
         public enum ErrorScope
         {
-            G,F
+            G, F
         }
 
         [JsonProperty("scope")]

@@ -6,14 +6,14 @@ namespace GoPay.Account
     public enum StatementGeneratingFormat
     {
 
-        [ContentType("application/vnd.ms-excel")]XLS_A,
-        [ContentType("application/vnd.ms-excel")]XLS_B,
-        [ContentType("application/vnd.ms-excel")]XLS_C,
-        [ContentType("text/csv")]CSV_A,
-        [ContentType("text/csv")]CSV_B,
-        [ContentType("text/csv")]CSV_C,
-        [ContentType("text/csv")]CSV_D,
-        [ContentType("application/abo")]ABO_A
+        [ContentType("application/vnd.ms-excel")] XLS_A,
+        [ContentType("application/vnd.ms-excel")] XLS_B,
+        [ContentType("application/vnd.ms-excel")] XLS_C,
+        [ContentType("text/csv")] CSV_A,
+        [ContentType("text/csv")] CSV_B,
+        [ContentType("text/csv")] CSV_C,
+        [ContentType("text/csv")] CSV_D,
+        [ContentType("application/abo")] ABO_A
 
     }
 

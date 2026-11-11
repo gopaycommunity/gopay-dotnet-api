@@ -9,7 +9,7 @@ namespace GoPay.Tests
     [TestClass()]
     public class PreAuthorizationTests
     {
-        
+
 
         //[TestMethod()]
         public void GPConnectorTestCreatePreAuthorizedPayment()

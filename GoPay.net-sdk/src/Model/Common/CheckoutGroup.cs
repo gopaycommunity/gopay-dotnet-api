@@ -6,7 +6,7 @@ namespace GoPay.Common
 {
     public enum CheckoutGroup
     {
-        
+
         [GroupCaption("card-payment"), EnumSetPaymentInstruments(PaymentInstrument.PAYMENT_CARD)]
         CARD_PAYMENT,
 

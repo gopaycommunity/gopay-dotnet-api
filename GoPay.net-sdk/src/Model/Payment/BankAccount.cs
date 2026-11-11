@@ -48,7 +48,7 @@ namespace GoPay.Model.Payments
                     "BankAccount [prefix={0}, accountNumber={1}, bankCode={2}, IBAN={3}, BIC={4}, accountName={5}, country={6}, token={7}]",
                     Prefix, AccountNumber, BankCode, IBAN, BIC, AccountName, Country, AccountToken);
             }
-            
+
         }
 
     }

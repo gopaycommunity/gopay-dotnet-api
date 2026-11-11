@@ -14,6 +14,6 @@ namespace GoPay.Model
         public string RefreshToken { get; set; }
 
         [JsonProperty("expires_in")]
-        public long ExpiresIn { get; set; }      
+        public long ExpiresIn { get; set; }
     }
 }

@@ -14,17 +14,17 @@ namespace GoPay.Model.Payments
             STARTED,
             STOPPED
         }
-        
+
         [JsonProperty("recurrence_cycle")]
         public Nullable<RecurrenceCycle> Cycle { get; set; }
-        
+
         [JsonProperty("recurrence_period")]
         public int Period { get; set; }
 
         [JsonConverter(typeof(GPDateAdapter))]
         [JsonProperty("recurrence_date_to")]
         public DateTime DateTo { get; set; }
-        
+
         [JsonProperty("recurrence_state")]
         [JsonConverter(typeof(StringEnumConverter))]
         public RecurrenceState State { get; set; }
@@ -36,7 +36,7 @@ namespace GoPay.Model.Payments
                    "Recurrence [recurrenceCycle={0}, recurrencePeriod={1}, recurrenceDateTo={2}, recurrencState={3}]",
                    Cycle, Period, DateTo, State);
         }
-         
-        
+
+
     }
 }
