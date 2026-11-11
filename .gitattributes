@@ -1,0 +1,6 @@
+# Keep LF in the working tree on every platform (including the windows-latest CI runner),
+# so that `dotnet format whitespace --verify-no-changes` sees the same line endings
+# as .editorconfig (end_of_line = lf) requires.
+* text=auto eol=lf
+
+*.png binary
