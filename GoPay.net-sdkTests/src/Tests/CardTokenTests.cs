@@ -58,7 +58,7 @@ namespace GoPay.Tests
                         LastName = "Sokol",
                         Email = "test-sokol27@test.cz"
                     },
-                    AllowedCardToken = "VUHweq2TUuQpgU6UaD4c+123xzUwTBXiZK7jHhW7rhSbUb07XcG69Q0cwTxTYvBG3qyym3sJ5zphQS4vL0kEHvvinxXYMqkZtx4rBA9mtZj9JSpy4cIHkXnH3gR+i6CoQ4M+zI2EXGJ+TQ==",
+                    AllowedCardToken = "2Lm0slaziirOy5keFPHm3dRQw8nk9xLmwV5QW3rZZI/h7ZAekFVl2SLP4whlidLVoVmjuYNxrOJ4K4/OCIhJql+jHCNvBY3iFB6wKZRvML0aF2OsXnFFk9UaepoL9e4rEYzV7J3jUMmj1jGfIpV0cQ==",
                     // VerifyPin = ""
                 }
             };
@@ -101,7 +101,7 @@ namespace GoPay.Tests
         [TestMethod()]
         public void GPConnectorTestCardTokenPaymentStatus()
         {
-            long id = 3178283550;
+            long id = 3310901685;
 
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
             try
