@@ -1,0 +1,19 @@
+{
+   "$schema": "https://alirezanet.github.io/Husky.Net/schema.json",
+   "tasks": [
+      {
+         "name": "format-staged",
+         "group": "pre-commit",
+         "command": "dotnet",
+         "args": [ "format", "whitespace", "--folder", "--include", "${staged}" ],
+         "include": [ "**/*.cs" ]
+      },
+      {
+         "name": "restage-formatted",
+         "group": "pre-commit",
+         "command": "git",
+         "args": [ "add", "${staged}" ],
+         "include": [ "**/*.cs" ]
+      }
+   ]
+}

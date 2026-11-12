@@ -228,6 +228,8 @@ try {
 
 Contributions from others would be very much appreciated! Send pull request/ issue. Thanks!
 
+`dotnet restore` installs a git pre-commit hook ([Husky.Net](https://alirezanet.github.io/Husky.Net/)) that runs `dotnet format whitespace` on the staged `.cs` files and re-stages them. Set `HUSKY=0` to skip the hook, or the installation.
+
 ## License
 
 Copyright (c) 2016 GoPay.com. MIT Licensed, see LICENSE for details.
