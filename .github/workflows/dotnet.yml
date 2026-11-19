@@ -12,9 +12,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v6
       with:
         # SDK 10 builds everything (pinned by global.json);
         # .NET 5 is only needed as the runtime for the net5.0 test project.
