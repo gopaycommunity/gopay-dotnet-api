@@ -17,9 +17,10 @@ jobs:
       uses: actions/setup-dotnet@v6
       with:
         # SDK 10 builds everything (pinned by global.json);
-        # .NET 5 is only needed as the runtime for the net5.0 test project.
+        # .NET 5 and 8 are only needed as runtimes for the multi-targeted test project.
         dotnet-version: |
           5.0.x
+          8.0.x
           10.0.x
     - name: Restore dependencies
       run: dotnet restore
