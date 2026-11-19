@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 5
+    # NuGet has no dev/production dependency types, so the groups match by package name.
+    # A dependency goes to the first group it matches.
+    groups:
+      # Dependencies of the published library. Keep Package.nuspec <dependencies> in sync by hand.
+      production-dependencies:
+        patterns:
+          - "Newtonsoft.Json"
+          - "RestSharp*"
+      # Everything else: test project packages and dotnet tools.
+      dev-dependencies:
+        patterns:
+          - "*"
