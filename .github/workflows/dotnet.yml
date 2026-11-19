@@ -12,7 +12,18 @@ permissions:
 jobs:
   build:
 
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            test-frameworks: net5.0 net8.0 net10.0
+          # .NET 5 needs OpenSSL 1.1, which current Ubuntu runners do not have,
+          # so net5.0 tests run on Windows only.
+          - os: ubuntu-latest
+            test-frameworks: net8.0 net10.0
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v7
@@ -26,7 +37,9 @@ jobs:
           8.0.x
           10.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: |
+        dotnet restore
+        dotnet tool restore
     - name: Check formatting
       # Fails when code does not follow the formatting rules in .editorconfig.
       # Fix locally with `dotnet format whitespace`.
@@ -41,7 +54,6 @@ jobs:
         API_BASELINE_VERSION: 1.4.0
       shell: pwsh
       run: |
-        dotnet tool restore
         dotnet build GoPay.net-sdk/GoPay.net-sdk.csproj --configuration Release --no-restore
         $baseline = Join-Path $env:RUNNER_TEMP "api-baseline"
         Invoke-WebRequest "https://api.nuget.org/v3-flatcontainer/gopay.net/$env:API_BASELINE_VERSION/gopay.net.$env:API_BASELINE_VERSION.nupkg" -OutFile "$baseline.zip"
@@ -51,4 +63,28 @@ jobs:
           --right "GoPay.net-sdk/bin/Release/netstandard2.0/GoPay.net-sdk.dll"
         if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      # Runs every framework even if one fails, and collects code coverage (Cobertura) per run.
+      shell: pwsh
+      run: |
+        $failed = $false
+        foreach ($framework in "${{ matrix.test-frameworks }}".Split(' ')) {
+          dotnet test --no-build --verbosity normal --framework $framework `
+            --collect:"XPlat Code Coverage" --results-directory TestResults
+          if ($LASTEXITCODE -ne 0) { $failed = $true }
+        }
+        if ($failed) { exit 1 }
+    - name: Coverage report
+      # Merges the coverage of all test runs into a Cobertura report and a job summary.
+      if: ${{ !cancelled() }}
+      shell: pwsh
+      run: |
+        dotnet reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:coverage `
+          -reporttypes:"Cobertura;HtmlInline;MarkdownSummaryGithub"
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        Get-Content coverage/SummaryGithub.md | Add-Content $env:GITHUB_STEP_SUMMARY
+    - name: Upload coverage
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: coverage-${{ matrix.os }}
+        path: coverage/

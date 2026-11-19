@@ -10,6 +10,8 @@
 - Added formatting rules to `.editorconfig`, applied `dotnet format whitespace` (formatting only), formatting checked in CI
 - Added Husky.Net pre-commit hook formatting staged `.cs` files, installed automatically on `dotnet restore`
 - CI tests on .NET 5, 8 and 10, `actions/checkout` bumped to v7 and `actions/setup-dotnet` to v6
+- CI runs on Windows and Ubuntu (`net5.0` tests on Windows only, .NET 5 needs OpenSSL 1.1)
+- Code coverage measured in CI with coverlet and ReportGenerator (summary in the job summary, report as the `coverage-<os>` artifact)
 - CI `GITHUB_TOKEN` restricted to read-only repository contents
 - Added Dependabot configuration for GitHub Actions and NuGet
 - Tests use payments and card tokens from the current sandbox account, updated sandbox credentials

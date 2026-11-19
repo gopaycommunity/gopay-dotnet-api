@@ -6,12 +6,18 @@ The GoPay .NET SDK (NuGet package `GoPay.NET`), a client library for the GoPay p
 
 ## Commands
 
-These match CI ([.github/workflows](.github/workflows/), which runs on windows-latest). The build needs the .NET 10 SDK, pinned by [global.json](global.json). Running the tests also needs the .NET 5 runtime.
+These match CI ([.github/workflows](.github/workflows/), which runs on windows-latest and ubuntu-latest). The build needs the .NET 10 SDK, pinned by [global.json](global.json). The test project targets `net5.0`, `net8.0` and `net10.0`, so running all tests also needs the .NET 5 and 8 runtimes. .NET 5 needs OpenSSL 1.1, which current Ubuntu does not ship, so CI runs `net5.0` tests on Windows only.
 
 ```bash
 dotnet restore
 dotnet build --no-restore
 dotnet test --no-build --verbosity normal
+dotnet test --no-build --framework net10.0   # one target framework
+
+# Code coverage (CI uploads the report as the coverage-<os> artifact)
+dotnet tool restore
+dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory TestResults
+dotnet reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:coverage -reporttypes:HtmlInline
 
 # Single test / single class
 dotnet test --filter "FullyQualifiedName~GoPay.Tests.CreatePaymentTests.<MethodName>"

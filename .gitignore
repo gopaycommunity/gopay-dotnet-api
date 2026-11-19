@@ -231,3 +231,6 @@ FakesAssemblies/
 
 # Dll files
 *.dll
+
+# Code coverage report (dotnet reportgenerator)
+/coverage/
